@@ -11,6 +11,11 @@
 // Written by: Robert B. Denny (Version 1.0.1, 29-May-2007)
 //
 //
+
+//If this is started by the debugger it will be hosted by dotnet runtime exe rather then itself.
+//#define REGISTERINDEBUG
+
+
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -26,10 +31,31 @@ using System.Security.Principal;
 using System.Diagnostics;
 using ASCOM.Utilities;
 
+
+
 namespace ASCOM.Simulator
 {
     public class TelescopeSimulator
     {
+        //This is pretty rough and needs to be cleaned up for any production level handling.
+        public static string AppExePath
+        {
+            get
+            {
+                if (Application.ExecutablePath.EndsWith(".exe"))
+                {
+                    return Application.ExecutablePath;
+                }
+                else if(Application.ExecutablePath.EndsWith(".dll"))
+                {
+                    return Application.ExecutablePath.Split(new string[] { ".dll" }, StringSplitOptions.None)[0] + ".exe";
+                }
+                else
+                {
+                    throw new Exception(Application.ExecutablePath + " Could not be turned into an ASCOM exe");
+                }
+            }
+        }
 
         #region Access to kernel32.dll, user32.dll, and ole32.dll functions
         [Flags]
@@ -336,9 +362,15 @@ namespace ASCOM.Simulator
         private static void ElevateSelf(string arg)
         {
             ProcessStartInfo si = new ProcessStartInfo();
-            si.Arguments = arg;
             si.WorkingDirectory = Environment.CurrentDirectory;
-            si.FileName = Application.ExecutablePath;
+            si.UseShellExecute = true;
+#if REGISTERINDEBUG
+            si.FileName = "dotnet";
+            si.Arguments = AppExePath + " " + arg;
+#else
+            si.FileName = AppExePath;		
+            si.Arguments = arg;
+#endif
             si.Verb = "runas";
             try { Process p = Process.Start(si); }
             catch (System.ComponentModel.Win32Exception)
@@ -403,7 +435,7 @@ namespace ASCOM.Simulator
                 // HKCR\APPID\exename.ext
                 //
                 using (RegistryKey key = Registry.ClassesRoot.CreateSubKey("APPID\\" +
-                            Application.ExecutablePath.Substring(Application.ExecutablePath.LastIndexOf('\\') + 1)))
+                            AppExePath.Substring(AppExePath.LastIndexOf('\\') + 1)))
                 {
                     key.SetValue("AppID", m_sAppId);
                 }
@@ -448,7 +480,7 @@ namespace ASCOM.Simulator
                         key.CreateSubKey("Programmable");
                         using (RegistryKey key2 = key.CreateSubKey("LocalServer32"))
                         {
-                            key2.SetValue(null, Application.ExecutablePath);
+                            key2.SetValue(null, AppExePath);
                         }
                     }
                     //
@@ -510,7 +542,7 @@ namespace ASCOM.Simulator
             //
             Registry.ClassesRoot.DeleteSubKey("APPID\\" + m_sAppId, false);
             Registry.ClassesRoot.DeleteSubKey("APPID\\" +
-                    Application.ExecutablePath.Substring(Application.ExecutablePath.LastIndexOf('\\') + 1), false);
+                    AppExePath.Substring(AppExePath.LastIndexOf('\\') + 1), false);
 
             //
             // For each of the driver assemblies
