@@ -7,6 +7,9 @@
     <UseWPF>true</UseWPF>
     <AssemblyName>ASCOM.TelescopeSimulator</AssemblyName>
     <RootNamespace>ASCOM.Simulator</RootNamespace>
+    <Authors>Robert B. Denny, Daniel Van Noord</Authors>
+    <Company />
+    <Description>Telescope Simulator for .Net Core</Description>
   </PropertyGroup>
 
   <ItemGroup>
