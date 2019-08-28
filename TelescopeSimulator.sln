@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telescope", "Telescope\Tele
 EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "ASCOM.Utilities.Core", "ASCOM.Core\ASCOM.Utilities.Core\ASCOM.Utilities.Core.vbproj", "{B8F592F6-A521-4590-825F-601E87C37E6A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASCOM.Controls.Core", "ASCOM.Core\ASCOM.Controls.Core\ASCOM.Controls.Core.csproj", "{01F9F785-0AAD-47EE-92F5-CC46CF498EAB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B8F592F6-A521-4590-825F-601E87C37E6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8F592F6-A521-4590-825F-601E87C37E6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8F592F6-A521-4590-825F-601E87C37E6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01F9F785-0AAD-47EE-92F5-CC46CF498EAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01F9F785-0AAD-47EE-92F5-CC46CF498EAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01F9F785-0AAD-47EE-92F5-CC46CF498EAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01F9F785-0AAD-47EE-92F5-CC46CF498EAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -52,8 +52,8 @@ namespace ASCOM.Simulator
             this.buttonSlewDown = new System.Windows.Forms.Button();
             this.buttonSlewStop = new System.Windows.Forms.Button();
             this.pictureBoxPierSideEast = new System.Windows.Forms.PictureBox();
-            //this.ledPierEast = new ASCOM.Controls.LedIndicator();
-            //this.ledPierWest = new ASCOM.Controls.LedIndicator();
+            this.ledPierEast = new ASCOM.Controls.LedIndicator();
+            this.ledPierWest = new ASCOM.Controls.LedIndicator();
             this.checkBoxTrack = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.buttonTraffic = new System.Windows.Forms.Button();
@@ -226,8 +226,8 @@ namespace ASCOM.Simulator
             this.tableLayoutPanel2.Controls.Add(this.buttonSlewDown, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.buttonSlewStop, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.pictureBoxPierSideEast, 2, 0);
-            //this.tableLayoutPanel2.Controls.Add(this.ledPierEast, 2, 2);
-            //this.tableLayoutPanel2.Controls.Add(this.ledPierWest, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.ledPierEast, 2, 2);
+            this.tableLayoutPanel2.Controls.Add(this.ledPierWest, 0, 2);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(12, 250);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
@@ -315,25 +315,25 @@ namespace ASCOM.Simulator
             // 
             // ledPierEast
             // 
-            /*this.ledPierEast.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.ledPierEast.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ledPierEast.LabelText = "";
             this.ledPierEast.Location = new System.Drawing.Point(87, 84);
             this.ledPierEast.Name = "ledPierEast";
             this.ledPierEast.Size = new System.Drawing.Size(17, 16);
             this.ledPierEast.TabIndex = 6;
             this.ledPierEast.TabStop = false;
-            this.toolTip1.SetToolTip(this.ledPierEast, "Normal pointing state, scope on East side of Pier, looking West");*/
+            this.toolTip1.SetToolTip(this.ledPierEast, "Normal pointing state, scope on East side of Pier, looking West");
             // 
             // ledPierWest
             // 
-            /*this.ledPierWest.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.ledPierWest.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ledPierWest.LabelText = "";
             this.ledPierWest.Location = new System.Drawing.Point(11, 84);
             this.ledPierWest.Name = "ledPierWest";
             this.ledPierWest.Size = new System.Drawing.Size(16, 16);
             this.ledPierWest.TabIndex = 5;
             this.ledPierWest.TabStop = false;
-            this.toolTip1.SetToolTip(this.ledPierWest, "Through the pole pointing State, scope on West Side of Pier, looking East");*/
+            this.toolTip1.SetToolTip(this.ledPierWest, "Through the pole pointing State, scope on West Side of Pier, looking East");
             // 
             // checkBoxTrack
             // 
@@ -614,8 +614,8 @@ namespace ASCOM.Simulator
         private System.Windows.Forms.PictureBox pictureBoxPierSideEast;
         internal System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         internal System.Windows.Forms.Label labelSlew;
-        //private ASCOM.Controls.LedIndicator ledPierEast;
-        //private ASCOM.Controls.LedIndicator ledPierWest;
+        private ASCOM.Controls.LedIndicator ledPierEast;
+        private ASCOM.Controls.LedIndicator ledPierWest;
 		private System.Windows.Forms.ToolTip toolTip1;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
 		private System.Windows.Forms.RadioButton radioButtonPulseGuide;

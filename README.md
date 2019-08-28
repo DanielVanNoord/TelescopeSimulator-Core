@@ -9,6 +9,6 @@ There is a prebuilt set of binaries in the releases area on GitHub.
 It is best to register the server directly using the -register argument. All the server registration, including elevation, should be working. Passing the -register argument from the VisualStudio project debug arguments is currently not working as the server is run within the dotnet.exe tool when started from the debugger rather then standalone. You can attach to it after it is started though.
 
 Known issues:
-There are a couple of minor UI glitches in the preview framework. I have not ported the ASCOM controls yet so I removed them for now.
+There are a couple of minor UI glitches in the preview framework.
 
 There is an issue with .Net Core COM objects and ArrayLists (Get SupportedActions) and the current platforms implementation of DriverAccess. Basically ArrayLists are exposed across as just IEnumerable. The current platform fails to convert them because it tries to directly cast to ArrayList. The fix is very straight forward on the platform side. I have already fixed the .Net Core driver access library and built and started to test the platform 6 DriveAccess. I will submit a pull request to the main platform after some more testing is complete.

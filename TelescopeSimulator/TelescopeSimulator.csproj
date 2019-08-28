@@ -13,6 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ASCOM.Core\ASCOM.Controls.Core\ASCOM.Controls.Core.csproj" />
     <ProjectReference Include="..\ASCOM.Core\ASCOM.Utilities.Core\ASCOM.Utilities.Core.vbproj" />
   </ItemGroup>
 
