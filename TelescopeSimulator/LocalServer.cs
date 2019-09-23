@@ -256,87 +256,39 @@ namespace ASCOM.Simulator
         // via COM. These will be located in the subfolder ServedClasses
         // below our executable.
         //
-        private static bool LoadComObjectAssemblies()
+        protected static bool LoadComObjectAssemblies()
         {
             m_ComObjectAssys = new ArrayList();
             m_ComObjectTypes = new ArrayList();
 
-            //string assy = Assembly.GetEntryAssembly().Location;
-            string assyPath = Assembly.GetEntryAssembly().Location;
-            //int i = assyPath.LastIndexOf(@"\TelescopeSimulator\bin\");						// Look for us running in IDE
-            //ASCOM.Utilities.TraceLogger TL = new ASCOM.Utilities.TraceLogger("", "LoadComObjectAssemblies");
-            //TL.Enabled = true;
-            //TL.LogMessage("Assembly", assy);
-            //TL.LogMessage("AssemblyPath", assyPath);
-
-            //[TPL] The ServedClasses folder is always a subfolder of the executable location.
-            var executableFolder = Path.GetDirectoryName(assyPath);
-            var servedClassesPath = executableFolder;
-
-            //TL.LogMessage("ServedClassesPath", servedClassesPath);
-
-            DirectoryInfo d = new DirectoryInfo(servedClassesPath);
-            var assemblyFiles = d.GetFiles("*.dll");                        // We're only interested in .dll assemblies
-            foreach (FileInfo fi in assemblyFiles)
+            try
             {
-                string aPath = fi.FullName;
-                //string fqClassName = fi.Name.Replace(fi.Extension, "");		// The COM class name will be the assembly's file name (minus extension).
-                //TL.LogMessage("FilePath", aPath);
-                //TL.LogMessage("ClassName", fqClassName);
+                //Switched this to only load types from this assembly
+                Assembly so = Assembly.GetExecutingAssembly();
+                //[TPL] Potential malicious code injection vector, consider using ReflectionOnlyLoad.
 
-                // First try to load the assembly and get the types for
-                // the class and the class facctory. If this doesn't work ????
-                try
+                //PWGS Get the types in the assembly
+                Type[] types = so.GetTypes();
+                foreach (Type type in types)
                 {
-                    Assembly so = Assembly.LoadFrom(aPath);
-                    //[TPL] Potential malicious code injection vector, consider using ReflectionOnlyLoad.
+                    // PWGS Now checks the type rather than the assembly
+                    // Check to see if the type has the ServedClassName attribute, only use it if it does.
+                    MemberInfo info = type;// typeof(MyClass);
 
-                    //PWGS Get the types in the assembly
-                    Type[] types = so.GetTypes();
-                    foreach (Type type in types)
+                    object[] attrbutes = info.GetCustomAttributes(typeof(ServedClassNameAttribute), false);
+                    if (attrbutes.Length > 0)
                     {
-                        // PWGS Now checks the type rather than the assembly
-                        // Check to see if the type has the ServedClassName attribute, only use it if it does.
-                        MemberInfo info = type;// typeof(MyClass);
-
-                        object[] attrbutes = info.GetCustomAttributes(typeof(ServedClassNameAttribute), false);
-                        if (attrbutes.Length > 0)
-                        {
-                            m_ComObjectTypes.Add(type); //PWGS - much simpler
-                            m_ComObjectAssys.Add(so);
-                        }
+                        m_ComObjectTypes.Add(type); //PWGS - much simpler
+                        m_ComObjectAssys.Add(so);
                     }
-                }
-                catch (BadImageFormatException)
-                {
-                    // Probably an attempt to load a Win32 DLL (i.e. not a .net assembly)
-                    // Just swallow the exception and continue to the next item.
-                    continue;
-                }
-                catch (ReflectionTypeLoadException e)
-                {
-                    MessageBox.Show("Failed to load served COM class assembly " + fi.Name + " - " + e.ToString(),
-                        "TelescopeSimulator", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    Exception[] exs = e.LoaderExceptions;
-                    foreach (Exception ex in exs)
-                    {
-                        MessageBox.Show("Failed to load served COM class assembly " + fi.Name + " - " + ex.ToString(),
-                            "TelescopeSimulator", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    }
-
-                    return false;
-                }
-
-                catch (Exception e)
-                {
-                    MessageBox.Show("Failed to load served COM class assembly " + fi.Name + " - " + e.Message,
-                        "TelescopeSimulator", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    return false;
                 }
             }
-            //TL.Enabled = false;
-            //TL.Dispose();
-            //TL = null;
+            catch (Exception e)
+            {
+                MessageBox.Show("Failed to load served COM class assembly from within this local server" + " - " + e.Message,
+                                "Rotator Simulator", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return false;
+            }
 
             return true;
         }

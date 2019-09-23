@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.29201.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelescopeSimulator", "TelescopeSimulator\TelescopeSimulator.csproj", "{5A57F328-B3EC-46FA-85F1-FA0B25F30B36}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telescope", "Telescope\Telescope.csproj", "{F106CDD8-B92F-4715-976A-3D5002616C41}"
-EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "ASCOM.Utilities.Core", "ASCOM.Core\ASCOM.Utilities.Core\ASCOM.Utilities.Core.vbproj", "{B8F592F6-A521-4590-825F-601E87C37E6A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASCOM.Controls.Core", "ASCOM.Core\ASCOM.Controls.Core\ASCOM.Controls.Core.csproj", "{01F9F785-0AAD-47EE-92F5-CC46CF498EAB}"
@@ -21,10 +19,6 @@ Global
 		{5A57F328-B3EC-46FA-85F1-FA0B25F30B36}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A57F328-B3EC-46FA-85F1-FA0B25F30B36}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A57F328-B3EC-46FA-85F1-FA0B25F30B36}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F106CDD8-B92F-4715-976A-3D5002616C41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F106CDD8-B92F-4715-976A-3D5002616C41}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F106CDD8-B92F-4715-976A-3D5002616C41}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F106CDD8-B92F-4715-976A-3D5002616C41}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B8F592F6-A521-4590-825F-601E87C37E6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B8F592F6-A521-4590-825F-601E87C37E6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8F592F6-A521-4590-825F-601E87C37E6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
