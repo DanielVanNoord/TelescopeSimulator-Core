@@ -20,7 +20,7 @@ namespace ASCOM.Simulator
 
             Version version = new Version(Application.ProductVersion);
             labelVersion.Text = string.Format(CultureInfo.CurrentCulture, "ASCOM Telescope Simulator .NET Version {0}.{1}.{2}", version.Major, version.Minor, version.Build);
-            TimeZone localZone = TimeZone.CurrentTimeZone;
+            TimeZoneInfo localZone = TimeZoneInfo.Local;
             labelTime.Text = "Time zone is " + localZone.StandardName;
             if (localZone.IsDaylightSavingTime(DateTime.Now))
             {

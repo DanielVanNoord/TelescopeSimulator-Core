@@ -323,7 +323,7 @@ namespace ASCOM.Simulator
                     //' client some geo position without having to open the
                     //' Setup dialog.
                     Random r = new Random();
-                    TimeZone localZone = TimeZone.CurrentTimeZone;
+                    TimeZoneInfo localZone = TimeZoneInfo.Local;
                     double lat = 51.07861;// (r.NextDouble() * 60); lock for testing
                     double lng = (((-(double)(localZone.GetUtcOffset(DateTime.Now).Seconds) / 3600) + r.NextDouble() - 0.5) * 15);
                     if (localZone.GetUtcOffset(DateTime.Now).Seconds == 0) lng = -0.29444; //lock for testing
