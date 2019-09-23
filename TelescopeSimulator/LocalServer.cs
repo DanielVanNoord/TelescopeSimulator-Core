@@ -320,12 +320,12 @@ namespace ASCOM.Simulator
             si.FileName = "dotnet";
             si.Arguments = AppExePath + " " + arg;
 #else
-            si.FileName = AppExePath;		
+            si.FileName = Path.GetFileName(AppExePath);		
             si.Arguments = arg;
 #endif
             si.Verb = "runas";
             try { Process p = Process.Start(si); }
-            catch (System.ComponentModel.Win32Exception)
+            catch (System.ComponentModel.Win32Exception ex)
             {
                 MessageBox.Show("The Telescope Simulator was not " + (arg == "/register" ? "registered" : "unregistered") +
                     " because you did not allow it.", "TelescopeSimulator", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -432,7 +432,8 @@ namespace ASCOM.Simulator
                         key.CreateSubKey("Programmable");
                         using (RegistryKey key2 = key.CreateSubKey("LocalServer32"))
                         {
-                            key2.SetValue(null, AppExePath);
+                            var path = Path.Combine(Environment.CurrentDirectory, Path.GetFileName(AppExePath));
+                            key2.SetValue(null, path);
                         }
                     }
                     //
