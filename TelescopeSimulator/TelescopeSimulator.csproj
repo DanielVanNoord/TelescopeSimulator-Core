@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -10,6 +10,7 @@
     <Authors>Robert B. Denny, Daniel Van Noord</Authors>
     <Company />
     <Description>Telescope Simulator for .Net Core</Description>
+    <ApplicationIcon>Ascom_Icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
