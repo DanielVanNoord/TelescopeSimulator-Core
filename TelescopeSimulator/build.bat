@@ -1,0 +1,1 @@
+dotnet publish -c Release -r win-x64 -o bin/Build/ --self-contained=true
