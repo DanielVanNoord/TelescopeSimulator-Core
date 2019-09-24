@@ -11,11 +11,6 @@
     <Company />
     <Description>Telescope Simulator for .Net Core</Description>
     <ApplicationIcon>Ascom_Icon.ico</ApplicationIcon>
-    <PublishTrimmed>true</PublishTrimmed>
-    <PublishSingleFile>true</PublishSingleFile>
-    <PublishReadyToRun>true</PublishReadyToRun>
-    <PublishReadyToRunShowWarnings>true</PublishReadyToRunShowWarnings>
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
   </PropertyGroup>
 
   <ItemGroup>
