@@ -140,7 +140,7 @@
             // 
             this.picASCOM.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picASCOM.ErrorImage = null;
-            this.picASCOM.Image = global::ASCOM.Simulator.Resources.ASCOM;
+            this.picASCOM.Image = (System.Drawing.Image)TelescopeSimulator.Shared.Resource.ResourceManager.GetObject("ASCOM");
             this.picASCOM.InitialImage = null;
             this.picASCOM.Location = new System.Drawing.Point(311, 18);
             this.picASCOM.Name = "picASCOM";

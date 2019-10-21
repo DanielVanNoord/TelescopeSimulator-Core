@@ -136,7 +136,7 @@ namespace ASCOM.Simulator
         #endregion
 
         #region Public Data
-        public static FrmMain m_MainForm = null;				// Reference to our main form. Changed to public for access in simulator
+
         #endregion
 
         #region Private Data
@@ -648,10 +648,10 @@ namespace ASCOM.Simulator
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            m_MainForm = new FrmMain();
-            m_MainForm.Show();
+            Manager.m_MainForm = new FrmMain();
+            Manager.m_MainForm.Show();
             //if (m_bComStart) m_MainForm.WindowState = FormWindowState.Minimized;
-            m_MainForm.Visible = true;
+            Manager.m_MainForm.Visible = true;
 
             // Register the class factories of the served objects
             RegisterClassFactories();
@@ -667,7 +667,7 @@ namespace ASCOM.Simulator
                 // Start the message loop. This serializes incoming calls to our
                 // served COM objects, making this act like the VB6 equivalent!
                 //
-                Application.Run(m_MainForm);
+                Application.Run(Manager.m_MainForm);
 
             }
             catch (Exception ex)

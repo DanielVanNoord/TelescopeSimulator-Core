@@ -867,7 +867,7 @@ namespace ASCOM.Simulator
                 throw new InvalidOperationException("The hardware is connected, cannot do SetupDialog()");
             try
             {
-                TelescopeSimulator.m_MainForm.DoSetupDialog();
+                Manager.m_MainForm.DoSetupDialog();
             }
             catch (Exception ex)
             {

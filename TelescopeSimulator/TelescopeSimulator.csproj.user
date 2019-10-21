@@ -1,18 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
-  <ItemGroup>
-    <Compile Update="frmMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="ParkHomeAndStartupForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="SetupDialogForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="TrafficForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-  </ItemGroup>
+  <ItemGroup />
 </Project>
