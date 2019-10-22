@@ -242,12 +242,12 @@ namespace ASCOM.Simulator
         {
             TelescopeHardware.TL.LogMessage("LockServer", "Lock server: " + bLock);
             if (bLock)
-                TelescopeSimulator.CountLock();
+                TelescopeSimulatorLocalServer.CountLock();
             else
-                TelescopeSimulator.UncountLock();
+                TelescopeSimulatorLocalServer.UncountLock();
             // Always attempt to see if we need to shutdown this server application.
             TelescopeHardware.TL.LogMessage("LockServer", "Calling ExitIf to check whether we can exit the server");
-            TelescopeSimulator.ExitIf();
+            TelescopeSimulatorLocalServer.ExitIf();
         }
         #endregion
     }

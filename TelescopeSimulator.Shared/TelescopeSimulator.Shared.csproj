@@ -1,21 +1,21 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ASCOMStandard\ASCOMStandard\ASCOMStandard.csproj" />
-    <ProjectReference Include="..\MonoForms\System.Windows.Forms\System.Windows.Forms.csproj" />
     <ProjectReference Include="..\WindowsBase.Vector\WindowsBase.Vector\WindowsBase.Vector.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="ASCOM.DeviceInterfaces">
-      <HintPath>..\..\ta.digitaldomeworks\TempDependencies\ASCOM.DeviceInterfaces.dll</HintPath>
+      <HintPath>..\TempDependencies\ASCOM.DeviceInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="ASCOM.Exceptions">
-      <HintPath>..\..\ta.digitaldomeworks\TempDependencies\ASCOM.Exceptions.dll</HintPath>
+      <HintPath>..\TempDependencies\ASCOM.Exceptions.dll</HintPath>
     </Reference>
   </ItemGroup>
 

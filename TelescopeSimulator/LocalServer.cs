@@ -35,7 +35,7 @@ using ASCOM.Utilities;
 
 namespace ASCOM.Simulator
 {
-    public class TelescopeSimulator
+    public class TelescopeSimulatorLocalServer
     {
         //This is pretty rough and needs to be cleaned up for any production level handling.
         public static string AppExePath
@@ -648,10 +648,6 @@ namespace ASCOM.Simulator
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Manager.m_MainForm = new FrmMain();
-            Manager.m_MainForm.Show();
-            //if (m_bComStart) m_MainForm.WindowState = FormWindowState.Minimized;
-            Manager.m_MainForm.Visible = true;
 
             // Register the class factories of the served objects
             RegisterClassFactories();
@@ -667,8 +663,8 @@ namespace ASCOM.Simulator
                 // Start the message loop. This serializes incoming calls to our
                 // served COM objects, making this act like the VB6 equivalent!
                 //
-                Application.Run(Manager.m_MainForm);
 
+                TelescopeSimulator.Alpaca.Program.Start(new string[] {string.Empty});
             }
             catch (Exception ex)
             {

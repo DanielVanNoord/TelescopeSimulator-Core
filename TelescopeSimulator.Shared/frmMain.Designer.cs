@@ -253,7 +253,8 @@ namespace ASCOM.Simulator
             this.buttonSlewUp.Size = new System.Drawing.Size(32, 31);
             this.buttonSlewUp.TabIndex = 0;
             this.buttonSlewUp.Text = "N";
-            this.buttonSlewUp.UseVisualStyleBackColor = true;
+            this.buttonSlewUp.BackColor = System.Windows.Forms.Button.DefaultBackColor;
+            this.buttonSlewUp.UseVisualStyleBackColor = false;
             this.buttonSlewUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonSlewUp_MouseDown);
             this.buttonSlewUp.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonSlewUp_MouseUp);
             // 
@@ -265,7 +266,8 @@ namespace ASCOM.Simulator
             this.buttonSlewRight.Size = new System.Drawing.Size(33, 31);
             this.buttonSlewRight.TabIndex = 3;
             this.buttonSlewRight.Text = "E";
-            this.buttonSlewRight.UseVisualStyleBackColor = true;
+            this.buttonSlewRight.BackColor = System.Windows.Forms.Button.DefaultBackColor;
+            this.buttonSlewRight.UseVisualStyleBackColor = false;
             this.buttonSlewRight.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonSlewRight_MouseDown);
             this.buttonSlewRight.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonSlewRight_MouseUp);
             // 
@@ -277,7 +279,8 @@ namespace ASCOM.Simulator
             this.buttonSlewLeft.Size = new System.Drawing.Size(32, 31);
             this.buttonSlewLeft.TabIndex = 1;
             this.buttonSlewLeft.Text = "W";
-            this.buttonSlewLeft.UseVisualStyleBackColor = true;
+            this.buttonSlewLeft.BackColor = System.Windows.Forms.Button.DefaultBackColor;
+            this.buttonSlewLeft.UseVisualStyleBackColor = false;
             this.buttonSlewLeft.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonSlewLeft_MouseDown);
             this.buttonSlewLeft.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonSlewLeft_MouseUp);
             // 
@@ -289,7 +292,8 @@ namespace ASCOM.Simulator
             this.buttonSlewDown.Size = new System.Drawing.Size(32, 31);
             this.buttonSlewDown.TabIndex = 4;
             this.buttonSlewDown.Text = "S";
-            this.buttonSlewDown.UseVisualStyleBackColor = true;
+            this.buttonSlewDown.BackColor = System.Windows.Forms.Button.DefaultBackColor;
+            this.buttonSlewDown.UseVisualStyleBackColor = false;
             this.buttonSlewDown.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonSlewDown_MouseDown);
             this.buttonSlewDown.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonSlewDown_MouseUp);
             // 
@@ -297,7 +301,7 @@ namespace ASCOM.Simulator
             // 
             this.buttonSlewStop.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonSlewStop.Font = new System.Drawing.Font("Wingdings 2", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.buttonSlewStop.Image = ((System.Drawing.Image)(resources.GetObject("buttonSlewStop.Image")));
+            this.buttonSlewStop.Image = ((System.Drawing.Bitmap)(resources.GetObject("buttonSlewStop.Image")));
             this.buttonSlewStop.Location = new System.Drawing.Point(41, 40);
             this.buttonSlewStop.Name = "buttonSlewStop";
             this.buttonSlewStop.Size = new System.Drawing.Size(32, 31);
@@ -372,7 +376,8 @@ namespace ASCOM.Simulator
             this.buttonTraffic.Size = new System.Drawing.Size(52, 27);
             this.buttonTraffic.TabIndex = 3;
             this.buttonTraffic.Text = "Traffic";
-            this.buttonTraffic.UseVisualStyleBackColor = true;
+            this.buttonTraffic.BackColor = System.Windows.Forms.Button.DefaultBackColor;
+            this.buttonTraffic.UseVisualStyleBackColor = false;
             this.buttonTraffic.Click += new System.EventHandler(this.ButtonTraffic_Click);
             // 
             // buttonSetup
@@ -383,7 +388,8 @@ namespace ASCOM.Simulator
             this.buttonSetup.Size = new System.Drawing.Size(51, 27);
             this.buttonSetup.TabIndex = 2;
             this.buttonSetup.Text = "Setup";
-            this.buttonSetup.UseVisualStyleBackColor = true;
+            this.buttonSetup.BackColor = System.Windows.Forms.Button.DefaultBackColor;
+            this.buttonSetup.UseVisualStyleBackColor = false;
             this.buttonSetup.Click += new System.EventHandler(this.ButtonSetup_Click);
             // 
             // buttonHome
@@ -394,7 +400,8 @@ namespace ASCOM.Simulator
             this.buttonHome.Size = new System.Drawing.Size(52, 26);
             this.buttonHome.TabIndex = 1;
             this.buttonHome.Text = "Home";
-            this.buttonHome.UseVisualStyleBackColor = true;
+            this.buttonHome.BackColor = System.Windows.Forms.Button.DefaultBackColor;
+            this.buttonHome.UseVisualStyleBackColor = false;
             this.buttonHome.Click += new System.EventHandler(this.ButtonHome_Click);
             // 
             // buttonUnpark
@@ -405,7 +412,8 @@ namespace ASCOM.Simulator
             this.buttonUnpark.Size = new System.Drawing.Size(51, 26);
             this.buttonUnpark.TabIndex = 0;
             this.buttonUnpark.Text = "Unpark";
-            this.buttonUnpark.UseVisualStyleBackColor = true;
+            this.buttonUnpark.BackColor = System.Windows.Forms.Button.DefaultBackColor;
+            this.buttonUnpark.UseVisualStyleBackColor = false;
             this.buttonUnpark.Click += new System.EventHandler(this.ButtonUnpark_Click);
             // 
             // tableLayoutPanel4

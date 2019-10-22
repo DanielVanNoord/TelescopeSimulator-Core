@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ASCOM.Core\ASCOM.Utilities.Core\ASCOM.Utilities.Core.vbproj" />
-    <ProjectReference Include="..\TelescopeSimulator.Shared\TelescopeSimulator.Shared.csproj" />
+    <ProjectReference Include="..\TelescopeSimulator.Alpaca\TelescopeSimulator.Alpaca.csproj" />
   </ItemGroup>
 
   <ItemGroup>

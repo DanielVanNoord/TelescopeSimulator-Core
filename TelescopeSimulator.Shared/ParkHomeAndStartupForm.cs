@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using ASCOM.Utilities;
 using System.Globalization;
 
 namespace ASCOM.Simulator
@@ -40,7 +39,7 @@ namespace ASCOM.Simulator
             }
 
             string startupOption;
-            using (Profile profile = new Profile())
+            using (ASCOM.Utilities.Profile profile = new ASCOM.Utilities.Profile())
             {
                 startupOption = profile.GetValue(SharedResources.PROGRAM_ID, "StartUpMode", "",TelescopeHardware.StartupOptions[0]);
             }
@@ -122,7 +121,7 @@ namespace ASCOM.Simulator
             TelescopeHardware.ParkAltitude = double.Parse(txtParkAltitude.Text);
             TelescopeHardware.HomePosition.X = double.Parse(TxtHomeAzimuth.Text);
             TelescopeHardware.HomePosition.Y = double.Parse(TxtHomeAltitude.Text);
-            using (Profile profile = new Profile())
+            using (ASCOM.Utilities.Profile profile = new ASCOM.Utilities.Profile())
             {
                 profile.WriteValue(SharedResources.PROGRAM_ID, "HomeAzimuth", TelescopeHardware.HomePosition.X.ToString(CultureInfo.InvariantCulture));
                 profile.WriteValue(SharedResources.PROGRAM_ID, "HomeAltitude", TelescopeHardware.HomePosition.Y.ToString(CultureInfo.InvariantCulture));

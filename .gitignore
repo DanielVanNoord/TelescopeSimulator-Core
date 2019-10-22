@@ -3,5 +3,11 @@ Telescope/bin/
 Telescope/obj/
 TelescopeSimulator/bin/
 TelescopeSimulator/obj/
+TelescopeSimulator.Shared/bin/
+TelescopeSimulator.Shared/obj/
+TelescopeSimulator.Alpaca/bin/
+TelescopeSimulator.Alpaca/obj/
+TelescopeSimulator.Linux/bin/
+TelescopeSimulator.Linux/obj/
 WindowsBase.Vector/
 MonoForms/
