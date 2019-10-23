@@ -301,12 +301,13 @@ namespace ASCOM.Simulator
             // 
             this.buttonSlewStop.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonSlewStop.Font = new System.Drawing.Font("Wingdings 2", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.buttonSlewStop.Image = ((System.Drawing.Bitmap)(resources.GetObject("buttonSlewStop.Image")));
+            //this.buttonSlewStop.Image = ((System.Drawing.Bitmap)(resources.GetObject("buttonSlewStop.Image")));
             this.buttonSlewStop.Location = new System.Drawing.Point(41, 40);
             this.buttonSlewStop.Name = "buttonSlewStop";
             this.buttonSlewStop.Size = new System.Drawing.Size(32, 31);
             this.buttonSlewStop.TabIndex = 2;
-            this.buttonSlewStop.UseVisualStyleBackColor = true;
+            this.buttonSlewStop.BackColor = System.Drawing.Color.Red;
+            this.buttonSlewStop.UseVisualStyleBackColor = false;
             this.buttonSlewStop.Click += new System.EventHandler(this.ButtonSlewStop_Click);
             // 
             // pictureBoxPierSideEast
@@ -462,7 +463,7 @@ namespace ASCOM.Simulator
             // picASCOM
             // 
             this.picASCOM.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picASCOM.Image = (System.Drawing.Image)TelescopeSimulator.Shared.Resource.ResourceManager.GetObject("ASCOM");
+            //this.picASCOM.Image = (System.Drawing.Image)TelescopeSimulator.Shared.Resource.ResourceManager.GetObject("ASCOM");
             this.picASCOM.Location = new System.Drawing.Point(79, 10);
             this.picASCOM.Name = "picASCOM";
             this.picASCOM.Size = new System.Drawing.Size(48, 56);
@@ -567,7 +568,7 @@ namespace ASCOM.Simulator
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.picASCOM);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            //this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmMain";
             this.Text = "Telescope Simulator";
             this.Load += new System.EventHandler(this.FrmMain_Load);
