@@ -313,9 +313,9 @@ namespace TelescopeSimulator.Alpaca.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpGet]
         [Route(APIRoot + "{DeviceNumber}/AxisRates")]
-        public AxisRatesResponse AxisRates(int DeviceNumber, [FromForm] ASCOM.DeviceInterface.TelescopeAxes Axis, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
+        public AxisRatesResponse AxisRates(int DeviceNumber, ASCOM.DeviceInterface.TelescopeAxes Axis, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -361,9 +361,9 @@ namespace TelescopeSimulator.Alpaca.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpGet]
         [Route(APIRoot + "{DeviceNumber}/CanMoveAxis")]
-        public BoolResponse CanMoveAxis(int DeviceNumber, [FromForm] ASCOM.DeviceInterface.TelescopeAxes Axis, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
+        public BoolResponse MoveAxis(int DeviceNumber, ASCOM.DeviceInterface.TelescopeAxes Axis, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -1361,7 +1361,6 @@ namespace TelescopeSimulator.Alpaca.Controllers
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).TrackingRate = (ASCOM.DeviceInterface.DriveRates) TrackingRate;
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
