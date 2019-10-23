@@ -38,8 +38,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         #region Common Methods
 
         [HttpPut]
-        [Route(APIRoot + "{DeviceNumber}/action")]
-        public StringResponse PutAction(int DeviceNumber, [FromForm] string Action, [FromForm] string Parameters, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/Action")]
+        public StringResponse Action(int DeviceNumber, [FromForm] string Action, [FromForm] string Parameters, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
         {
             try
             {
@@ -52,8 +52,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpPut]
-        [Route(APIRoot + "{DeviceNumber}/commandblind")]
-        public Response PutCommandBlind(int DeviceNumber, [FromForm] string Command, [FromForm] bool Raw = false, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/CommandBlind")]
+        public Response CommandBlind(int DeviceNumber, [FromForm] string Command, [FromForm] bool Raw = false, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
         {
             try
             {
@@ -67,8 +67,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpPut]
-        [Route(APIRoot + "{DeviceNumber}/commandbool")]
-        public BoolResponse PutCommandBool(int DeviceNumber, [FromForm] string Command, [FromForm] bool Raw = false, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/CommandBool")]
+        public BoolResponse CommandBool(int DeviceNumber, [FromForm] string Command, [FromForm] bool Raw = false, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
         {
             try
             {
@@ -81,8 +81,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpPut]
-        [Route(APIRoot + "{DeviceNumber}/commandstring")]
-        public StringResponse PutCommandString(int DeviceNumber, [FromForm] string Command, [FromForm] bool Raw = false, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/CommandString")]
+        public StringResponse CommandString(int DeviceNumber, [FromForm] string Command, [FromForm] bool Raw = false, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
         {
             try
             {
@@ -95,8 +95,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/connected")]
-        public BoolResponse GetConnected(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/Connected")]
+        public BoolResponse Connected(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -109,8 +109,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpPut]
-        [Route(APIRoot + "{DeviceNumber}/connected")]
-        public Response PutConnected(int DeviceNumber, [FromForm] bool Connected, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/Connected")]
+        public Response Connected(int DeviceNumber, [FromForm] bool Connected, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
         {
             try
             {
@@ -126,8 +126,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/description")]
-        public StringResponse GetDescription(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/Description")]
+        public StringResponse Description(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -140,8 +140,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/driverinfo")]
-        public StringResponse GetDriverInfo(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/DriverInfo")]
+        public StringResponse DriverInfo(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -154,8 +154,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/driverversion")]
-        public StringResponse GetDriverVersion(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/DriverVersion")]
+        public StringResponse DriverVersion(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -168,8 +168,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/interfaceversion")]
-        public IntResponse GetInterfaceVersion(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/InterfaceVersion")]
+        public IntResponse InterfaceVersion(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -182,8 +182,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/name")]
-        public StringResponse GetName(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/Name")]
+        public StringResponse Name(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -196,8 +196,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/supportedactions")]
-        public StringListResponse GetSupportedActions(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/SupportedActions")]
+        public StringListResponse SupportedActions(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -213,12 +213,11 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
 
         [HttpPut]
-        [Route(APIRoot + "{DeviceNumber}/abortslew")]
-        public Response PutAbortSlew(int DeviceNumber, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/AbortSlew")]
+        public Response AbortSlew(int DeviceNumber, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).AbortSlew();
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -230,8 +229,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/alignmentmode")]
-        public AlignmentModeResponse GetAlignmentMode(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/AlignmentMode")]
+        public AlignmentModeResponse AlignmentMode(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -244,8 +243,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/altitude")]
-        public DoubleResponse GetAltitude(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/Altitude")]
+        public DoubleResponse Altitude(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -258,8 +257,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/aperturearea")]
-        public DoubleResponse GetApertureArea(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/ApertureArea")]
+        public DoubleResponse ApertureArea(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -272,8 +271,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/aperturediameter")]
-        public DoubleResponse GetApertureDiameter(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/ApertureDiameter")]
+        public DoubleResponse ApertureDiameter(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -286,8 +285,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/athome")]
-        public BoolResponse GetAtHome(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/AtHome")]
+        public BoolResponse AtHome(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -300,8 +299,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/atpark")]
-        public BoolResponse GetAtPark(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/AtPark")]
+        public BoolResponse AtPark(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -334,8 +333,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/azimuth")]
-        public DoubleResponse GetAzimuth(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/Azimuth")]
+        public DoubleResponse Azimuth(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -348,8 +347,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/canfindhome")]
-        public BoolResponse GetCanFindHome(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/CanFindHome")]
+        public BoolResponse CanFindHome(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -377,8 +376,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/canpark")]
-        public BoolResponse GetCanPark(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/CanPark")]
+        public BoolResponse CanPark(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -391,8 +390,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/canpulseguide")]
-        public BoolResponse GetCanPulseGuide(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/CanPulseGuide")]
+        public BoolResponse CanPulseGuide(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -405,8 +404,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/cansetdeclinationrate")]
-        public BoolResponse GetCanSetDeclinationRate(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/CanSetDeclinationRate")]
+        public BoolResponse CanSetDeclinationRate(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -419,8 +418,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/cansetguiderates")]
-        public BoolResponse GetCanSetGuideRates(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/CanSetGuideRates")]
+        public BoolResponse CanSetGuideRates(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -433,8 +432,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/cansetpark")]
-        public BoolResponse GetCanSetPark(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/CanSetPark")]
+        public BoolResponse CanSetPark(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -447,8 +446,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/cansetpierside")]
-        public BoolResponse Getcansetpierside(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/CanSetPierSide")]
+        public BoolResponse CanSetPierSide(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -461,8 +460,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/cansetrightascensionrate")]
-        public BoolResponse GetCanSetRightAscensionRate(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/CanSetRightAscensionRate")]
+        public BoolResponse CanSetRightAscensionRate(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -475,8 +474,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/cansettracking")]
-        public BoolResponse GetCanSetTracking(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/CanSetTracking")]
+        public BoolResponse CanSetTracking(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -489,8 +488,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/canslew")]
-        public BoolResponse GetCanSlew(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/CanSlew")]
+        public BoolResponse CanSlew(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -517,8 +516,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/canslewaltazasync")]
-        public BoolResponse GetCanSlewAltAzAsync(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/CanSlewAltAzAsync")]
+        public BoolResponse CanSlewAltAzAsync(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -531,8 +530,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/canslewasync")]
-        public BoolResponse GetCanSlewAsync(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/CanSlewAsync")]
+        public BoolResponse CanSlewAsync(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -545,8 +544,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/cansync")]
-        public BoolResponse GetCanSync(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/CanSync")]
+        public BoolResponse CanSync(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -559,8 +558,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/cansyncaltaz")]
-        public BoolResponse GetCanSyncAltAz(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/CanSyncAltAz")]
+        public BoolResponse CanSyncAltAz(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -573,8 +572,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/canunpark")]
-        public BoolResponse GetCanUnpark(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/CanUnpark")]
+        public BoolResponse CanUnpark(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -587,8 +586,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/declination")]
-        public DoubleResponse GetDeclination(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/Declination")]
+        public DoubleResponse Declination(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -601,7 +600,7 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/declinationrate")]
+        [Route(APIRoot + "{DeviceNumber}/DeclinationRate")]
         public DoubleResponse DeclinationRate(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
@@ -615,12 +614,11 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpPut]
-        [Route(APIRoot + "{DeviceNumber}/declinationrate")]
+        [Route(APIRoot + "{DeviceNumber}/DeclinationRate")]
         public Response DeclinationRate(int DeviceNumber, [FromForm] double DeclinationRate, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).DeclinationRate = DeclinationRate;
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -633,7 +631,7 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpGet]
         [Route(APIRoot + "{DeviceNumber}/DestinationSideOfPier")]
-        public PointingStateResponse GetDestinationSideOfPier(int DeviceNumber, double RightAscension, double Declination, int ClientID = -1, uint ClientTransactionID = 0)
+        public PointingStateResponse DestinationSideOfPier(int DeviceNumber, double RightAscension, double Declination, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -646,8 +644,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/doesrefraction")]
-        public BoolResponse GetDoesRefraction(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/DoesRefraction")]
+        public BoolResponse DoesRefraction(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -660,12 +658,11 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpPut]
-        [Route(APIRoot + "{DeviceNumber}/doesrefraction")]
-        public Response PutDoesRefraction(int DeviceNumber, [FromForm] bool DoesRefraction, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/DoesRefraction")]
+        public Response DoesRefraction(int DeviceNumber, [FromForm] bool DoesRefraction, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).DoesRefraction = DoesRefraction;
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -677,8 +674,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/equatorialsystem")]
-        public EquatorialCoordinateTypeResponse GetEquatorialSystem(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/EquatorialSystem")]
+        public EquatorialCoordinateTypeResponse EquatorialSystem(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -691,12 +688,11 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpPut]
-        [Route(APIRoot + "{DeviceNumber}/findhome")]
-        public Response PutDoesRefraction(int DeviceNumber, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/FindHome")]
+        public Response FindHome(int DeviceNumber, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).FindHome();
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -708,8 +704,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/focallength")]
-        public DoubleResponse GetFocalLength(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/FocalLength")]
+        public DoubleResponse FocalLength(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -722,8 +718,8 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpGet]
-        [Route(APIRoot + "{DeviceNumber}/guideratedeclination")]
-        public DoubleResponse GetGuideRateDeclination(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/GuideRateDeclination")]
+        public DoubleResponse GuideRateDeclination(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -736,12 +732,11 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpPut]
-        [Route(APIRoot + "{DeviceNumber}/guideratedeclination")]
-        public Response PutGuideRateDeclination(int DeviceNumber, [FromForm] double GuideRateDeclination, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/GuideRateDeclination")]
+        public Response GuideRateDeclination(int DeviceNumber, [FromForm] double GuideRateDeclination, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).GuideRateDeclination = GuideRateDeclination;
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -754,7 +749,7 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpGet]
         [Route(APIRoot + "{DeviceNumber}/GuideRateRightAscension")]
-        public DoubleResponse GetGuideRateRightAscension(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        public DoubleResponse GuideRateRightAscension(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -768,11 +763,10 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpPut]
         [Route(APIRoot + "{DeviceNumber}/GuideRateRightAscension")]
-        public Response PutGuideRateRightAscension(int DeviceNumber, [FromForm] double GuideRateRightAscension, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
+        public Response GuideRateRightAscension(int DeviceNumber, [FromForm] double GuideRateRightAscension, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).GuideRateRightAscension = GuideRateRightAscension;
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -785,7 +779,7 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpGet]
         [Route(APIRoot + "{DeviceNumber}/IsPulseGuiding")]
-        public BoolResponse GetIsPulseGuiding(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        public BoolResponse IsPulseGuiding(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -803,7 +797,6 @@ namespace TelescopeSimulator.Alpaca.Controllers
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).MoveAxis(Axis, Rate);
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -820,7 +813,6 @@ namespace TelescopeSimulator.Alpaca.Controllers
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).Park();
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -837,7 +829,6 @@ namespace TelescopeSimulator.Alpaca.Controllers
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).PulseGuide(Direction, Duration);
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -850,7 +841,7 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpGet]
         [Route(APIRoot + "{DeviceNumber}/RightAscension")]
-        public DoubleResponse GetRightAscensionn(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        public DoubleResponse RightAscensionn(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -864,7 +855,7 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpGet]
         [Route(APIRoot + "{DeviceNumber}/RightAscensionRate")]
-        public DoubleResponse GetRightAscensionRate(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        public DoubleResponse RightAscensionRate(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -878,11 +869,10 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpPut]
         [Route(APIRoot + "{DeviceNumber}/RightAscensionRate")]
-        public Response PutRightAscensionRate(int DeviceNumber, [FromForm] double RightAscensionRate, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
+        public Response RightAscensionRate(int DeviceNumber, [FromForm] double RightAscensionRate, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).RightAscensionRate = RightAscensionRate;
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -895,11 +885,10 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpPut]
         [Route(APIRoot + "{DeviceNumber}/SetPark")]
-        public Response PutSetPark(int DeviceNumber, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
+        public Response SetPark(int DeviceNumber, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).SetPark();
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -912,7 +901,7 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpGet]
         [Route(APIRoot + "{DeviceNumber}/SideOfPier")]
-        public PointingStateResponse GetSideOfPier(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        public PointingStateResponse SideOfPier(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -926,11 +915,10 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpPut]
         [Route(APIRoot + "{DeviceNumber}/SideOfPier")]
-        public Response PutSideOfPier(int DeviceNumber, [FromForm] ASCOM.Alpaca.Interfaces.PointingState SideOfPier, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
+        public Response SideOfPier(int DeviceNumber, [FromForm] ASCOM.Alpaca.Interfaces.PointingState SideOfPier, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).SideOfPier = (ASCOM.DeviceInterface.PierSide)SideOfPier;
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -943,7 +931,7 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpGet]
         [Route(APIRoot + "{DeviceNumber}/SiderealTime")]
-        public DoubleResponse GetSiderealTime(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        public DoubleResponse SiderealTime(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -957,7 +945,7 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpGet]
         [Route(APIRoot + "{DeviceNumber}/SiteElevation")]
-        public DoubleResponse GetSiteElevation(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        public DoubleResponse SiteElevation(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -971,11 +959,10 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpPut]
         [Route(APIRoot + "{DeviceNumber}/SiteElevation")]
-        public Response PutSiteElevation(int DeviceNumber, [FromForm] double SiteElevation, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
+        public Response SiteElevation(int DeviceNumber, [FromForm] double SiteElevation, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).SiteElevation = SiteElevation;
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -988,7 +975,7 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpGet]
         [Route(APIRoot + "{DeviceNumber}/SiteLatitude")]
-        public DoubleResponse GetSiteLatitude(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        public DoubleResponse SiteLatitude(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -1002,11 +989,10 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpPut]
         [Route(APIRoot + "{DeviceNumber}/SiteLatitude")]
-        public Response PutSiteLatituden(int DeviceNumber, [FromForm] double SiteLatitude, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
+        public Response SiteLatitude(int DeviceNumber, [FromForm] double SiteLatitude, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).SiteLatitude = SiteLatitude;
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -1019,7 +1005,7 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpGet]
         [Route(APIRoot + "{DeviceNumber}/SiteLongitude")]
-        public DoubleResponse GetSiteLongitude(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        public DoubleResponse SiteLongitude(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -1033,11 +1019,10 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpPut]
         [Route(APIRoot + "{DeviceNumber}/SiteLongitude")]
-        public Response PutSiteLongitude(int DeviceNumber, [FromForm] double SiteLongitude, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
+        public Response SiteLongitude(int DeviceNumber, [FromForm] double SiteLongitude, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).SiteLongitude = SiteLongitude;
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -1050,7 +1035,7 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpGet]
         [Route(APIRoot + "{DeviceNumber}/SlewSettleTime")]
-        public IntResponse GetSlewSettleTime(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        public IntResponse SlewSettleTime(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -1064,11 +1049,10 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpPut]
         [Route(APIRoot + "{DeviceNumber}/SlewSettleTime")]
-        public Response PutSlewSettleTime(int DeviceNumber, [FromForm] short SlewSettleTime, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
+        public Response SlewSettleTime(int DeviceNumber, [FromForm] short SlewSettleTime, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).SlewSettleTime = SlewSettleTime;
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -1081,11 +1065,10 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpPut]
         [Route(APIRoot + "{DeviceNumber}/SlewToAltAz")]
-        public Response PutSlewToAltAz(int DeviceNumber, [FromForm] double Azimuth, [FromForm]double Altitude, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
+        public Response SlewToAltAz(int DeviceNumber, [FromForm] double Azimuth, [FromForm]double Altitude, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).SlewToAltAz(Azimuth, Altitude);
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -1102,7 +1085,6 @@ namespace TelescopeSimulator.Alpaca.Controllers
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).SlewToAltAzAsync(Azimuth, Altitude);
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -1119,7 +1101,6 @@ namespace TelescopeSimulator.Alpaca.Controllers
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).SlewToCoordinates(RightAscension, Declination);
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -1136,7 +1117,6 @@ namespace TelescopeSimulator.Alpaca.Controllers
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).SlewToCoordinatesAsync(RightAscension, Declination);
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -1153,7 +1133,6 @@ namespace TelescopeSimulator.Alpaca.Controllers
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).SlewToTarget();
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -1170,7 +1149,6 @@ namespace TelescopeSimulator.Alpaca.Controllers
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).SlewToTargetAsync();
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -1203,7 +1181,6 @@ namespace TelescopeSimulator.Alpaca.Controllers
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).SyncToAltAz(Azimuth, Altitude);
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -1220,7 +1197,6 @@ namespace TelescopeSimulator.Alpaca.Controllers
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).SyncToCoordinates(RightAscension, Declination);
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -1237,7 +1213,6 @@ namespace TelescopeSimulator.Alpaca.Controllers
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).SyncToTarget();
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -1264,11 +1239,10 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpPut]
         [Route(APIRoot + "{DeviceNumber}/TargetDeclination")]
-        public Response PutTargetDeclination(int DeviceNumber, [FromForm] double TargetDeclination, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
+        public Response TargetDeclination(int DeviceNumber, [FromForm] double TargetDeclination, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).TargetDeclination = TargetDeclination;
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -1295,11 +1269,10 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpPut]
         [Route(APIRoot + "{DeviceNumber}/TargetRightAscension")]
-        public Response PutTargetRightAscension(int DeviceNumber, [FromForm] double TargetRightAscension, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
+        public Response TargetRightAscension(int DeviceNumber, [FromForm] double TargetRightAscension, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).TargetRightAscension = TargetRightAscension;
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -1330,7 +1303,6 @@ namespace TelescopeSimulator.Alpaca.Controllers
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).Tracking = Tracking;
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -1413,7 +1385,6 @@ namespace TelescopeSimulator.Alpaca.Controllers
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).UTCDate = UTCDate;
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -1425,12 +1396,11 @@ namespace TelescopeSimulator.Alpaca.Controllers
         }
 
         [HttpPut]
-        [Route(APIRoot + "{DeviceNumber}/Unpark")]
-        public Response Unpark(int DeviceNumber, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
+        [Route(APIRoot + "{DeviceNumber}/UnPark")]
+        public Response UnPark(int DeviceNumber, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
         {
             try
             {
-                //ToDo Do not allow remote disconnects
                 DeviceManager.GetTelescope(DeviceNumber).Unpark();
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
@@ -1449,7 +1419,7 @@ namespace TelescopeSimulator.Alpaca.Controllers
         {
             try
             {
-                //ToDo Do not allow remote disconnects
+                //ToDo Do not allow remote Dispose
                 DeviceManager.GetTelescope(DeviceNumber).Dispose();
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
