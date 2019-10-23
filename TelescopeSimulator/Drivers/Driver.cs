@@ -193,8 +193,8 @@ namespace ASCOM.Simulator
 
         public double GuideRateRightAscension
         {
-            get { return TelescopeInstance.GuideRateDeclination; }
-            set { TelescopeInstance.GuideRateDeclination = value; }
+            get { return TelescopeInstance.GuideRateRightAscension; }
+            set { TelescopeInstance.GuideRateRightAscension = value; }
         }
 
         public short InterfaceVersion => TelescopeInstance.InterfaceVersion;
