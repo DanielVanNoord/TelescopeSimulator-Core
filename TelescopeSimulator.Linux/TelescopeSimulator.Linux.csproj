@@ -38,6 +38,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Resources.Extensions" Version="4.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="ASCOM.DeviceInterfaces">
       <HintPath>..\TempDependencies\ASCOM.DeviceInterfaces.dll</HintPath>
     </Reference>
