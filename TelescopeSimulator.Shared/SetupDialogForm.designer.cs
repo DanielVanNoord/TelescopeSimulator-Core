@@ -265,7 +265,7 @@ namespace ASCOM.Simulator
             // picASCOM
             // 
             this.picASCOM.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picASCOM.Image = (System.Drawing.Image)TelescopeSimulator.Shared.Resource.ResourceManager.GetObject("ASCOM");
+            //this.picASCOM.Image = (System.Drawing.Image)TelescopeSimulator.Shared.Resource.ResourceManager.GetObject("ASCOM");
             this.picASCOM.Location = new System.Drawing.Point(568, 19);
             this.picASCOM.Name = "picASCOM";
             this.picASCOM.Size = new System.Drawing.Size(48, 56);
@@ -324,7 +324,8 @@ namespace ASCOM.Simulator
             this.buttonSetParkPosition.Size = new System.Drawing.Size(107, 35);
             this.buttonSetParkPosition.TabIndex = 8;
             this.buttonSetParkPosition.Text = "Set Park Position to Current Alt / Az";
-            this.buttonSetParkPosition.UseVisualStyleBackColor = true;
+            this.buttonSetParkPosition.BackColor = System.Windows.Forms.Button.DefaultBackColor;
+            this.buttonSetParkPosition.UseVisualStyleBackColor = false;
             this.buttonSetParkPosition.Click += new System.EventHandler(this.ButtonSetParkPosition_Click);
             // 
             // buttonParkHomeAndStartupOptions
@@ -334,7 +335,8 @@ namespace ASCOM.Simulator
             this.buttonParkHomeAndStartupOptions.Size = new System.Drawing.Size(107, 35);
             this.buttonParkHomeAndStartupOptions.TabIndex = 9;
             this.buttonParkHomeAndStartupOptions.Text = "Park, Home and Startup Options";
-            this.buttonParkHomeAndStartupOptions.UseVisualStyleBackColor = true;
+            this.buttonParkHomeAndStartupOptions.BackColor = System.Windows.Forms.Button.DefaultBackColor;
+            this.buttonParkHomeAndStartupOptions.UseVisualStyleBackColor = false;
             this.buttonParkHomeAndStartupOptions.Click += new System.EventHandler(this.ButtonParkHomeAndStartupOptions_Click);
             // 
             // groupBox2
