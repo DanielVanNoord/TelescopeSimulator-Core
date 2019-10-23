@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ASCOMStandard\ASCOMStandard\ASCOMStandard.csproj" />
-    <ProjectReference Include="..\MonoForms\System.Windows.Forms\System.Windows.Forms.csproj" />
+    <ProjectReference Include="..\System.Windows.Forms\System.Windows.Forms\System.Windows.Forms.csproj" />
     <ProjectReference Include="..\WindowsBase.Vector\WindowsBase.Vector\WindowsBase.Vector.csproj" />
   </ItemGroup>
 
