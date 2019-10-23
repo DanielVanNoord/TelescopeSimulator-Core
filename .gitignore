@@ -9,5 +9,5 @@ TelescopeSimulator.Alpaca/bin/
 TelescopeSimulator.Alpaca/obj/
 TelescopeSimulator.Linux/bin/
 TelescopeSimulator.Linux/obj/
-WindowsBase.Vector/bin/
-WindowsBase.Vector/obj/
+WindowsBase.Vector/WindowsBase.Vector/bin/
+WindowsBase.Vector/WindowsBase.Vector/obj/
