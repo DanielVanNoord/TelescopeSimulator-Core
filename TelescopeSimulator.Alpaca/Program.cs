@@ -18,6 +18,10 @@ namespace TelescopeSimulator.Alpaca
 
         public static void Main(string[] args)
         {
+            Console.CancelKeyPress += delegate {
+                Shutdown();
+            };
+
             Start(args);
         }
 
@@ -52,7 +56,14 @@ namespace TelescopeSimulator.Alpaca
             host.StopAsync();
             try
             {
-                Manager.m_MainForm.Close();
+                if (Manager.m_MainForm.InvokeRequired)
+                {
+                    Manager.m_MainForm.Invoke(new Action(() =>Manager.m_MainForm.Close()));
+                }
+                else
+                {
+                    Manager.m_MainForm.Close();
+                }
             }
             catch
             {
