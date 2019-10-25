@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -42,11 +43,24 @@ namespace TelescopeSimulator.Alpaca
 
             using (host = CreateHostBuilder(args).Build())
             {
-                host.Start();
-                using (Manager.m_MainForm = new FrmMain())
+
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
                 {
-                    Manager.m_MainForm.ShowDialog();
-                    Shutdown();
+                    //OSX does not support UI yet, just run Alpaca.
+                    //Start and block on Alpaca
+                    host.Run();
+                }
+                else
+                {
+                    //Start and do not block on Alpaca
+                    host.Start();
+                    //Linux and Windows support UI, start and block on it
+                    using (Manager.m_MainForm = new FrmMain())
+                    {
+                        Manager.m_MainForm.ShowDialog();
+                        Shutdown();
+                    }
+
                 }
             }
         }
