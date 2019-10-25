@@ -240,6 +240,7 @@ namespace ASCOM.Simulator
                         bool success = PostThreadMessage(MainThreadId, 0x0012, wParam, lParam);
                         int returnCode = Marshal.GetLastWin32Error();
                         TelescopeHardware.TL.LogMessage("ExitIf", "WM_QUIT outcome. Succcess: " + success + ", return code: " + returnCode.ToString("X"));
+                        TelescopeSimulator.Alpaca.Program.Shutdown();
                     }
                 }
             }

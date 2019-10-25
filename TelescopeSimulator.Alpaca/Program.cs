@@ -14,7 +14,8 @@ namespace TelescopeSimulator.Alpaca
 {
     public class Program
     {
-        [STAThread]
+        private static IHost host;
+
         public static void Main(string[] args)
         {
             Start(args);
@@ -35,15 +36,26 @@ namespace TelescopeSimulator.Alpaca
                 args = temparray;
             }
 
-            Manager.m_MainForm = new FrmMain();
-            Manager.m_MainForm.Show();
-            Manager.m_MainForm.Visible = true;
-
-            using (var host = CreateHostBuilder(args).Build())
+            using (host = CreateHostBuilder(args).Build())
             {
-                host.RunAsync();
-                Application.Run(Manager.m_MainForm);
-                host.StopAsync();
+                host.Start();
+                using (Manager.m_MainForm = new FrmMain())
+                {
+                    Manager.m_MainForm.ShowDialog();
+                    Shutdown();
+                }
+            }
+        }
+
+        public static void Shutdown()
+        {
+            host.StopAsync();
+            try
+            {
+                Manager.m_MainForm.Close();
+            }
+            catch
+            {
             }
         }
 
