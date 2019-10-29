@@ -665,7 +665,14 @@ namespace ASCOM.Simulator
                 // served COM objects, making this act like the VB6 equivalent!
                 //
 
-                TelescopeSimulator.Alpaca.Program.Start(new string[] {string.Empty});
+                string startupUrls = "--urls=http://127.0.0.1:4321";
+
+                using (Profile profile = new Profile())
+                {
+                    try { startupUrls = profile.GetValue(SharedResources.PROGRAM_ID, "AlpacaStartupUrls", string.Empty, "--urls=http://127.0.0.1:4321"); } catch { }
+                }
+
+                TelescopeSimulator.Alpaca.Program.Start(new string[] { startupUrls });
             }
             catch (Exception ex)
             {
