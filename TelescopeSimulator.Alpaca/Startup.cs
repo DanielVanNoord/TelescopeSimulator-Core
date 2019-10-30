@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +15,8 @@ namespace TelescopeSimulator.Alpaca
 {
     public class Startup
     {
+        public static int PortNumber = 0;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -44,6 +47,16 @@ namespace TelescopeSimulator.Alpaca
             {
                 endpoints.MapControllers();
             });
+
+            try
+            {
+                PortNumber = new Uri(app.ServerFeatures.Get<IServerAddressesFeature>().Addresses.First()).Port;
+            } 
+            catch
+            {
+                //Could not read port number
+                //Todo fix this
+            }
         }
     }
 }

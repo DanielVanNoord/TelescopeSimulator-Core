@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ASCOM.Simulator;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -19,7 +20,8 @@ namespace TelescopeSimulator.Alpaca
 
         public static void Main(string[] args)
         {
-            Console.CancelKeyPress += delegate {
+            Console.CancelKeyPress += delegate
+            {
                 Shutdown();
             };
 
@@ -44,16 +46,29 @@ namespace TelescopeSimulator.Alpaca
             using (host = CreateHostBuilder(args).Build())
             {
 
+
+                //Start and do not block on Alpaca
+                host.Start();
+
+                if (Startup.PortNumber != 0)
+                {
+                    try
+                    {
+                        DiscoveryServer server = new DiscoveryServer(Startup.PortNumber);
+                    }
+                    catch
+                    {
+                        //Todo do not crash but log discovery down
+                    }
+                }
+
+                //OSX does not support UI yet, just run Alpaca.
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
                 {
-                    //OSX does not support UI yet, just run Alpaca.
-                    //Start and block on Alpaca
-                    host.Run();
+                    host.WaitForShutdown();
                 }
                 else
                 {
-                    //Start and do not block on Alpaca
-                    host.Start();
                     //Linux and Windows support UI, start and block on it
                     using (Manager.m_MainForm = new FrmMain())
                     {
@@ -62,6 +77,7 @@ namespace TelescopeSimulator.Alpaca
                     }
 
                 }
+
             }
         }
 
@@ -72,7 +88,7 @@ namespace TelescopeSimulator.Alpaca
             {
                 if (Manager.m_MainForm.InvokeRequired)
                 {
-                    Manager.m_MainForm.Invoke(new Action(() =>Manager.m_MainForm.Close()));
+                    Manager.m_MainForm.Invoke(new Action(() => Manager.m_MainForm.Close()));
                 }
                 else
                 {
