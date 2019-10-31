@@ -48,14 +48,25 @@ namespace TelescopeSimulator.Alpaca
                 endpoints.MapControllers();
             });
 
+
             try
             {
-                PortNumber = new Uri(app.ServerFeatures.Get<IServerAddressesFeature>().Addresses.First()).Port;
+                var addresses = app.ServerFeatures.Get<IServerAddressesFeature>().Addresses;
+
+                try
+                {
+                    PortNumber = new Uri(addresses.First()).Port;
+                }
+                catch
+                {
+                    //Some Addresses are not valid Uris. These should be in the form of http://*:port. This is a quick and dirty solution to test this.
+                    PortNumber = Convert.ToInt32(addresses.First().Split(':')[2]);
+                }
             } 
             catch
             {
                 //Could not read port number
-                //Todo fix this
+                //Todo fix this, add logging
             }
         }
     }
