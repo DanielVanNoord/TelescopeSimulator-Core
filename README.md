@@ -4,7 +4,7 @@ This is an experimental port of the ASCOM .Net Telescope Simulator to .Net Core 
 
 This requires .Net Core 3.0 release to build. You can download this here: https://dotnet.microsoft.com/download/dotnet-core/3.0 or install it through Visual Studio. This can be used with Visual Studio 2019.3 or higher.
 
-This project uses Git submodules. Be sure to clone it recursively and init the
+This project uses Git submodules. Be sure to clone it recursively and init the project.
 
 There is a prebuilt set of binaries in the releases area on GitHub. 
 
