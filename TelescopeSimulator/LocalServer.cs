@@ -35,7 +35,7 @@ using ASCOM.Utilities;
 
 namespace ASCOM.Simulator
 {
-    public class TelescopeSimulator
+    public class TelescopeSimulatorLocalServer
     {
         //This is pretty rough and needs to be cleaned up for any production level handling.
         public static string AppExePath
@@ -136,7 +136,7 @@ namespace ASCOM.Simulator
         #endregion
 
         #region Public Data
-        public static FrmMain m_MainForm = null;				// Reference to our main form. Changed to public for access in simulator
+
         #endregion
 
         #region Private Data
@@ -240,6 +240,7 @@ namespace ASCOM.Simulator
                         bool success = PostThreadMessage(MainThreadId, 0x0012, wParam, lParam);
                         int returnCode = Marshal.GetLastWin32Error();
                         TelescopeHardware.TL.LogMessage("ExitIf", "WM_QUIT outcome. Succcess: " + success + ", return code: " + returnCode.ToString("X"));
+                        TelescopeSimulator.Alpaca.Program.Shutdown();
                     }
                 }
             }
@@ -648,10 +649,6 @@ namespace ASCOM.Simulator
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            m_MainForm = new FrmMain();
-            m_MainForm.Show();
-            //if (m_bComStart) m_MainForm.WindowState = FormWindowState.Minimized;
-            m_MainForm.Visible = true;
 
             // Register the class factories of the served objects
             RegisterClassFactories();
@@ -667,8 +664,15 @@ namespace ASCOM.Simulator
                 // Start the message loop. This serializes incoming calls to our
                 // served COM objects, making this act like the VB6 equivalent!
                 //
-                Application.Run(m_MainForm);
 
+                string startupUrls = "--urls=http://127.0.0.1:4321";
+
+                using (Profile profile = new Profile())
+                {
+                    try { startupUrls = profile.GetValue(SharedResources.PROGRAM_ID, "AlpacaStartupUrls", string.Empty, "--urls=http://127.0.0.1:4321"); } catch { }
+                }
+
+                TelescopeSimulator.Alpaca.Program.Start(new string[] { startupUrls });
             }
             catch (Exception ex)
             {

@@ -61,7 +61,8 @@
             this.BtnOK.Size = new System.Drawing.Size(75, 23);
             this.BtnOK.TabIndex = 8;
             this.BtnOK.Text = "OK";
-            this.BtnOK.UseVisualStyleBackColor = true;
+            this.BtnOK.BackColor = System.Windows.Forms.Button.DefaultBackColor;
+            this.BtnOK.UseVisualStyleBackColor = false;
             this.BtnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // txtStartAzimuth
@@ -188,7 +189,7 @@
             // picASCOM
             // 
             this.picASCOM.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picASCOM.Image = global::ASCOM.Simulator.Resources.ASCOM;
+            //this.picASCOM.Image = (System.Drawing.Image)TelescopeSimulator.Shared.Resource.ResourceManager.GetObject("ASCOM");
             this.picASCOM.Location = new System.Drawing.Point(291, 23);
             this.picASCOM.Name = "picASCOM";
             this.picASCOM.Size = new System.Drawing.Size(48, 56);
@@ -244,7 +245,8 @@
             this.BtnCancel.Size = new System.Drawing.Size(75, 23);
             this.BtnCancel.TabIndex = 9;
             this.BtnCancel.Text = "Cancel";
-            this.BtnCancel.UseVisualStyleBackColor = true;
+            this.BtnCancel.BackColor = System.Windows.Forms.Button.DefaultBackColor;
+            this.BtnCancel.UseVisualStyleBackColor = false;
             this.BtnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // ParkHomeAndStartupForm

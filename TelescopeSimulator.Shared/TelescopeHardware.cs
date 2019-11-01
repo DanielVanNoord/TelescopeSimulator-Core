@@ -27,8 +27,8 @@ using System.Runtime.Serialization;
 using System.Threading;
 using System.Windows;
 using ASCOM.DeviceInterface;
-using ASCOM.Utilities;
 using System.Collections.Generic;
+using ASCOM.Utilities;
 
 namespace ASCOM.Simulator
 {
@@ -272,7 +272,7 @@ namespace ASCOM.Simulator
         {
             try
             {
-                s_Profile = new Utilities.Profile();
+                s_Profile = new ASCOM.Utilities.Profile();
                 s_wTimer = new System.Windows.Forms.Timer();
                 s_wTimer.Interval = (int)(SharedResources.TIMER_INTERVAL * 1000);
                 s_wTimer.Tick += new EventHandler(M_wTimer_Tick);
@@ -293,7 +293,7 @@ namespace ASCOM.Simulator
                 StartupOptions = new List<string>() { STARTUP_OPTION_SIMULATOR_DEFAULT_POSITION, STARTUP_OPTION_LASTUSED_POSITION, STARTUP_OPTION_START_POSITION, STARTUP_OPTION_PARKED_POSITION, STARTUP_OPTION_HOME_POSITION };
 
                 // check if the profile settings are correct 
-                if (s_Profile.GetValue(SharedResources.PROGRAM_ID, "RegVer", "") != SharedResources.REGISTRATION_VERSION)
+                if (s_Profile.GetValue(SharedResources.PROGRAM_ID, "RegVer", "", "0") != SharedResources.REGISTRATION_VERSION)
                 {
                     // load the default settings
                     //Main Driver Settings
@@ -523,13 +523,13 @@ namespace ASCOM.Simulator
 
                 if (latitude < 0) { SouthernHemisphere = true; }
 
-                if (TelescopeSimulator.m_MainForm == null)
+                if (Manager.m_MainForm == null)
                 {
-                    TelescopeSimulator.m_MainForm = new FrmMain();
+                    Manager.m_MainForm = new FrmMain();
                 }
 
                 //Set the form setting for the Always On Top Value
-                TelescopeSimulator.m_MainForm.TopMost = onTop;
+                Manager.m_MainForm.TopMost = onTop;
 
                 slewSpeedFast = maximumSlewRate * SharedResources.TIMER_INTERVAL;
                 slewSpeedMedium = slewSpeedFast * 0.1;
@@ -561,7 +561,7 @@ namespace ASCOM.Simulator
             }
             catch (Exception ex)
             {
-                EventLogCode.LogEvent("ASCOM.SimulatorCore.Telescope", "TelescopeHardware Initialiser Exception", EventLogEntryType.Error, GlobalConstants.EventLogErrors.TelescopeSimulatorNew, ex.ToString());
+                //EventLogCode.LogEvent("ASCOM.SimulatorCore.Telescope", "TelescopeHardware Initialiser Exception", EventLogEntryType.Error, GlobalConstants.EventLogErrors.TelescopeSimulatorNew, ex.ToString());
                 System.Windows.Forms.MessageBox.Show("Telescope HardwareInitialise: " + ex.ToString());
             }
         }
@@ -1277,7 +1277,7 @@ namespace ASCOM.Simulator
                 {
                     trackingMode = TrackingMode.Off;
                 }
-                TelescopeSimulator.m_MainForm.Tracking();
+                Manager.m_MainForm.Tracking();
             }
         }
 
@@ -1484,8 +1484,8 @@ namespace ASCOM.Simulator
         public static void ChangePark(bool newValue)
         {
             AtPark = newValue;
-            if (AtPark) TelescopeSimulator.m_MainForm.ParkButton("Unpark");
-            else TelescopeSimulator.m_MainForm.ParkButton("Park");
+            if (AtPark) Manager.m_MainForm.ParkButton("Unpark");
+            else Manager.m_MainForm.ParkButton("Park");
         }
 
         public static double AvailableTimeInThisPointingState
@@ -1872,17 +1872,17 @@ namespace ASCOM.Simulator
         private static void UpdateDisplay()
         {
             // display the values, must be done on the UI thread
-            TelescopeSimulator.m_MainForm.SiderealTime(SiderealTime);
-            TelescopeSimulator.m_MainForm.Altitude(Altitude);
-            TelescopeSimulator.m_MainForm.Azimuth(Azimuth);
-            TelescopeSimulator.m_MainForm.RightAscension(RightAscension);
-            TelescopeSimulator.m_MainForm.Declination(Declination);
-            TelescopeSimulator.m_MainForm.Tracking();
-            TelescopeSimulator.m_MainForm.LedPier(SideOfPier);
+            Manager.m_MainForm.SiderealTime(SiderealTime);
+            Manager.m_MainForm.Altitude(Altitude);
+            Manager.m_MainForm.Azimuth(Azimuth);
+            Manager.m_MainForm.RightAscension(RightAscension);
+            Manager.m_MainForm.Declination(Declination);
+            Manager.m_MainForm.Tracking();
+            Manager.m_MainForm.LedPier(SideOfPier);
 
-            TelescopeSimulator.m_MainForm.LabelState(TelescopeSimulator.m_MainForm.lblPARK, AtPark);
-            TelescopeSimulator.m_MainForm.LabelState(TelescopeSimulator.m_MainForm.lblHOME, AtHome);
-            TelescopeSimulator.m_MainForm.LabelState(TelescopeSimulator.m_MainForm.labelSlew, IsSlewing);
+            Manager.m_MainForm.LabelState(Manager.m_MainForm.lblPARK, AtPark);
+            Manager.m_MainForm.LabelState(Manager.m_MainForm.lblHOME, AtHome);
+            Manager.m_MainForm.LabelState(Manager.m_MainForm.labelSlew, IsSlewing);
         }
 
         #endregion

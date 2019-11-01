@@ -52,8 +52,8 @@ namespace ASCOM.Simulator
             this.buttonSlewDown = new System.Windows.Forms.Button();
             this.buttonSlewStop = new System.Windows.Forms.Button();
             this.pictureBoxPierSideEast = new System.Windows.Forms.PictureBox();
-            this.ledPierEast = new ASCOM.Controls.LedIndicator();
-            this.ledPierWest = new ASCOM.Controls.LedIndicator();
+            //this.ledPierEast = new ASCOM.Controls.LedIndicator();
+            //this.ledPierWest = new ASCOM.Controls.LedIndicator();
             this.checkBoxTrack = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.buttonTraffic = new System.Windows.Forms.Button();
@@ -226,8 +226,8 @@ namespace ASCOM.Simulator
             this.tableLayoutPanel2.Controls.Add(this.buttonSlewDown, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.buttonSlewStop, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.pictureBoxPierSideEast, 2, 0);
-            this.tableLayoutPanel2.Controls.Add(this.ledPierEast, 2, 2);
-            this.tableLayoutPanel2.Controls.Add(this.ledPierWest, 0, 2);
+            //this.tableLayoutPanel2.Controls.Add(this.ledPierEast, 2, 2);
+            //this.tableLayoutPanel2.Controls.Add(this.ledPierWest, 0, 2);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(12, 250);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
@@ -253,7 +253,8 @@ namespace ASCOM.Simulator
             this.buttonSlewUp.Size = new System.Drawing.Size(32, 31);
             this.buttonSlewUp.TabIndex = 0;
             this.buttonSlewUp.Text = "N";
-            this.buttonSlewUp.UseVisualStyleBackColor = true;
+            this.buttonSlewUp.BackColor = System.Windows.Forms.Button.DefaultBackColor;
+            this.buttonSlewUp.UseVisualStyleBackColor = false;
             this.buttonSlewUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonSlewUp_MouseDown);
             this.buttonSlewUp.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonSlewUp_MouseUp);
             // 
@@ -265,7 +266,8 @@ namespace ASCOM.Simulator
             this.buttonSlewRight.Size = new System.Drawing.Size(33, 31);
             this.buttonSlewRight.TabIndex = 3;
             this.buttonSlewRight.Text = "E";
-            this.buttonSlewRight.UseVisualStyleBackColor = true;
+            this.buttonSlewRight.BackColor = System.Windows.Forms.Button.DefaultBackColor;
+            this.buttonSlewRight.UseVisualStyleBackColor = false;
             this.buttonSlewRight.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonSlewRight_MouseDown);
             this.buttonSlewRight.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonSlewRight_MouseUp);
             // 
@@ -277,7 +279,8 @@ namespace ASCOM.Simulator
             this.buttonSlewLeft.Size = new System.Drawing.Size(32, 31);
             this.buttonSlewLeft.TabIndex = 1;
             this.buttonSlewLeft.Text = "W";
-            this.buttonSlewLeft.UseVisualStyleBackColor = true;
+            this.buttonSlewLeft.BackColor = System.Windows.Forms.Button.DefaultBackColor;
+            this.buttonSlewLeft.UseVisualStyleBackColor = false;
             this.buttonSlewLeft.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonSlewLeft_MouseDown);
             this.buttonSlewLeft.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonSlewLeft_MouseUp);
             // 
@@ -289,7 +292,8 @@ namespace ASCOM.Simulator
             this.buttonSlewDown.Size = new System.Drawing.Size(32, 31);
             this.buttonSlewDown.TabIndex = 4;
             this.buttonSlewDown.Text = "S";
-            this.buttonSlewDown.UseVisualStyleBackColor = true;
+            this.buttonSlewDown.BackColor = System.Windows.Forms.Button.DefaultBackColor;
+            this.buttonSlewDown.UseVisualStyleBackColor = false;
             this.buttonSlewDown.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonSlewDown_MouseDown);
             this.buttonSlewDown.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonSlewDown_MouseUp);
             // 
@@ -297,12 +301,13 @@ namespace ASCOM.Simulator
             // 
             this.buttonSlewStop.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonSlewStop.Font = new System.Drawing.Font("Wingdings 2", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.buttonSlewStop.Image = ((System.Drawing.Image)(resources.GetObject("buttonSlewStop.Image")));
+            //this.buttonSlewStop.Image = ((System.Drawing.Bitmap)(resources.GetObject("buttonSlewStop.Image")));
             this.buttonSlewStop.Location = new System.Drawing.Point(41, 40);
             this.buttonSlewStop.Name = "buttonSlewStop";
             this.buttonSlewStop.Size = new System.Drawing.Size(32, 31);
             this.buttonSlewStop.TabIndex = 2;
-            this.buttonSlewStop.UseVisualStyleBackColor = true;
+            this.buttonSlewStop.BackColor = System.Drawing.Color.Red;
+            this.buttonSlewStop.UseVisualStyleBackColor = false;
             this.buttonSlewStop.Click += new System.EventHandler(this.ButtonSlewStop_Click);
             // 
             // pictureBoxPierSideEast
@@ -315,25 +320,25 @@ namespace ASCOM.Simulator
             // 
             // ledPierEast
             // 
-            this.ledPierEast.Anchor = System.Windows.Forms.AnchorStyles.None;
+            /*this.ledPierEast.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ledPierEast.LabelText = "";
             this.ledPierEast.Location = new System.Drawing.Point(87, 84);
             this.ledPierEast.Name = "ledPierEast";
             this.ledPierEast.Size = new System.Drawing.Size(17, 16);
             this.ledPierEast.TabIndex = 6;
             this.ledPierEast.TabStop = false;
-            this.toolTip1.SetToolTip(this.ledPierEast, "Normal pointing state, scope on East side of Pier, looking West");
+            this.toolTip1.SetToolTip(this.ledPierEast, "Normal pointing state, scope on East side of Pier, looking West");*/
             // 
             // ledPierWest
             // 
-            this.ledPierWest.Anchor = System.Windows.Forms.AnchorStyles.None;
+            /*this.ledPierWest.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ledPierWest.LabelText = "";
             this.ledPierWest.Location = new System.Drawing.Point(11, 84);
             this.ledPierWest.Name = "ledPierWest";
             this.ledPierWest.Size = new System.Drawing.Size(16, 16);
             this.ledPierWest.TabIndex = 5;
             this.ledPierWest.TabStop = false;
-            this.toolTip1.SetToolTip(this.ledPierWest, "Through the pole pointing State, scope on West Side of Pier, looking East");
+            this.toolTip1.SetToolTip(this.ledPierWest, "Through the pole pointing State, scope on West Side of Pier, looking East");*/
             // 
             // checkBoxTrack
             // 
@@ -372,7 +377,8 @@ namespace ASCOM.Simulator
             this.buttonTraffic.Size = new System.Drawing.Size(52, 27);
             this.buttonTraffic.TabIndex = 3;
             this.buttonTraffic.Text = "Traffic";
-            this.buttonTraffic.UseVisualStyleBackColor = true;
+            this.buttonTraffic.BackColor = System.Windows.Forms.Button.DefaultBackColor;
+            this.buttonTraffic.UseVisualStyleBackColor = false;
             this.buttonTraffic.Click += new System.EventHandler(this.ButtonTraffic_Click);
             // 
             // buttonSetup
@@ -383,7 +389,8 @@ namespace ASCOM.Simulator
             this.buttonSetup.Size = new System.Drawing.Size(51, 27);
             this.buttonSetup.TabIndex = 2;
             this.buttonSetup.Text = "Setup";
-            this.buttonSetup.UseVisualStyleBackColor = true;
+            this.buttonSetup.BackColor = System.Windows.Forms.Button.DefaultBackColor;
+            this.buttonSetup.UseVisualStyleBackColor = false;
             this.buttonSetup.Click += new System.EventHandler(this.ButtonSetup_Click);
             // 
             // buttonHome
@@ -394,7 +401,8 @@ namespace ASCOM.Simulator
             this.buttonHome.Size = new System.Drawing.Size(52, 26);
             this.buttonHome.TabIndex = 1;
             this.buttonHome.Text = "Home";
-            this.buttonHome.UseVisualStyleBackColor = true;
+            this.buttonHome.BackColor = System.Windows.Forms.Button.DefaultBackColor;
+            this.buttonHome.UseVisualStyleBackColor = false;
             this.buttonHome.Click += new System.EventHandler(this.ButtonHome_Click);
             // 
             // buttonUnpark
@@ -405,7 +413,8 @@ namespace ASCOM.Simulator
             this.buttonUnpark.Size = new System.Drawing.Size(51, 26);
             this.buttonUnpark.TabIndex = 0;
             this.buttonUnpark.Text = "Unpark";
-            this.buttonUnpark.UseVisualStyleBackColor = true;
+            this.buttonUnpark.BackColor = System.Windows.Forms.Button.DefaultBackColor;
+            this.buttonUnpark.UseVisualStyleBackColor = false;
             this.buttonUnpark.Click += new System.EventHandler(this.ButtonUnpark_Click);
             // 
             // tableLayoutPanel4
@@ -454,7 +463,7 @@ namespace ASCOM.Simulator
             // picASCOM
             // 
             this.picASCOM.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picASCOM.Image = global::ASCOM.Simulator.Resources.ASCOM;
+            //this.picASCOM.Image = (System.Drawing.Image)TelescopeSimulator.Shared.Resource.ResourceManager.GetObject("ASCOM");
             this.picASCOM.Location = new System.Drawing.Point(79, 10);
             this.picASCOM.Name = "picASCOM";
             this.picASCOM.Size = new System.Drawing.Size(48, 56);
@@ -559,7 +568,7 @@ namespace ASCOM.Simulator
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.picASCOM);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            //this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmMain";
             this.Text = "Telescope Simulator";
             this.Load += new System.EventHandler(this.FrmMain_Load);
@@ -614,8 +623,8 @@ namespace ASCOM.Simulator
         private System.Windows.Forms.PictureBox pictureBoxPierSideEast;
         internal System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         internal System.Windows.Forms.Label labelSlew;
-        private ASCOM.Controls.LedIndicator ledPierEast;
-        private ASCOM.Controls.LedIndicator ledPierWest;
+        //private ASCOM.Controls.LedIndicator ledPierEast;
+        //private ASCOM.Controls.LedIndicator ledPierWest;
 		private System.Windows.Forms.ToolTip toolTip1;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
 		private System.Windows.Forms.RadioButton radioButtonPulseGuide;

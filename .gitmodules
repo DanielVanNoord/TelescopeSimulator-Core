@@ -1,3 +1,9 @@
 [submodule "ASCOM.Core"]
 	path = ASCOM.Core
 	url = https://github.com/DanielVanNoord/ASCOM.Core
+[submodule "ASCOMStandard"]
+	path = ASCOMStandard
+	url = https://github.com/ASCOMInitiative/ASCOMStandard
+[submodule "System.Windows.Forms"]
+	path = System.Windows.Forms
+	url = https://github.com/DanielVanNoord/System.Windows.Forms

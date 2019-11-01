@@ -2,8 +2,9 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using ASCOM.Utilities;
 using System.Globalization;
+using System.Runtime.InteropServices;
+using System.Text;
 
 namespace ASCOM.Simulator
 {
@@ -40,7 +41,7 @@ namespace ASCOM.Simulator
             }
 
             string startupOption;
-            using (Profile profile = new Profile())
+            using (ASCOM.Utilities.Profile profile = new ASCOM.Utilities.Profile())
             {
                 startupOption = profile.GetValue(SharedResources.PROGRAM_ID, "StartUpMode", "",TelescopeHardware.StartupOptions[0]);
             }
@@ -100,15 +101,23 @@ namespace ASCOM.Simulator
             if (e.Index < 0) return;
 
             ComboBox combo = sender as ComboBox;
+
+            var text = combo.Items[e.Index].ToString();
+
+            if (!RuntimeInformation.IsOSPlatform((OSPlatform.Windows)))
+            {
+                text = Encoding.UTF8.GetString(Encoding.Unicode.GetBytes(text));
+            }
+
             if ((e.State & DrawItemState.Selected) == DrawItemState.Selected) // Draw the selected item in menu highlight colour
             {
                 e.Graphics.FillRectangle(new SolidBrush(SystemColors.MenuHighlight), e.Bounds);
-                e.Graphics.DrawString(combo.Items[e.Index].ToString(), e.Font, new SolidBrush(SystemColors.HighlightText), new Point(e.Bounds.X, e.Bounds.Y));
+                e.Graphics.DrawString(text, e.Font, new SolidBrush(SystemColors.HighlightText), new Point(e.Bounds.X, e.Bounds.Y));
             }
             else
             {
                 e.Graphics.FillRectangle(new SolidBrush(SystemColors.Window), e.Bounds);
-                e.Graphics.DrawString(combo.Items[e.Index].ToString(), e.Font, new SolidBrush(combo.ForeColor), new Point(e.Bounds.X, e.Bounds.Y));
+                e.Graphics.DrawString(text, e.Font, new SolidBrush(combo.ForeColor), new Point(e.Bounds.X, e.Bounds.Y));
             }
 
             e.DrawFocusRectangle();
@@ -122,7 +131,7 @@ namespace ASCOM.Simulator
             TelescopeHardware.ParkAltitude = double.Parse(txtParkAltitude.Text);
             TelescopeHardware.HomePosition.X = double.Parse(TxtHomeAzimuth.Text);
             TelescopeHardware.HomePosition.Y = double.Parse(TxtHomeAltitude.Text);
-            using (Profile profile = new Profile())
+            using (ASCOM.Utilities.Profile profile = new ASCOM.Utilities.Profile())
             {
                 profile.WriteValue(SharedResources.PROGRAM_ID, "HomeAzimuth", TelescopeHardware.HomePosition.X.ToString(CultureInfo.InvariantCulture));
                 profile.WriteValue(SharedResources.PROGRAM_ID, "HomeAltitude", TelescopeHardware.HomePosition.Y.ToString(CultureInfo.InvariantCulture));
