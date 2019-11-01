@@ -10,7 +10,7 @@ There is a prebuilt set of binaries in the releases area on GitHub.
 
 It is best to register the server directly using the -register argument. All the server registration, including elevation, should be working. Passing the -register argument from the Visual Studio project debug arguments is currently not working as the server is run within the dotnet.exe tool when started from the debugger rather then standalone. You can attach to it after it is started to debug the registration.
 
-The Linux version uses a .Net Core port of System.Windows.Forms based on the Mono version. This uses System.Drawing.Common and requires at least libx11 and libgdiplus to run. The Mac version has no UI at present. 
+The Linux version uses a .Net Core port of System.Windows.Forms based on the Mono version. This uses System.Drawing.Common and requires at least libx11 (libx11-dev on Debian, libX11-devel on Fedora) and libgdiplus to run. The Mac version has no UI at present. 
 
 By default the Alpaca only builds are bound to local host and port 4321. To bind to all of the host computer's ip addresses (or change the port) you can start it with --urls=http://*:4321.
 
