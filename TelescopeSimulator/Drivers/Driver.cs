@@ -220,7 +220,6 @@ namespace ASCOM.Simulator
 
         public void SetupDialog()
         {
-            System.Windows.Forms.MessageBox.Show("Here");
             //Normally cross platform drivers do not have a setup dialog. However this one is special.
             TelescopeInstance.SetupDialog();
         }
