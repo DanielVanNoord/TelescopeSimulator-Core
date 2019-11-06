@@ -1,12 +1,14 @@
-﻿using ASCOM.Alpaca.Responses;
+﻿using ASCOM.Alpaca.Controllers;
+using ASCOM.Alpaca.Responses;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace TelescopeSimulator.Alpaca.Controllers
+namespace ASCOM.Alpaca.Controllers
 {
+    [ApiController]
     public class TelescopeController : Controller
     {
         private const string APIRoot = "api/v1/telescope/";

@@ -74,7 +74,6 @@ namespace ASCOM.Simulator
             }
             catch (Exception ex)
             {
-                EventLogCode.LogEvent("ASCOM.SimulatorCore.Telescope", "Exception on New", EventLogEntryType.Error, GlobalConstants.EventLogErrors.TelescopeSimulatorNew, ex.ToString());
                 System.Windows.Forms.MessageBox.Show("Telescope New: " + ex.ToString());
             }
         }
@@ -221,6 +220,7 @@ namespace ASCOM.Simulator
 
         public void SetupDialog()
         {
+            System.Windows.Forms.MessageBox.Show("Here");
             //Normally cross platform drivers do not have a setup dialog. However this one is special.
             TelescopeInstance.SetupDialog();
         }

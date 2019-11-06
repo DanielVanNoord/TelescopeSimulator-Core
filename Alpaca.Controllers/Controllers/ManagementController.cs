@@ -1,11 +1,13 @@
-﻿using ASCOM.Alpaca.Responses;
+﻿using ASCOM.Alpaca.Controllers;
+using ASCOM.Alpaca.Responses;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace TelescopeSimulator.Alpaca.Controllers
+namespace ASCOM.Alpaca.Controllers
 {
+    [ApiController]
     public class ManagementController : Controller
     {
         private static uint transactionID = 0;
@@ -41,7 +43,7 @@ namespace TelescopeSimulator.Alpaca.Controllers
         [Route("management/v1/configureddevices")]
         public AlpacaConfiguredDevicesResponse ConfiguredDevices(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
-            return new AlpacaConfiguredDevicesResponse(ClientTransactionID, TransactionID, configuredDevices);
+            return new AlpacaConfiguredDevicesResponse(ClientTransactionID, TransactionID, null);
         }
     }
 }

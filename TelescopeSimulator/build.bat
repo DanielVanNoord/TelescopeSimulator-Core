@@ -1,1 +1,1 @@
-dotnet publish -c Debug -r win-x64 -o bin/Build/ --self-contained=true /p:PublishSingleFile=true /p:PublishTrimmed=true /p:PublishReadyToRun=true /p:PublishReadyToRunShowWarnings=true
+dotnet publish -c Release -r win-x64 -o bin/Build/ --self-contained=true /p:PublishSingleFile=true /p:PublishTrimmed=true /p:PublishReadyToRun=true /p:PublishReadyToRunShowWarnings=true

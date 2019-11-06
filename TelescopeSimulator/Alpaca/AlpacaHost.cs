@@ -1,27 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using ASCOM.Simulator;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Hosting.Server.Features;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.EventLog;
+using System;
+using System.Linq;
+using System.Runtime.InteropServices;
+using TelescopeSimulator.Alpaca;
 
-namespace TelescopeSimulator.Alpaca
+namespace TelescopeSimulator
 {
-    public class Program
+    public class AlpacaHost
     {
-        private static IHost host;
+        private static IWebHost host;
 
-        public static void Main(string[] args)
+        public static void Init(string[] args)
         {
             Console.CancelKeyPress += delegate
             {
@@ -33,6 +25,7 @@ namespace TelescopeSimulator.Alpaca
 
         public static void Start(string[] args)
         {
+            var t = typeof(ASCOM.Alpaca.Controllers.ManagementController);
             if (!args.Any(str => str.Contains("--urls")))
             {
                 Console.WriteLine("No startup args detected, binding to local host and default port.");
@@ -48,18 +41,16 @@ namespace TelescopeSimulator.Alpaca
 
             ASCOM.Alpaca.Controllers.DeviceManager.SetTelescopeAccess(TelescopeSimulator.DeviceManager.GetTelescope);
 
-            using (host = CreateHostBuilder(args).Build())
+            using (host = CreateWebHostBuilder(args).Build())
             {
-
-
                 //Start and do not block on Alpaca
                 host.Start();
 
-                if (Startup.PortNumber != 0)
+                if (4321 != 0)
                 {
                     try
                     {
-                        DiscoveryServer server = new DiscoveryServer(Startup.PortNumber);
+                        DiscoveryServer server = new DiscoveryServer(4321);
                     }
                     catch
                     {
@@ -80,9 +71,7 @@ namespace TelescopeSimulator.Alpaca
                         Manager.m_MainForm.ShowDialog();
                         Shutdown();
                     }
-
                 }
-
             }
         }
 
@@ -105,13 +94,9 @@ namespace TelescopeSimulator.Alpaca
             }
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                    webBuilder.UseKestrel();
-                });
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>()
+                .UseKestrel();
     }
-    
 }

@@ -15,23 +15,21 @@
 //If this is started by the debugger it will be hosted by dotnet runtime exe rather then itself.
 //#define REGISTERINDEBUG
 
-
-using System;
-using System.IO;
-using System.Windows.Forms;
-using System.Drawing;
-using System.Collections;
-using System.Runtime.InteropServices;
-using System.Reflection;
-using Microsoft.Win32;
-using System.Text;
-using System.Threading;
-using System.Globalization;
-using System.Security.Principal;
-using System.Diagnostics;
 using ASCOM.Utilities;
-
-
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Win32;
+using System;
+using System.Collections;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Security.Principal;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ASCOM.Simulator
 {
@@ -46,7 +44,7 @@ namespace ASCOM.Simulator
                 {
                     return Application.ExecutablePath;
                 }
-                else if(Application.ExecutablePath.EndsWith(".dll"))
+                else if (Application.ExecutablePath.EndsWith(".dll"))
                 {
                     return Application.ExecutablePath.Split(new string[] { ".dll" }, StringSplitOptions.None)[0] + ".exe";
                 }
@@ -58,8 +56,9 @@ namespace ASCOM.Simulator
         }
 
         #region Access to kernel32.dll, user32.dll, and ole32.dll functions
+
         [Flags]
-        enum CLSCTX : uint
+        private enum CLSCTX : uint
         {
             CLSCTX_INPROC_SERVER = 0x1,
             CLSCTX_INPROC_HANDLER = 0x2,
@@ -85,20 +84,23 @@ namespace ASCOM.Simulator
         }
 
         [Flags]
-        enum COINIT : uint
+        private enum COINIT : uint
         {
             /// Initializes the thread for multi-threaded object concurrency.
             COINIT_MULTITHREADED = 0x0,
-            /// Initializes the thread for apartment-threaded object concurrency. 
+
+            /// Initializes the thread for apartment-threaded object concurrency.
             COINIT_APARTMENTTHREADED = 0x2,
+
             /// Disables DDE for Ole1 support.
             COINIT_DISABLE_OLE1DDE = 0x4,
+
             /// Trades memory for speed.
             COINIT_SPEED_OVER_MEMORY = 0x8
         }
 
         [Flags]
-        enum REGCLS : uint
+        private enum REGCLS : uint
         {
             REGCLS_SINGLEUSE = 0,
             REGCLS_MULTIPLEUSE = 1,
@@ -107,37 +109,35 @@ namespace ASCOM.Simulator
             REGCLS_SURROGATE = 8
         }
 
-
         // CoInitializeEx() can be used to set the apartment model
         // of individual threads.
         [DllImport("ole32.dll")]
-        static extern int CoInitializeEx(IntPtr pvReserved, uint dwCoInit);
+        private static extern int CoInitializeEx(IntPtr pvReserved, uint dwCoInit);
 
         // CoUninitialize() is used to uninitialize a COM thread.
         [DllImport("ole32.dll")]
-        static extern void CoUninitialize();
+        private static extern void CoUninitialize();
 
         // PostThreadMessage() allows us to post a Windows Message to
         // a specific thread (identified by its thread id).
-        // We will need this API to post a WM_QUIT message to the main 
+        // We will need this API to post a WM_QUIT message to the main
         // thread in order to terminate this application.
         //[DllImport("user32.dll")]
         //static extern bool PostThreadMessage(uint idThread, uint Msg, UIntPtr wParam, IntPtr lParam);
 
         [return: MarshalAs(UnmanagedType.Bool)]
         [DllImport("user32.dll", SetLastError = true)]
-        static extern bool PostThreadMessage(uint idThread, uint Msg, UIntPtr wParam, IntPtr lParam);
+        private static extern bool PostThreadMessage(uint idThread, uint Msg, UIntPtr wParam, IntPtr lParam);
 
         // GetCurrentThreadId() allows us to obtain the thread id of the
         // calling thread. This allows us to post the WM_QUIT message to
         // the main thread.
         [DllImport("kernel32.dll")]
-        static extern uint GetCurrentThreadId();
-        #endregion
+        private static extern uint GetCurrentThreadId();
 
-        #region Public Data
+        #endregion Access to kernel32.dll, user32.dll, and ole32.dll functions
 
-        #endregion
+
 
         #region Private Data
         private static uint m_uiMainThreadId;					        // Stores the main thread's thread id.
@@ -150,7 +150,8 @@ namespace ASCOM.Simulator
         private static ArrayList m_ClassFactories;				        // Served COM object class factories
         private static string m_sAppId = "{fe02799d-b48a-46f0-add7-a06d40beb2e9}";	// Our AppId
         private static readonly object lockObj = new object();
-        #endregion
+
+        #endregion Private Data
 
         // This property returns the main thread's id.
         public static uint MainThreadId { get { return m_uiMainThreadId; } }
@@ -158,8 +159,8 @@ namespace ASCOM.Simulator
         // Used to tell if started by COM or manually
         public static bool StartedByCOM { get { return m_bComStart; } }
 
-
         #region Server Lock, Object Counting, and AutoQuit on COM startup
+
         // Returns the total number of objects alive currently.
         public static int ObjectsCount
         {
@@ -200,7 +201,7 @@ namespace ASCOM.Simulator
             }
         }
 
-        // This method performs a thread-safe incrementation the 
+        // This method performs a thread-safe incrementation the
         // server lock count.
         public static int CountLock()
         {
@@ -209,7 +210,7 @@ namespace ASCOM.Simulator
             return Interlocked.Increment(ref m_iServerLocks);
         }
 
-        // This method performs a thread-safe decrementation the 
+        // This method performs a thread-safe decrementation the
         // server lock count.
         public static int UncountLock()
         {
@@ -218,11 +219,11 @@ namespace ASCOM.Simulator
             return Interlocked.Decrement(ref m_iServerLocks);
         }
 
-        // AttemptToTerminateServer() will check to see if the objects count and the server 
+        // AttemptToTerminateServer() will check to see if the objects count and the server
         // lock count have both dropped to zero.
         //
         // If so, and if we were started by COM, we post a WM_QUIT message to the main thread's
-        // message loop. This will cause the message loop to exit and hence the termination 
+        // message loop. This will cause the message loop to exit and hence the termination
         // of this application. If hand-started, then just trace that it WOULD exit now.
         //
         public static void ExitIf()
@@ -240,18 +241,20 @@ namespace ASCOM.Simulator
                         bool success = PostThreadMessage(MainThreadId, 0x0012, wParam, lParam);
                         int returnCode = Marshal.GetLastWin32Error();
                         TelescopeHardware.TL.LogMessage("ExitIf", "WM_QUIT outcome. Succcess: " + success + ", return code: " + returnCode.ToString("X"));
-                        TelescopeSimulator.Alpaca.Program.Shutdown();
+                        //TelescopeSimulator.Alpaca.Program.Shutdown();
                     }
                 }
             }
         }
-        #endregion
+
+        #endregion Server Lock, Object Counting, and AutoQuit on COM startup
 
         // -----------------
         // PRIVATE FUNCTIONS
         // -----------------
 
         #region Dynamic Driver Assembly Loader
+
         //
         // Load the assemblies that contain the classes that we will serve
         // via COM. These will be located in the subfolder ServedClasses
@@ -293,9 +296,11 @@ namespace ASCOM.Simulator
 
             return true;
         }
-        #endregion
+
+        #endregion Dynamic Driver Assembly Loader
 
         #region COM Registration and Unregistration
+
         //
         // Test if running elevated
         //
@@ -321,7 +326,7 @@ namespace ASCOM.Simulator
             si.FileName = "dotnet";
             si.Arguments = AppExePath + " " + arg;
 #else
-            si.FileName = Path.GetFileName(AppExePath);		
+            si.FileName = Path.GetFileName(AppExePath);
             si.Arguments = arg;
 #endif
             si.Verb = "runas";
@@ -340,7 +345,7 @@ namespace ASCOM.Simulator
 
         //
         // Do everything to register this for COM. Never use REGASM on
-        // this exe assembly! It would create InProcServer32 entries 
+        // this exe assembly! It would create InProcServer32 entries
         // which would prevent proper activation!
         //
         // Using the list of COM object types generated during dynamic
@@ -449,7 +454,7 @@ namespace ASCOM.Simulator
                         }
                     }
                     //
-                    // ASCOM 
+                    // ASCOM
                     //
                     assy = type.Assembly;
                     //attr = Attribute.GetCustomAttribute(assy, typeof(AssemblyProductAttribute));
@@ -479,7 +484,7 @@ namespace ASCOM.Simulator
         }
 
         //
-        // Remove all traces of this from the registry. 
+        // Remove all traces of this from the registry.
         //
         // **TODO** If the above does AppID/DCOM stuff, this would have
         // to remove that stuff too.
@@ -541,9 +546,11 @@ namespace ASCOM.Simulator
                 catch (Exception) { }
             }
         }
-        #endregion
+
+        #endregion COM Registration and Unregistration
 
         #region Class Factory Support
+
         //
         // On startup, we register the class factories of the COM objects
         // that we serve. This requires the class facgtory name to be
@@ -574,9 +581,11 @@ namespace ASCOM.Simulator
             foreach (ClassFactory factory in m_ClassFactories)
                 factory.RevokeClassObject();
         }
-        #endregion
+
+        #endregion Class Factory Support
 
         #region Command Line Arguments
+
         //
         // ProcessArguments() will process the command-line arguments
         // If the return value is true, we carry on and start this application.
@@ -591,7 +600,6 @@ namespace ASCOM.Simulator
             //
             if (args.Length > 0)
             {
-
                 switch (args[0].ToUpperInvariant())
                 {
                     case "-EMBEDDING":
@@ -625,16 +633,18 @@ namespace ASCOM.Simulator
 
             return bRet;
         }
-        #endregion
+
+        #endregion Command Line Arguments
 
         #region SERVER ENTRY POINT (main)
+
         //
         // ==================
         // SERVER ENTRY POINT
         // ==================
         //
         [STAThread]
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             //MessageBox.Show("Test");            // used to allow debugging
             if (!LoadComObjectAssemblies()) return;						// Load served COM class assemblies, get types
@@ -671,8 +681,35 @@ namespace ASCOM.Simulator
                 {
                     try { startupUrls = profile.GetValue(SharedResources.PROGRAM_ID, "AlpacaStartupUrls", string.Empty, "--urls=http://127.0.0.1:4321"); } catch { }
                 }
+                TelescopeSimulator.AlpacaHost.Start(new string[] { startupUrls });
+                /*using (IWebHost host = CreateWebHostBuilder(args).Build())
+                {
+                    host.Start();
 
-                TelescopeSimulator.Alpaca.Program.Start(new string[] { startupUrls });
+                    if (4321 != 0)
+                    {
+                        try
+                        {
+                            TelescopeSimulator.Alpaca.DiscoveryServer server = new TelescopeSimulator.Alpaca.DiscoveryServer(4321);
+                        }
+                        catch
+                        {
+                            //Todo do not crash but log discovery down
+                        }
+                    }
+
+                    Task.Run(() =>
+                    {
+                        using (Manager.m_MainForm = new FrmMain())
+                        {
+                            Manager.m_MainForm.ShowDialog();
+                            Shutdown();
+                            host.StopAsync();
+                        }
+                    });
+
+                    host.WaitForShutdown();
+                }*/
             }
             catch (Exception ex)
             {
@@ -701,6 +738,31 @@ namespace ASCOM.Simulator
                 GarbageCollector.WaitForThreadToStop();
             }
         }
-        #endregion
+
+        #endregion SERVER ENTRY POINT (main)
+
+        public static void Shutdown()
+        {
+
+            try
+            {
+                if (Manager.m_MainForm.InvokeRequired)
+                {
+                    Manager.m_MainForm.Invoke(new Action(() => Manager.m_MainForm.Close()));
+                }
+                else
+                {
+                    Manager.m_MainForm.Close();
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+        WebHost.CreateDefaultBuilder(args)
+        .UseStartup<TelescopeSimulator.Startup>()
+        .UseKestrel();
     }
 }

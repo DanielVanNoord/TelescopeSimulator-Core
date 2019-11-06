@@ -2,18 +2,22 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <RuntimeIdentifiers>any;win-x64;win-x86;linux-x64;linux-musl-x64;linux-arm;linux-arm64;osx-x64</RuntimeIdentifiers>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TelescopeSimulator.Linux\TelescopeSimulator.Linux.csproj" Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' "/>
-    <ProjectReference Include="..\TelescopeSimulator.Shared\TelescopeSimulator.Shared.csproj" Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' "/>
+    <ProjectReference Include="..\Alpaca.Controllers\ASCOM.Alpaca.Controllers.csproj" />
+    <ProjectReference Include="..\TelescopeSimulator.Linux\TelescopeSimulator.Linux.csproj" Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' " />
+    <ProjectReference Include="..\TelescopeSimulator.Shared\TelescopeSimulator.Shared.csproj" Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' " />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="ASCOM.DeviceInterfaces">
       <HintPath>..\TempDependencies\ASCOM.DeviceInterfaces.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
