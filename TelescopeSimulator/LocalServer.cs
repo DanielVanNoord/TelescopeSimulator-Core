@@ -682,34 +682,6 @@ namespace ASCOM.Simulator
                     try { startupUrls = profile.GetValue(SharedResources.PROGRAM_ID, "AlpacaStartupUrls", string.Empty, "--urls=http://127.0.0.1:4321"); } catch { }
                 }
                 TelescopeSimulator.AlpacaHost.Start(new string[] { startupUrls });
-                /*using (IWebHost host = CreateWebHostBuilder(args).Build())
-                {
-                    host.Start();
-
-                    if (4321 != 0)
-                    {
-                        try
-                        {
-                            TelescopeSimulator.Alpaca.DiscoveryServer server = new TelescopeSimulator.Alpaca.DiscoveryServer(4321);
-                        }
-                        catch
-                        {
-                            //Todo do not crash but log discovery down
-                        }
-                    }
-
-                    Task.Run(() =>
-                    {
-                        using (Manager.m_MainForm = new FrmMain())
-                        {
-                            Manager.m_MainForm.ShowDialog();
-                            Shutdown();
-                            host.StopAsync();
-                        }
-                    });
-
-                    host.WaitForShutdown();
-                }*/
             }
             catch (Exception ex)
             {

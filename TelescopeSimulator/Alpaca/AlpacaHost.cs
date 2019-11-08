@@ -13,19 +13,8 @@ namespace TelescopeSimulator
     {
         private static IWebHost host;
 
-        public static void Init(string[] args)
-        {
-            Console.CancelKeyPress += delegate
-            {
-                Shutdown();
-            };
-
-            Start(args);
-        }
-
         public static void Start(string[] args)
         {
-            var t = typeof(ASCOM.Alpaca.Controllers.ManagementController);
             if (!args.Any(str => str.Contains("--urls")))
             {
                 Console.WriteLine("No startup args detected, binding to local host and default port.");
@@ -54,7 +43,10 @@ namespace TelescopeSimulator
                     }
                     catch
                     {
-                        //Todo do not crash but log discovery down
+                        /*using (ASCOM.Utilities.TraceLogger tl = new ASCOM.Utilities.TraceLogger())
+                        {
+                        
+                        }*/
                     }
                 }
 
@@ -94,7 +86,7 @@ namespace TelescopeSimulator
             }
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+        private static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .UseKestrel();
