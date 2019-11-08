@@ -11,9 +11,7 @@ namespace ASCOM.Alpaca.Controllers
     public class ManagementController : Controller
     {
         private static uint transactionID = 0;
-
-        List<AlpacaConfiguredDevice> configuredDevices = new List<AlpacaConfiguredDevice>() { new AlpacaConfiguredDevice(DeviceManager.GetTelescope(0).Name, "Telescope", 0, "EA091417-66DF-4250-8287-FAFAF38A80A6") };
-
+      
         private static uint TransactionID
         {
             get
@@ -33,6 +31,8 @@ namespace ASCOM.Alpaca.Controllers
         [Route("management/v1/description")]
         public AlpacaDescriptionResponse Description(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
         {
+            List<AlpacaConfiguredDevice> configuredDevices = new List<AlpacaConfiguredDevice>() { new AlpacaConfiguredDevice(DeviceManager.GetTelescope(0).Name, "Telescope", 0, "EA091417-66DF-4250-8287-FAFAF38A80A6") };
+
             System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
             FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
             string version = fvi.ProductVersion;

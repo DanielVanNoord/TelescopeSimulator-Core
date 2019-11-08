@@ -11,6 +11,8 @@ namespace ASCOM.Alpaca.Controllers
 
         internal static Func<IList<ASCOM.DeviceInterface.ITelescopeV3>> GetTelescopes;
 
+        internal static Func<int, IRotatorV2> GetRotator;
+
         static DeviceManager()
         {
 
@@ -24,6 +26,11 @@ namespace ASCOM.Alpaca.Controllers
         public static void SetTelescopesAccess(Func<int, ASCOM.DeviceInterface.ITelescopeV3> telescopeAccess)
         {
             GetTelescope = telescopeAccess;
+        }
+
+        public static void SetRotatorAccess(Func<int, IRotatorV2> rotatorAccess)
+        {
+            GetRotator = rotatorAccess;
         }
     }
 }

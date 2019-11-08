@@ -23,20 +23,6 @@ namespace ASCOM.Alpaca.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("setup/")]
-        public ActionResult GetServerSetup()
-        {
-            var path = Path.Combine(@"web/html/setup.html");
-
-            return new ContentResult
-            {
-                Content = System.IO.File.ReadAllText(path),
-                ContentType = "text/html",
-                StatusCode = 200
-            };
-        }
-
         #region Common Methods
 
         [HttpPut]
