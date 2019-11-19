@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASCOMStandard", "ASCOMStand
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelescopeSimulator.Linux", "TelescopeSimulator.Linux\TelescopeSimulator.Linux.csproj", "{AD7D8FED-8C7E-4661-A652-98012B1227E2}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASCOM.Alpaca.Controllers", "Alpaca.Controllers\ASCOM.Alpaca.Controllers.csproj", "{F8B534AE-5538-4E5E-B972-DCCB6C58B97B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{AD7D8FED-8C7E-4661-A652-98012B1227E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD7D8FED-8C7E-4661-A652-98012B1227E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD7D8FED-8C7E-4661-A652-98012B1227E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8B534AE-5538-4E5E-B972-DCCB6C58B97B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8B534AE-5538-4E5E-B972-DCCB6C58B97B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8B534AE-5538-4E5E-B972-DCCB6C58B97B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8B534AE-5538-4E5E-B972-DCCB6C58B97B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +74,7 @@ Global
 		{01F9F785-0AAD-47EE-92F5-CC46CF498EAB} = {75EA1D82-8680-4BF0-B17B-E334B7E997A0}
 		{79B6F7A3-FB1E-4439-8D1C-B1277ECAAEF4} = {75EA1D82-8680-4BF0-B17B-E334B7E997A0}
 		{34E331E1-6A45-4F56-96C0-CAADCC1D01D0} = {75EA1D82-8680-4BF0-B17B-E334B7E997A0}
+		{F8B534AE-5538-4E5E-B972-DCCB6C58B97B} = {75EA1D82-8680-4BF0-B17B-E334B7E997A0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3B2D72FF-85E2-46F4-8CCF-F8A11E6521A0}
