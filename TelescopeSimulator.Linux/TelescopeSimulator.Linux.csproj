@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ASCOMStandard\ASCOMStandard\ASCOMStandard.csproj" />
-    <ProjectReference Include="..\System.Windows.Forms\System.Windows.Forms\System.Windows.Forms.csproj" />
     <ProjectReference Include="..\WindowsBase.Vector\WindowsBase.Vector\WindowsBase.Vector.csproj" />
   </ItemGroup>
 
@@ -39,6 +38,7 @@
 
   <ItemGroup>
     <PackageReference Include="System.Resources.Extensions" Version="4.6.0" />
+    <PackageReference Include="System.Windows.Forms" Version="1.0.0-alpha1" />
   </ItemGroup>
 
   <ItemGroup>
