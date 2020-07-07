@@ -12,7 +12,7 @@ namespace TelescopeSimulator.Alpaca
     {
         private readonly int port;
         private const int DiscoveryPort = 32227;
-        public const string DiscoveryMessage = "alpaca discovery";
+        public const string DiscoveryMessage = "alpacadiscovery1";
 
         public DiscoveryServer(int AlpacaPort)
         {
