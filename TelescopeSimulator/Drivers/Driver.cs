@@ -21,8 +21,10 @@ using ASCOM.DeviceInterface;
 using ASCOM.Utilities;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
 using System.Runtime.InteropServices;
 using TelescopeSimulator;
 
@@ -50,7 +52,7 @@ namespace ASCOM.Simulator
         private string driverID;
         private long objectId;
 
-        private ITelescopeV3 TelescopeInstance
+        private TelescopeSimulator TelescopeInstance
         {
             get
             {
@@ -90,11 +92,11 @@ namespace ASCOM.Simulator
         /// <summary>
         /// Gets the supported actions.
         /// </summary>
-        public ArrayList SupportedActions => TelescopeInstance.SupportedActions;
+        public ArrayList SupportedActions => new ArrayList(TelescopeInstance.SupportedActions.ToArray());
 
         public void AbortSlew() => TelescopeInstance.AbortSlew();
 
-        public AlignmentModes AlignmentMode => TelescopeInstance.AlignmentMode;
+        public AlignmentModes AlignmentMode => (AlignmentModes) TelescopeInstance.AlignmentMode;
 
         public double Altitude => TelescopeInstance.Altitude;
 
@@ -106,13 +108,16 @@ namespace ASCOM.Simulator
 
         public bool AtPark => TelescopeInstance.AtPark;
 
-        public IAxisRates AxisRates(TelescopeAxes Axis) => TelescopeInstance.AxisRates(Axis);
+        public IAxisRates AxisRates(TelescopeAxes Axis) 
+        {
+            return new AxisRatesObject(TelescopeInstance.AxisRates((Standard.Interfaces.TelescopeAxis)Axis));
+        }
 
         public double Azimuth => TelescopeInstance.Azimuth;
 
         public bool CanFindHome => TelescopeInstance.CanFindHome;
 
-        public bool CanMoveAxis(TelescopeAxes Axis) => TelescopeInstance.CanMoveAxis(Axis);
+        public bool CanMoveAxis(TelescopeAxes Axis) => TelescopeInstance.CanMoveAxis((Standard.Interfaces.TelescopeAxis) Axis);
 
         public bool CanPark => TelescopeInstance.CanPark;
 
@@ -167,7 +172,7 @@ namespace ASCOM.Simulator
 
         public string Description => TelescopeInstance.Description;
 
-        public PierSide DestinationSideOfPier(double RightAscension, double Declination) => TelescopeInstance.DestinationSideOfPier(RightAscension, Declination);
+        public PierSide DestinationSideOfPier(double RightAscension, double Declination) => (PierSide) TelescopeInstance.DestinationSideOfPier(RightAscension, Declination);
 
         public bool DoesRefraction
         {
@@ -179,7 +184,7 @@ namespace ASCOM.Simulator
 
         public string DriverVersion => TelescopeInstance.DriverVersion;
 
-        public EquatorialCoordinateType EquatorialSystem => TelescopeInstance.EquatorialSystem;
+        public EquatorialCoordinateType EquatorialSystem => (EquatorialCoordinateType)TelescopeInstance.EquatorialSystem;
 
         public void FindHome() => TelescopeInstance.FindHome();
 
@@ -201,13 +206,13 @@ namespace ASCOM.Simulator
 
         public bool IsPulseGuiding => TelescopeInstance.IsPulseGuiding;
 
-        public void MoveAxis(TelescopeAxes Axis, double Rate) => TelescopeInstance.MoveAxis(Axis, Rate);
+        public void MoveAxis(TelescopeAxes Axis, double Rate) => TelescopeInstance.MoveAxis((Standard.Interfaces.TelescopeAxis)Axis, Rate);
 
         public string Name => TelescopeInstance.Name;
 
         public void Park() => TelescopeInstance.Park();
 
-        public void PulseGuide(GuideDirections Direction, int Duration) => TelescopeInstance.PulseGuide(Direction, Duration);
+        public void PulseGuide(GuideDirections Direction, int Duration) => TelescopeInstance.PulseGuide((Standard.Interfaces.GuideDirection)Direction, Duration);
 
         public double RightAscension => TelescopeInstance.RightAscension;
 
@@ -227,8 +232,8 @@ namespace ASCOM.Simulator
 
         public PierSide SideOfPier
         {
-            get { return TelescopeInstance.SideOfPier; }
-            set { TelescopeInstance.SideOfPier = value; }
+            get { return (PierSide) TelescopeInstance.SideOfPier; }
+            set { TelescopeInstance.SideOfPier = (ASCOM.Standard.Interfaces.PointingState) value; }
         }
 
         public double SiderealTime => TelescopeInstance.SiderealTime;
@@ -317,15 +322,15 @@ namespace ASCOM.Simulator
         {
             get
             {
-                return TelescopeInstance.TrackingRate;
+                return (DriveRates) TelescopeInstance.TrackingRate;
             }
             set
             {
-                TelescopeInstance.TrackingRate = value;
+                TelescopeInstance.TrackingRate = (Standard.Interfaces.DriveRate) value;
             }
         }
 
-        public ITrackingRates TrackingRates => TelescopeInstance.TrackingRates;
+        public ITrackingRates TrackingRates => new TrackingRateObject(TelescopeInstance.TrackingRates);
 
         public DateTime UTCDate
         {
@@ -339,7 +344,7 @@ namespace ASCOM.Simulator
             }
         }
 
-        public void Unpark() => TelescopeInstance.Unpark();
+        public void Unpark() => TelescopeInstance.UnPark();
 
 
         #endregion ITelescope Members
@@ -355,5 +360,237 @@ namespace ASCOM.Simulator
         }
 
         #endregion IDisposable Members
+
+        public class TrackingRateObject : ITrackingRates
+        {
+            private List<DriveRates> m_TrackingRates = new List<DriveRates>();
+            private int _pos = -1;
+            //
+            // Default constructor - Internal prevents public creation
+            // of instances. Returned by Telescope.AxisRates.
+            //
+            public TrackingRateObject(Standard.Interfaces.ITrackingRates rates)
+            {
+                foreach(Standard.Interfaces.DriveRate rate in rates)
+                {
+                    m_TrackingRates.Add((DriveRates)rate);
+                }
+            }
+
+            #region ITrackingRates Members
+
+            public int Count
+            {
+                get { return m_TrackingRates.Count; }
+            }
+
+            public IEnumerator GetEnumerator()
+            {
+                _pos = -1; //Reset pointer as this is assumed by .NET enumeration
+                return this as IEnumerator;
+            }
+
+
+            public DriveRates this[int index]
+            {
+                get
+                {
+                    if (index < 1 || index > this.Count)
+                        throw new InvalidValueException("TrackingRates.this", index.ToString(CultureInfo.CurrentCulture), string.Format(CultureInfo.CurrentCulture, "1 to {0}", this.Count));
+                    return m_TrackingRates[index - 1];
+                }   // 1-based
+            }
+            #endregion
+
+            #region IEnumerator implementation
+
+            public bool MoveNext()
+            {
+                if (++_pos >= m_TrackingRates.Count) return false;
+                return true;
+            }
+
+            public void Reset()
+            {
+                _pos = -1;
+            }
+
+            public object Current
+            {
+                get
+                {
+                    if (_pos < 0 || _pos >= m_TrackingRates.Count) throw new System.InvalidOperationException();
+                    return m_TrackingRates[_pos];
+                }
+            }
+
+            #endregion
+
+            #region IDisposable Members
+
+            public void Dispose()
+            {
+                Dispose(true);
+                GC.SuppressFinalize(this);
+            }
+
+            // The bulk of the clean-up code is implemented in Dispose(bool)
+            protected virtual void Dispose(bool disposing)
+            {
+                if (disposing)
+                {
+                    // free managed resources
+                    /* Following code commented out in Platform 6.4 because m_TrackingRates is a global variable for the whole driver and there could be more than one 
+                     * instance of the TrackingRates class (created by the calling application). One instance should not invalidate the variable that could be in use
+                     * by other instances of which this one is unaware.
+
+                    m_TrackingRates = null;
+
+                    */
+                }
+            }
+            #endregion
+        }
+
+        public class AxisRatesObject : IAxisRates, IEnumerable, IEnumerator, IDisposable
+        {
+            private List<Rate> m_Rates = new List<Rate>();
+            private int pos = -1;
+
+            //
+            // Constructor - Internal prevents public creation
+            // of instances. Returned by Telescope.AxisRates.
+            //
+            public AxisRatesObject(Standard.Interfaces.IAxisRates Axis)
+            {
+                foreach (Standard.Interfaces.IRate rate in Axis)
+                {
+                    m_Rates.Add(new Rate(rate.Minimum, rate.Maximum));
+                }
+                pos = -1;
+            }
+
+            #region IAxisRates Members
+
+            public int Count
+            {
+                get { return m_Rates.Count; }
+            }
+
+            public IEnumerator GetEnumerator()
+            {
+                pos = -1; //Reset pointer as this is assumed by .NET enumeration
+                return this as IEnumerator;
+            }
+
+            public IRate this[int index]
+            {
+                get
+                {
+                    if (index < 1 || index > this.Count)
+                        throw new InvalidValueException("AxisRates.index", index.ToString(CultureInfo.CurrentCulture), string.Format(CultureInfo.CurrentCulture, "1 to {0}", this.Count));
+                    return (IRate)m_Rates[index - 1];   // 1-based
+                }
+            }
+
+            #endregion
+
+            #region IDisposable Members
+
+            public void Dispose()
+            {
+                Dispose(true);
+                GC.SuppressFinalize(this);
+            }
+
+            // The bulk of the clean-up code is implemented in Dispose(bool)
+            protected virtual void Dispose(bool disposing)
+            {
+                if (disposing)
+                {
+                    // free managed resources
+                    m_Rates = null;
+                }
+            }
+
+            #endregion
+
+            #region IEnumerator implementation
+
+            public bool MoveNext()
+            {
+                if (++pos >= m_Rates.Count) return false;
+                return true;
+            }
+
+            public void Reset()
+            {
+                pos = -1;
+            }
+
+            public object Current
+            {
+                get
+                {
+                    if (pos < 0 || pos >= m_Rates.Count) throw new System.InvalidOperationException();
+                    return m_Rates[pos];
+                }
+            }
+
+            #endregion
+        }
+
+        public class Rate : IRate, IDisposable
+        {
+            private double m_dMaximum = 0;
+            private double m_dMinimum = 0;
+
+            //
+            // Default constructor - Internal prevents public creation
+            // of instances. These are values for AxisRates.
+            //
+            internal Rate(double Minimum, double Maximum)
+            {
+                m_dMaximum = Maximum;
+                m_dMinimum = Minimum;
+            }
+
+            #region IRate Members
+
+            public IEnumerator GetEnumerator()
+            {
+                return null;
+            }
+
+            public double Maximum
+            {
+                get { return m_dMaximum; }
+                set { m_dMaximum = value; }
+            }
+
+            public double Minimum
+            {
+                get { return m_dMinimum; }
+                set { m_dMinimum = value; }
+            }
+
+            #endregion
+
+            #region IDisposable Members
+
+            public void Dispose()
+            {
+                Dispose(true);
+                GC.SuppressFinalize(this);
+            }
+
+            // The bulk of the clean-up code is implemented in Dispose(bool)
+            protected virtual void Dispose(bool disposing)
+            {
+                // nothing to do?
+            }
+
+            #endregion
+        }
     }
 }

@@ -6,16 +6,11 @@
 
   <ItemGroup>
     <PackageReference Include="ASCOM.Standard.Discovery" Version="1.0.0-alpha9" />
+    <PackageReference Include="ASCOM.Standard.Types" Version="1.0.0-alpha9" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TelescopeSimulator.Shared\TelescopeSimulator.Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="ASCOM.DeviceInterfaces">
-      <HintPath>..\TempDependencies\ASCOM.DeviceInterfaces.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>

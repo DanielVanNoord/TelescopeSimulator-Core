@@ -1,9 +1,9 @@
-﻿using System;
+﻿using ASCOM.Standard.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows;
-using ASCOM.DeviceInterface;
 
 namespace ASCOM.Simulator
 {
@@ -27,10 +27,10 @@ namespace ASCOM.Simulator
             Vector axes = new Vector();
             switch (TelescopeHardware.AlignmentMode)
 	        {
-		        case ASCOM.DeviceInterface.AlignmentModes.algAltAz:
+		        case AlignmentMode.AltAz:
                     axes = AstronomyFunctions.CalculateAltAzm(raDec.X, raDec.Y, TelescopeHardware.Latitude);
                     break;
-                case ASCOM.DeviceInterface.AlignmentModes.algGermanPolar:
+                case AlignmentMode.GermanPolar:
                     var sop = TelescopeHardware.SideOfPier;
                     axes.X = (TelescopeHardware.SiderealTime - raDec.X) * 15.0;
                     axes.Y = (TelescopeHardware.Latitude >= 0) ? raDec.Y : -raDec.Y;
@@ -42,7 +42,7 @@ namespace ASCOM.Simulator
                         axes.Y = 180 - axes.Y;
                     }
                     var newsop = (axes.Y <= 90 && axes.Y >= -90) ?
-                        PierSide.pierEast : PierSide.pierWest;
+                        PointingState.Normal : PointingState.ThroughThePole;
 
                     if (preserveSop && newsop != sop)
                     {
@@ -53,7 +53,7 @@ namespace ASCOM.Simulator
                         axes.Y = 180 - axes.Y;
                     }
                     break;
-                case ASCOM.DeviceInterface.AlignmentModes.algPolar:
+                case AlignmentMode.Polar:
                     axes.X = (TelescopeHardware.SiderealTime - raDec.X) * 15.0;
                     axes.Y = (TelescopeHardware.Latitude >= 0) ? raDec.Y : -raDec.Y;
                     break;
@@ -66,9 +66,9 @@ namespace ASCOM.Simulator
             Vector axes = altAz;
             switch (TelescopeHardware.AlignmentMode)
 	        {
-		        case ASCOM.DeviceInterface.AlignmentModes.algAltAz:
+		        case AlignmentMode.AltAz:
                     break;
-                case ASCOM.DeviceInterface.AlignmentModes.algGermanPolar:
+                case AlignmentMode.GermanPolar:
                     axes = AstronomyFunctions.CalculateHaDec(altAz, TelescopeHardware.Latitude, TelescopeHardware.Longitude);
                     if (TelescopeHardware.Latitude < 0)
                     {
@@ -82,7 +82,7 @@ namespace ASCOM.Simulator
                         axes.Y = 180 - axes.Y;
                     }
                     break;
-                case ASCOM.DeviceInterface.AlignmentModes.algPolar:
+                case AlignmentMode.Polar:
                     axes = AstronomyFunctions.CalculateHaDec(altAz, TelescopeHardware.Latitude, TelescopeHardware.Longitude);
                     if (TelescopeHardware.Latitude < 0)
                     {
@@ -99,12 +99,12 @@ namespace ASCOM.Simulator
             Vector raDec = new Vector();
             switch (TelescopeHardware.AlignmentMode)
 	        {
-		        case ASCOM.DeviceInterface.AlignmentModes.algAltAz:
+		        case AlignmentMode.AltAz:
                     raDec = AstronomyFunctions.CalculateRaDec(axes, TelescopeHardware.Latitude, TelescopeHardware.Longitude);
                     raDec.X /= 15.0; // Convert RA in degrees to hours - Added by Peter 4th August 2018 to fix the hand box RA displayed value when in Alt/Az mode
                     break;
-                case ASCOM.DeviceInterface.AlignmentModes.algGermanPolar:
-                case ASCOM.DeviceInterface.AlignmentModes.algPolar:
+                case AlignmentMode.GermanPolar:
+                case AlignmentMode.Polar:
                     // undo through the pole
                     if (axes.Y > 90)
                     {
@@ -125,9 +125,9 @@ namespace ASCOM.Simulator
             Vector altAzm = axes;
             switch (TelescopeHardware.AlignmentMode)
 	        {
-		        case ASCOM.DeviceInterface.AlignmentModes.algAltAz:
+		        case AlignmentMode.AltAz:
                     break;
-                case ASCOM.DeviceInterface.AlignmentModes.algGermanPolar:
+                case AlignmentMode.GermanPolar:
                     if (axes.Y > 90)
                     {
                         axes.X += 180;
@@ -140,7 +140,7 @@ namespace ASCOM.Simulator
                     var ra = TelescopeHardware.SiderealTime - axes.X / 15.0;
                     altAzm = AstronomyFunctions.CalculateAltAzm(ra, axes.Y, TelescopeHardware.Latitude);
                     break;
-                case ASCOM.DeviceInterface.AlignmentModes.algPolar:
+                case AlignmentMode.Polar:
                     ra = TelescopeHardware.SiderealTime - axes.X / 15.0;
                     if (TelescopeHardware.Latitude < 0)
                     {

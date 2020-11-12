@@ -15,12 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="ASCOM.DeviceInterfaces">
-      <HintPath>..\TempDependencies\ASCOM.DeviceInterfaces.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="Resource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

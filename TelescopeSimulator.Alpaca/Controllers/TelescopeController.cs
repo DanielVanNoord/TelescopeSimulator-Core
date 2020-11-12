@@ -1,5 +1,6 @@
 ﻿using ASCOM.Alpaca.Responses;
 using ASCOM.Standard.Helpers;
+using ASCOM.Standard.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -315,13 +316,13 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpGet]
         [Route(APIRoot + "{DeviceNumber}/AxisRates")]
-        public AxisRatesResponse AxisRates(int DeviceNumber, ASCOM.DeviceInterface.TelescopeAxes Axis, int ClientID = -1, uint ClientTransactionID = 0)
+        public AxisRatesResponse AxisRates(int DeviceNumber, TelescopeAxis Axis, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
                 List<ASCOM.Standard.Interfaces.AxisRate> rates = new List<ASCOM.Standard.Interfaces.AxisRate>();
 
-                foreach (ASCOM.DeviceInterface.IRate rate in DeviceManager.GetTelescope(DeviceNumber).AxisRates(Axis))
+                foreach (IRate rate in DeviceManager.GetTelescope(DeviceNumber).AxisRates(Axis))
                 {
                     rates.Add(new ASCOM.Standard.Interfaces.AxisRate(rate.Minimum, rate.Maximum));
                 }
@@ -363,7 +364,7 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpGet]
         [Route(APIRoot + "{DeviceNumber}/CanMoveAxis")]
-        public BoolResponse MoveAxis(int DeviceNumber, ASCOM.DeviceInterface.TelescopeAxes Axis, int ClientID = -1, uint ClientTransactionID = 0)
+        public BoolResponse MoveAxis(int DeviceNumber, TelescopeAxis Axis, int ClientID = -1, uint ClientTransactionID = 0)
         {
             try
             {
@@ -794,7 +795,7 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpPut]
         [Route(APIRoot + "{DeviceNumber}/MoveAxis")]
-        public Response MoveAxis(int DeviceNumber, [FromForm] ASCOM.DeviceInterface.TelescopeAxes Axis, [FromForm] double Rate, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
+        public Response MoveAxis(int DeviceNumber, [FromForm] TelescopeAxis Axis, [FromForm] double Rate, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
         {
             try
             {
@@ -826,7 +827,7 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpPut]
         [Route(APIRoot + "{DeviceNumber}/PulseGuide")]
-        public Response PulseGuide(int DeviceNumber, [FromForm] ASCOM.DeviceInterface.GuideDirections Direction, [FromForm] int Duration, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
+        public Response PulseGuide(int DeviceNumber, [FromForm] GuideDirection Direction, [FromForm] int Duration, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
         {
             try
             {
@@ -916,11 +917,11 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpPut]
         [Route(APIRoot + "{DeviceNumber}/SideOfPier")]
-        public Response SideOfPier(int DeviceNumber, [FromForm] ASCOM.Standard.Interfaces.PointingState SideOfPier, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
+        public Response SideOfPier(int DeviceNumber, [FromForm] PointingState SideOfPier, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
         {
             try
             {
-                DeviceManager.GetTelescope(DeviceNumber).SideOfPier = (ASCOM.DeviceInterface.PierSide)SideOfPier;
+                DeviceManager.GetTelescope(DeviceNumber).SideOfPier = SideOfPier;
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
             }
@@ -1330,11 +1331,11 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpPut]
         [Route(APIRoot + "{DeviceNumber}/TrackingRate")]
-        public Response TrackingRate(int DeviceNumber, [FromForm] ASCOM.Standard.Interfaces.DriveRate TrackingRate, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
+        public Response TrackingRate(int DeviceNumber, [FromForm] DriveRate TrackingRate, [FromForm] int ClientID = -1, [FromForm] uint ClientTransactionID = 0)
         {
             try
             {
-                DeviceManager.GetTelescope(DeviceNumber).TrackingRate = (ASCOM.DeviceInterface.DriveRates) TrackingRate;
+                DeviceManager.GetTelescope(DeviceNumber).TrackingRate = TrackingRate;
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
             }
@@ -1352,11 +1353,11 @@ namespace TelescopeSimulator.Alpaca.Controllers
             {
                 List<ASCOM.Standard.Interfaces.DriveRate> rates = new List<ASCOM.Standard.Interfaces.DriveRate>();
 
-                ASCOM.DeviceInterface.ITrackingRates data = DeviceManager.GetTelescope(DeviceNumber).TrackingRates;
+                ITrackingRates data = DeviceManager.GetTelescope(DeviceNumber).TrackingRates;
 
-                foreach (ASCOM.DeviceInterface.DriveRates rate in data)
-                {
-                    rates.Add((ASCOM.Standard.Interfaces.DriveRate) rate);
+                foreach (DriveRate rate in data)
+                { 
+                     rates.Add(rate);
                 }
                 return new DriveRatesResponse(ClientTransactionID, TransactionID, rates);
             }
@@ -1402,7 +1403,7 @@ namespace TelescopeSimulator.Alpaca.Controllers
         {
             try
             {
-                DeviceManager.GetTelescope(DeviceNumber).Unpark();
+                DeviceManager.GetTelescope(DeviceNumber).UnPark();
 
                 return new Response() { ClientTransactionID = ClientTransactionID, ServerTransactionID = TransactionID };
             }

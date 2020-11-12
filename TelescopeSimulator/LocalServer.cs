@@ -240,7 +240,7 @@ namespace ASCOM.Simulator
                         bool success = PostThreadMessage(MainThreadId, 0x0012, wParam, lParam);
                         int returnCode = Marshal.GetLastWin32Error();
                         TelescopeHardware.TL.LogMessage("ExitIf", "WM_QUIT outcome. Succcess: " + success + ", return code: " + returnCode.ToString("X"));
-                        TelescopeSimulator.Alpaca.Program.Shutdown();
+                        global::TelescopeSimulator.Alpaca.Program.Shutdown();
                     }
                 }
             }
@@ -672,7 +672,7 @@ namespace ASCOM.Simulator
                     try { startupUrls = profile.GetValue(SharedResources.PROGRAM_ID, "AlpacaStartupUrls", string.Empty, "--urls=http://127.0.0.1:4321"); } catch { }
                 }
 
-                TelescopeSimulator.Alpaca.Program.Start(new string[] { startupUrls });
+                global::TelescopeSimulator.Alpaca.Program.Start(new string[] { startupUrls });
             }
             catch (Exception ex)
             {
