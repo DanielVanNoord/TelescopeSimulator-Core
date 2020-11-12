@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -38,7 +38,7 @@
 
   <ItemGroup>
     <PackageReference Include="System.Resources.Extensions" Version="4.7.1" />
-    <PackageReference Include="Core.System.Windows.Forms" Version="1.0.0-alpha2" />
+    <PackageReference Include="Core.System.Windows.Forms" Version="1.0.0-alpha3" />
   </ItemGroup>
 
   <ItemGroup>
