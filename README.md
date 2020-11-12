@@ -1,8 +1,8 @@
 ## TelescopeSimulator-Core
 
-This is an experimental port of the ASCOM .Net Telescope Simulator to .Net Core 3.0. It depends on the (also experimental) ASCOM.Core libraries which are included as a Sub Module and also can be found here: https://github.com/DanielVanNoord/ASCOM.Core. This is a hybrid driver, it supports both COM and Alpaca REST access. It also has standalone Alpaca builds for Windows and Linux (Mac support coming soon).
+This is an experimental port of the ASCOM .Net Telescope Simulator to .Net 5.0. It depends on the (also experimental) ASCOM.Core libraries which are included as a Sub Module and also can be found here: https://github.com/DanielVanNoord/ASCOM.Core. This is a hybrid driver, it supports both COM and Alpaca REST access. It also has standalone Alpaca builds for Windows and Linux (Mac support coming soon).
 
-This requires .Net Core 3.0 release to build. You can download this here: https://dotnet.microsoft.com/download/dotnet-core/3.0 or install it through Visual Studio. This can be used with Visual Studio 2019.3 or higher.
+This requires .Net Core 5.0 release to build.
 
 This project uses Git submodules. Be sure to clone it recursively and init the project.
 
