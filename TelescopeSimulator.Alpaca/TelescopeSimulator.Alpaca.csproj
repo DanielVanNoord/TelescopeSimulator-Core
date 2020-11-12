@@ -1,19 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RuntimeIdentifiers>any;win-x64;win-x86;linux-x64;linux-musl-x64;linux-arm;linux-arm64;osx-x64</RuntimeIdentifiers>
+    <TargetFrameworks>net5.0-windows;net5.0</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TelescopeSimulator.Linux\TelescopeSimulator.Linux.csproj" Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' "/>
-    <ProjectReference Include="..\TelescopeSimulator.Shared\TelescopeSimulator.Shared.csproj" Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' "/>
+    <PackageReference Include="ASCOM.Standard.Discovery" Version="1.0.0-alpha9" />
+    <PackageReference Include="ASCOM.Standard.Types" Version="1.0.0-alpha9" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="ASCOM.DeviceInterfaces">
-      <HintPath>..\TempDependencies\ASCOM.DeviceInterfaces.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\TelescopeSimulator.Shared\TelescopeSimulator.Shared.csproj" />
   </ItemGroup>
 
 </Project>

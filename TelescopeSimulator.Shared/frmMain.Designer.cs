@@ -45,13 +45,13 @@ namespace ASCOM.Simulator
             this.labelLst = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.pictureBoxPierSideWest = new System.Windows.Forms.PictureBox();
+            this.pictureBoxPointingStateWest = new System.Windows.Forms.PictureBox();
             this.buttonSlewUp = new System.Windows.Forms.Button();
             this.buttonSlewRight = new System.Windows.Forms.Button();
             this.buttonSlewLeft = new System.Windows.Forms.Button();
             this.buttonSlewDown = new System.Windows.Forms.Button();
             this.buttonSlewStop = new System.Windows.Forms.Button();
-            this.pictureBoxPierSideEast = new System.Windows.Forms.PictureBox();
+            this.pictureBoxPointingStateEast = new System.Windows.Forms.PictureBox();
             //this.ledPierEast = new ASCOM.Controls.LedIndicator();
             //this.ledPierWest = new ASCOM.Controls.LedIndicator();
             this.checkBoxTrack = new System.Windows.Forms.CheckBox();
@@ -73,8 +73,8 @@ namespace ASCOM.Simulator
             this.label6 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPierSideWest)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPierSideEast)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPointingStateWest)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPointingStateEast)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picASCOM)).BeginInit();
@@ -219,13 +219,13 @@ namespace ASCOM.Simulator
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.Controls.Add(this.pictureBoxPierSideWest, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.pictureBoxPointingStateWest, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.buttonSlewUp, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.buttonSlewRight, 2, 1);
             this.tableLayoutPanel2.Controls.Add(this.buttonSlewLeft, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.buttonSlewDown, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.buttonSlewStop, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.pictureBoxPierSideEast, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.pictureBoxPointingStateEast, 2, 0);
             //this.tableLayoutPanel2.Controls.Add(this.ledPierEast, 2, 2);
             //this.tableLayoutPanel2.Controls.Add(this.ledPierWest, 0, 2);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(12, 250);
@@ -237,13 +237,13 @@ namespace ASCOM.Simulator
             this.tableLayoutPanel2.Size = new System.Drawing.Size(115, 111);
             this.tableLayoutPanel2.TabIndex = 3;
             // 
-            // pictureBoxPierSideWest
+            // pictureBoxPointingStateWest
             // 
-            this.pictureBoxPierSideWest.Location = new System.Drawing.Point(3, 3);
-            this.pictureBoxPierSideWest.Name = "pictureBoxPierSideWest";
-            this.pictureBoxPierSideWest.Size = new System.Drawing.Size(32, 31);
-            this.pictureBoxPierSideWest.TabIndex = 6;
-            this.pictureBoxPierSideWest.TabStop = false;
+            this.pictureBoxPointingStateWest.Location = new System.Drawing.Point(3, 3);
+            this.pictureBoxPointingStateWest.Name = "pictureBoxPointingStateWest";
+            this.pictureBoxPointingStateWest.Size = new System.Drawing.Size(32, 31);
+            this.pictureBoxPointingStateWest.TabIndex = 6;
+            this.pictureBoxPointingStateWest.TabStop = false;
             // 
             // buttonSlewUp
             // 
@@ -310,13 +310,13 @@ namespace ASCOM.Simulator
             this.buttonSlewStop.UseVisualStyleBackColor = false;
             this.buttonSlewStop.Click += new System.EventHandler(this.ButtonSlewStop_Click);
             // 
-            // pictureBoxPierSideEast
+            // pictureBoxPointingStateEast
             // 
-            this.pictureBoxPierSideEast.Location = new System.Drawing.Point(79, 3);
-            this.pictureBoxPierSideEast.Name = "pictureBoxPierSideEast";
-            this.pictureBoxPierSideEast.Size = new System.Drawing.Size(33, 31);
-            this.pictureBoxPierSideEast.TabIndex = 5;
-            this.pictureBoxPierSideEast.TabStop = false;
+            this.pictureBoxPointingStateEast.Location = new System.Drawing.Point(79, 3);
+            this.pictureBoxPointingStateEast.Name = "pictureBoxPointingStateEast";
+            this.pictureBoxPointingStateEast.Size = new System.Drawing.Size(33, 31);
+            this.pictureBoxPointingStateEast.TabIndex = 5;
+            this.pictureBoxPointingStateEast.TabStop = false;
             // 
             // ledPierEast
             // 
@@ -575,8 +575,8 @@ namespace ASCOM.Simulator
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPierSideWest)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPierSideEast)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPointingStateWest)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPointingStateEast)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
@@ -619,8 +619,8 @@ namespace ASCOM.Simulator
         internal System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         internal System.Windows.Forms.Label lblPARK;
         internal System.Windows.Forms.Label lblHOME;
-        private System.Windows.Forms.PictureBox pictureBoxPierSideWest;
-        private System.Windows.Forms.PictureBox pictureBoxPierSideEast;
+        private System.Windows.Forms.PictureBox pictureBoxPointingStateWest;
+        private System.Windows.Forms.PictureBox pictureBoxPointingStateEast;
         internal System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         internal System.Windows.Forms.Label labelSlew;
         //private ASCOM.Controls.LedIndicator ledPierEast;

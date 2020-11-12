@@ -1,26 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UseWindowsForms>true</UseWindowsForms>
+    <TargetFrameworks>net5.0-windows;net5.0</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="ASCOM.Standard.Types" Version="1.0.0-alpha9" />
     <PackageReference Include="ASCOM.Standard.Utilities" Version="1.0.0-alpha9" />
+    <PackageReference Include="ASCOM.Exceptions" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\WindowsBase.Vector\WindowsBase.Vector\WindowsBase.Vector.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="ASCOM.DeviceInterfaces">
-      <HintPath>..\TempDependencies\ASCOM.DeviceInterfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="ASCOM.Exceptions">
-      <HintPath>..\TempDependencies\ASCOM.Exceptions.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>
@@ -37,5 +28,18 @@
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+
+  <Choose>
+    <When Condition="'$(TargetFramework)' == 'net5.0-windows' and '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))'">
+      <PropertyGroup>
+        <UseWindowsForms>true</UseWindowsForms>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <PackageReference Include="Core.System.Windows.Forms" Version="1.0.0-alpha3" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
 
 </Project>

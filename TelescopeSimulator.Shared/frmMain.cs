@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
+using ASCOM.Standard.Interfaces;
 
 namespace ASCOM.Simulator
 {
@@ -36,7 +37,7 @@ namespace ASCOM.Simulator
                 setupForm.CanSetEquatorialRates = TelescopeHardware.CanSetEquatorialRates;
                 setupForm.CanSetGuideRates = TelescopeHardware.CanSetGuideRates;
                 setupForm.CanSetPark = TelescopeHardware.CanSetPark;
-                setupForm.CanSetPierSide = TelescopeHardware.CanSetPierSide;
+                setupForm.CanSetPointingState = TelescopeHardware.CanSetPointingState;
                 setupForm.CanSetTracking = TelescopeHardware.CanSetTracking;
                 setupForm.CanSlew = TelescopeHardware.CanSlew;
                 setupForm.CanAlignmentMode = TelescopeHardware.CanAlignmentMode;
@@ -56,7 +57,7 @@ namespace ASCOM.Simulator
                 setupForm.CanDoesRefraction = TelescopeHardware.CanDoesRefraction;
                 setupForm.CanEquatorial = TelescopeHardware.CanEquatorial;
                 setupForm.CanLatLongElev = TelescopeHardware.CanLatLongElev;
-                setupForm.CanPierSide = TelescopeHardware.CanPierSide;
+                setupForm.CanPointingState = TelescopeHardware.CanPointingState;
                 setupForm.CanDualAxisPulseGuide = TelescopeHardware.CanDualAxisPulseGuide;
                 setupForm.AutoTrack = TelescopeHardware.AutoTrack;
                 setupForm.DisconnectOnPark = TelescopeHardware.DisconnectOnPark;
@@ -84,7 +85,7 @@ namespace ASCOM.Simulator
                     TelescopeHardware.CanSetEquatorialRates = setupForm.CanSetEquatorialRates;
                     TelescopeHardware.CanSetGuideRates = setupForm.CanSetGuideRates;
                     TelescopeHardware.CanSetPark = setupForm.CanSetPark;
-                    TelescopeHardware.CanSetPierSide = setupForm.CanSetPierSide;
+                    TelescopeHardware.CanSetPointingState = setupForm.CanSetPointingState;
                     TelescopeHardware.CanSetTracking = setupForm.CanSetTracking;
                     TelescopeHardware.CanSlew = setupForm.CanSlew;
                     TelescopeHardware.CanAlignmentMode = setupForm.CanAlignmentMode;
@@ -104,7 +105,7 @@ namespace ASCOM.Simulator
                     TelescopeHardware.CanDoesRefraction = setupForm.CanDoesRefraction;
                     TelescopeHardware.CanEquatorial = setupForm.CanEquatorial;
                     TelescopeHardware.CanLatLongElev = setupForm.CanLatLongElev;
-                    TelescopeHardware.CanPierSide = setupForm.CanPierSide;
+                    TelescopeHardware.CanPointingState = setupForm.CanPointingState;
                     TelescopeHardware.CanDualAxisPulseGuide = setupForm.CanDualAxisPulseGuide;
                     TelescopeHardware.AutoTrack = setupForm.AutoTrack;
                     TelescopeHardware.DisconnectOnPark = setupForm.DisconnectOnPark;
@@ -137,7 +138,7 @@ namespace ASCOM.Simulator
 
         private void SetSlewButtons()
         {
-            if (TelescopeHardware.AlignmentMode == DeviceInterface.AlignmentModes.algAltAz)
+            if (TelescopeHardware.AlignmentMode == AlignmentMode.AltAz)
             {
                 buttonSlewUp.Text = "U";
                 buttonSlewDown.Text = "D";
@@ -312,7 +313,7 @@ namespace ASCOM.Simulator
                 // Nothing to do for pulse guiding here.
                 return;
             }
-            if (TelescopeHardware.AlignmentMode == DeviceInterface.AlignmentModes.algAltAz)
+            if (TelescopeHardware.AlignmentMode == AlignmentMode.AltAz)
             {
                 TelescopeHardware.SlewDirection = direction;
             }
@@ -409,11 +410,11 @@ namespace ASCOM.Simulator
             });
         }
 
-        public void LedPier(ASCOM.DeviceInterface.PierSide sideOfPier)
+        public void LedPier(PointingState sideOfPier)
         {
             this.Invoke((MethodInvoker)delegate
             {
-                if (sideOfPier == ASCOM.DeviceInterface.PierSide.pierEast)
+                if (sideOfPier == PointingState.Normal)
                 {
                     //ToDO
                     /*ledPierEast.Status = TrafficLight.Green;

@@ -26,9 +26,9 @@ using System.Globalization;
 using System.Runtime.Serialization;
 using System.Threading;
 using System.Windows;
-using ASCOM.DeviceInterface;
 using System.Collections.Generic;
 using ASCOM.Utilities;
+using ASCOM.Standard.Interfaces;
 
 namespace ASCOM.Simulator
 {
@@ -78,7 +78,7 @@ namespace ASCOM.Simulator
         private static bool canSetEquatorialRates;
         private static bool canSetGuideRates;
         private static bool canSetPark;
-        private static bool canSetPierSide;
+        private static bool canSetPointingState;
         private static bool canSetTracking;
         private static bool canSlew;
         private static bool canSlewAltAz;
@@ -95,11 +95,11 @@ namespace ASCOM.Simulator
         private static bool canEquatorial;
         private static bool canLatLongElev;
         private static bool canSiderealTime;
-        private static bool canPierSide;
+        private static bool canPointingState;
         private static bool canTrackingRates;
 
         //Telescope Implementation
-        private static AlignmentModes alignmentMode;
+        private static AlignmentMode alignmentMode;
         private static double apertureArea;
         private static double apertureDiameter;
         private static double focalLength;
@@ -303,7 +303,7 @@ namespace ASCOM.Simulator
                     // Telescope Implemention
                     // Initialise mount type to German Polar
                     s_Profile.WriteValue(SharedResources.PROGRAM_ID, "AlignMode", "1"); // 1 = Start as German Polar m9ount type
-                    alignmentMode = AlignmentModes.algGermanPolar; // Added by Peter because the Profile setting was set to German Polar but the alignment mode value at this point was still zer0 = Alt/Az!
+                    alignmentMode = AlignmentMode.GermanPolar; // Added by Peter because the Profile setting was set to German Polar but the alignment mode value at this point was still zer0 = Alt/Az!
 
                     s_Profile.WriteValue(SharedResources.PROGRAM_ID, "ApertureArea", SharedResources.INSTRUMENT_APERTURE_AREA.ToString(CultureInfo.InvariantCulture));
                     s_Profile.WriteValue(SharedResources.PROGRAM_ID, "Aperture", SharedResources.INSTRUMENT_APERTURE.ToString(CultureInfo.InvariantCulture));
@@ -353,7 +353,7 @@ namespace ASCOM.Simulator
                     TL.LogMessage("TelescopeHardware", string.Format("Alignment mode 2: {0}", alignmentMode));
                     switch (alignmentMode)
                     {
-                        case AlignmentModes.algGermanPolar:
+                        case AlignmentMode.GermanPolar:
                             // looking at the pole, counterweight down
                             HomePosition.X = 0;
                             HomePosition.Y = lat;
@@ -361,7 +361,7 @@ namespace ASCOM.Simulator
                             s_Profile.WriteValue(SharedResources.PROGRAM_ID, "StartAzimuthConfigured", HomePosition.X.ToString(CultureInfo.InvariantCulture));
                             s_Profile.WriteValue(SharedResources.PROGRAM_ID, "StartAltitudeConfigured", HomePosition.Y.ToString(CultureInfo.InvariantCulture));
                             break;
-                        case AlignmentModes.algPolar:
+                        case AlignmentMode.Polar:
                             // looking East, tube level
                             HomePosition.X = 90;
                             HomePosition.Y = 0;
@@ -369,7 +369,7 @@ namespace ASCOM.Simulator
                             s_Profile.WriteValue(SharedResources.PROGRAM_ID, "StartAltitudeConfigured", HomePosition.X.ToString(CultureInfo.InvariantCulture));
                             s_Profile.WriteValue(SharedResources.PROGRAM_ID, "StartAzimuthConfigured", HomePosition.Y.ToString(CultureInfo.InvariantCulture));
                             break;
-                        case AlignmentModes.algAltAz:
+                        case AlignmentMode.AltAz:
                             HomePosition.X = 0;    // AltAz is North and Level, hope Meade don't mind!
                             HomePosition.Y = 0;
                             TL.LogMessage("TelescopeHardware", string.Format("Alt/Az - Setting HomeAxes to {0} {1}", HomePosition.X.ToString(CultureInfo.InvariantCulture), HomePosition.Y.ToString(CultureInfo.InvariantCulture)));
@@ -394,7 +394,7 @@ namespace ASCOM.Simulator
                     s_Profile.WriteValue(SharedResources.PROGRAM_ID, "CanSetEquRates", "true", "Capabilities");
                     s_Profile.WriteValue(SharedResources.PROGRAM_ID, "CanSetGuideRates", "true", "Capabilities");
                     s_Profile.WriteValue(SharedResources.PROGRAM_ID, "CanSetPark", "true", "Capabilities");
-                    s_Profile.WriteValue(SharedResources.PROGRAM_ID, "CanSetPierSide", "true", "Capabilities");
+                    s_Profile.WriteValue(SharedResources.PROGRAM_ID, "CanSetPointingState", "true", "Capabilities");
                     s_Profile.WriteValue(SharedResources.PROGRAM_ID, "CanSetTracking", "true", "Capabilities");
                     s_Profile.WriteValue(SharedResources.PROGRAM_ID, "CanSlew", "true", "Capabilities");
                     s_Profile.WriteValue(SharedResources.PROGRAM_ID, "CanSlewAltAz", "true", "Capabilities");
@@ -411,7 +411,7 @@ namespace ASCOM.Simulator
                     s_Profile.WriteValue(SharedResources.PROGRAM_ID, "CanEquatorial", "true", "Capabilities");
                     s_Profile.WriteValue(SharedResources.PROGRAM_ID, "CanLatLongElev", "true", "Capabilities");
                     s_Profile.WriteValue(SharedResources.PROGRAM_ID, "CanSiderealTime", "true", "Capabilities");
-                    s_Profile.WriteValue(SharedResources.PROGRAM_ID, "CanPierSide", "true", "Capabilities");
+                    s_Profile.WriteValue(SharedResources.PROGRAM_ID, "CanPointingState", "true", "Capabilities");
                     s_Profile.WriteValue(SharedResources.PROGRAM_ID, "CanTrackingRates", "true", "Capabilities");
                     s_Profile.WriteValue(SharedResources.PROGRAM_ID, "CanDualAxisPulseGuide", "true", "Capabilities");
                 }
@@ -422,16 +422,16 @@ namespace ASCOM.Simulator
                 switch (int.Parse(s_Profile.GetValue(SharedResources.PROGRAM_ID, "AlignMode"), CultureInfo.InvariantCulture))
                 {
                     case 0:
-                        alignmentMode = ASCOM.DeviceInterface.AlignmentModes.algAltAz;
+                        alignmentMode = AlignmentMode.AltAz;
                         break;
                     case 1:
-                        alignmentMode = ASCOM.DeviceInterface.AlignmentModes.algGermanPolar;
+                        alignmentMode = AlignmentMode.GermanPolar;
                         break;
                     case 2:
-                        alignmentMode = ASCOM.DeviceInterface.AlignmentModes.algPolar;
+                        alignmentMode = AlignmentMode.Polar;
                         break;
                     default:
-                        alignmentMode = ASCOM.DeviceInterface.AlignmentModes.algGermanPolar;
+                        alignmentMode = AlignmentMode.GermanPolar;
                         break;
                 }
 
@@ -497,7 +497,7 @@ namespace ASCOM.Simulator
                 canSetEquatorialRates = bool.Parse(s_Profile.GetValue(SharedResources.PROGRAM_ID, "CanSetEquRates", "Capabilities"));
                 canSetGuideRates = bool.Parse(s_Profile.GetValue(SharedResources.PROGRAM_ID, "CanSetGuideRates", "Capabilities"));
                 canSetPark = bool.Parse(s_Profile.GetValue(SharedResources.PROGRAM_ID, "CanSetPark", "Capabilities"));
-                canSetPierSide = bool.Parse(s_Profile.GetValue(SharedResources.PROGRAM_ID, "CanSetPierSide", "Capabilities"));
+                canSetPointingState = bool.Parse(s_Profile.GetValue(SharedResources.PROGRAM_ID, "CanSetPointingState", "Capabilities"));
                 canSetTracking = bool.Parse(s_Profile.GetValue(SharedResources.PROGRAM_ID, "CanSetTracking", "Capabilities"));
                 canSlew = bool.Parse(s_Profile.GetValue(SharedResources.PROGRAM_ID, "CanSlew", "Capabilities"));
                 canSlewAltAz = bool.Parse(s_Profile.GetValue(SharedResources.PROGRAM_ID, "CanSlewAltAz", "Capabilities"));
@@ -514,7 +514,7 @@ namespace ASCOM.Simulator
                 canEquatorial = bool.Parse(s_Profile.GetValue(SharedResources.PROGRAM_ID, "CanEquatorial", "Capabilities"));
                 canLatLongElev = bool.Parse(s_Profile.GetValue(SharedResources.PROGRAM_ID, "CanLatLongElev", "Capabilities"));
                 canSiderealTime = bool.Parse(s_Profile.GetValue(SharedResources.PROGRAM_ID, "CanSiderealTime", "Capabilities"));
-                canPierSide = bool.Parse(s_Profile.GetValue(SharedResources.PROGRAM_ID, "CanPierSide", "Capabilities"));
+                canPointingState = bool.Parse(s_Profile.GetValue(SharedResources.PROGRAM_ID, "CanPointingState", "Capabilities"));
                 canTrackingRates = bool.Parse(s_Profile.GetValue(SharedResources.PROGRAM_ID, "CanTrackingRates", "Capabilities"));
                 canDualAxisPulseGuide = bool.Parse(s_Profile.GetValue(SharedResources.PROGRAM_ID, "CanDualAxisPulseGuide", "Capabilities"));
                 noSyncPastMeridian = bool.Parse(s_Profile.GetValue(SharedResources.PROGRAM_ID, "NoSyncPastMeridian", "Capabilities", "false"));
@@ -545,7 +545,7 @@ namespace ASCOM.Simulator
                 rateRaDec.Y = 0;
                 rateRaDec.X = 0;
 
-                TrackingRate = DriveRates.driveSidereal;
+                TrackingRate = DriveRate.DriveSidereal;
                 SlewSettleTime = 0;
                 ChangePark(AtPark);
 
@@ -605,12 +605,12 @@ namespace ASCOM.Simulator
                 double haChange = GetTrackingChange(updateInterval); // Find the hour angle change that occured during this interval
                 switch (alignmentMode)
                 {
-                    case AlignmentModes.algGermanPolar: // In polar aligned mounts an HA change moves only the RA (primary) axis so update this, no change is required to the Dec (secondary) axis
-                    case AlignmentModes.algPolar:
+                    case AlignmentMode.GermanPolar: // In polar aligned mounts an HA change moves only the RA (primary) axis so update this, no change is required to the Dec (secondary) axis
+                    case AlignmentMode.Polar:
                         change.X = haChange; // Set the change in the RA (primary) current axis position due to tracking 
                         targetAxes.X += haChange; // Update the slew target's RA (primary) axis position that will also have changed due to tracking
                         break;
-                    case AlignmentModes.algAltAz: // In Alt/Az aligned mounts the HA change moves both RA (primary) and Dec (secondary) axes so both need to be updated
+                    case AlignmentMode.AltAz: // In Alt/Az aligned mounts the HA change moves both RA (primary) and Dec (secondary) axes so both need to be updated
                         change = ConvertRateToAltAz(haChange); // Set the change in the Azimuth (primary) and Altitude (secondary) axis positions due to tracking
                         targetAxes = MountFunctions.ConvertRaDecToAxes(targetRaDec, false); // Update the slew target's Azimuth (primary) and Altitude (secondary) axis positions that will also have changed due to tracking
                         break;
@@ -658,7 +658,7 @@ namespace ASCOM.Simulator
         #region Properties For Settings
 
         //I used some of these as dual purpose if the driver uses the same exact property
-        public static AlignmentModes AlignmentMode
+        public static AlignmentMode AlignmentMode
         {
             get { return alignmentMode; }
             set
@@ -666,13 +666,13 @@ namespace ASCOM.Simulator
                 alignmentMode = value;
                 switch (value)
                 {
-                    case AlignmentModes.algAltAz:
+                    case AlignmentMode.AltAz:
                         s_Profile.WriteValue(SharedResources.PROGRAM_ID, "AlignMode", "0");
                         break;
-                    case AlignmentModes.algGermanPolar:
+                    case AlignmentMode.GermanPolar:
                         s_Profile.WriteValue(SharedResources.PROGRAM_ID, "AlignMode", "1");
                         break;
-                    case AlignmentModes.algPolar:
+                    case AlignmentMode.Polar:
                         s_Profile.WriteValue(SharedResources.PROGRAM_ID, "AlignMode", "2");
                         break;
                 }
@@ -880,23 +880,23 @@ namespace ASCOM.Simulator
             }
         }
 
-        public static bool CanPierSide
+        public static bool CanPointingState
         {
-            get { return canPierSide; }
+            get { return canPointingState; }
             set
             {
-                canPierSide = value;
-                s_Profile.WriteValue(SharedResources.PROGRAM_ID, "CanPierSide", value.ToString(), "Capabilities");
+                canPointingState = value;
+                s_Profile.WriteValue(SharedResources.PROGRAM_ID, "CanPointingState", value.ToString(), "Capabilities");
             }
         }
 
-        public static bool CanSetPierSide
+        public static bool CanSetPointingState
         {
-            get { return canSetPierSide; }
+            get { return canSetPointingState; }
             set
             {
-                canSetPierSide = value;
-                s_Profile.WriteValue(SharedResources.PROGRAM_ID, "CanSetPierSide", value.ToString(), "Capabilities");
+                canSetPointingState = value;
+                s_Profile.WriteValue(SharedResources.PROGRAM_ID, "CanSetPointingState", value.ToString(), "Capabilities");
             }
         }
 
@@ -1142,18 +1142,18 @@ namespace ASCOM.Simulator
             }
         }
 
-        public static bool CanMoveAxis(ASCOM.DeviceInterface.TelescopeAxes axis)
+        public static bool CanMoveAxis(TelescopeAxis axis)
         {
             int ax = 0;
             switch (axis)
             {
-                case ASCOM.DeviceInterface.TelescopeAxes.axisPrimary:
+                case TelescopeAxis.Primary:
                     ax = 1;
                     break;
-                case ASCOM.DeviceInterface.TelescopeAxes.axisSecondary:
+                case TelescopeAxis.Secondary:
                     ax = 2;
                     break;
-                case ASCOM.DeviceInterface.TelescopeAxes.axisTertiary:
+                case TelescopeAxis.Tertiary:
                     ax = 3;
                     break;
             }
@@ -1264,11 +1264,11 @@ namespace ASCOM.Simulator
                 {
                     switch (AlignmentMode)
                     {
-                        case AlignmentModes.algAltAz:
+                        case AlignmentMode.AltAz:
                             trackingMode = TrackingMode.AltAz;
                             break;
-                        case AlignmentModes.algGermanPolar:
-                        case AlignmentModes.algPolar:
+                        case AlignmentMode.GermanPolar:
+                        case AlignmentMode.Polar:
                             trackingMode = Latitude >= 0 ? TrackingMode.EqN : TrackingMode.EqS;
                             break;
                     }
@@ -1310,7 +1310,7 @@ namespace ASCOM.Simulator
             set { guideRate.X = value; }
         }
 
-        public static DriveRates TrackingRate { get; set; }
+        public static DriveRate TrackingRate { get; set; }
 
         public static double SlewSettleTime { get; set; }
 
@@ -1327,12 +1327,12 @@ namespace ASCOM.Simulator
             get { return AtPark; }
         }
 
-        public static PierSide SideOfPier
+        public static ASCOM.Standard.Interfaces.PointingState SideOfPier
         {
             get
             {
                 return (mountAxes.Y <= 90 && mountAxes.Y >= -90) ?
-                    PierSide.pierEast : PierSide.pierWest;
+                    ASCOM.Standard.Interfaces.PointingState.Normal : ASCOM.Standard.Interfaces.PointingState.ThroughThePole;
             }
             set
             {
@@ -1462,19 +1462,19 @@ namespace ASCOM.Simulator
         /// <param name="rightAscension">The right ascension.</param>
         /// <param name="declination">The declination.</param>
         /// <returns></returns>
-        public static PierSide SideOfPierRaDec(double rightAscension, double declination)
+        public static Standard.Interfaces.PointingState SideOfPierRaDec(double rightAscension, double declination)
         {
-            PierSide sideOfPier;
-            if (alignmentMode != ASCOM.DeviceInterface.AlignmentModes.algGermanPolar)
+            Standard.Interfaces.PointingState sideOfPier;
+            if (alignmentMode != AlignmentMode.GermanPolar)
             {
-                return ASCOM.DeviceInterface.PierSide.pierUnknown;
+                return Standard.Interfaces.PointingState.Unknown;
             }
             else
             {
                 double ha = AstronomyFunctions.HourAngle(rightAscension, longitude);
-                if (ha < 0.0 && ha >= -12.0) sideOfPier = PierSide.pierWest;
-                else if (ha >= 0.0 && ha <= 12.0) sideOfPier = PierSide.pierEast;
-                else sideOfPier = PierSide.pierUnknown;
+                if (ha < 0.0 && ha >= -12.0) sideOfPier = Standard.Interfaces.PointingState.ThroughThePole;
+                else if (ha >= 0.0 && ha <= 12.0) sideOfPier = Standard.Interfaces.PointingState.Normal;
+                else sideOfPier = Standard.Interfaces.PointingState.Unknown;
                 LogMessage("SideOfPierRaDec", "Ra {0}, Dec {1}, Ha {2}, sop {3}", rightAscension, declination, ha, sideOfPier);
 
                 return sideOfPier;
@@ -1492,7 +1492,7 @@ namespace ASCOM.Simulator
         {
             get
             {
-                if (AlignmentMode != AlignmentModes.algGermanPolar)
+                if (AlignmentMode != AlignmentMode.GermanPolar)
                 {
                     return double.MaxValue;
                 }
@@ -1506,7 +1506,7 @@ namespace ASCOM.Simulator
         {
             get
             {
-                if (AlignmentMode != AlignmentModes.algGermanPolar)
+                if (AlignmentMode != AlignmentMode.GermanPolar)
                 {
                     return double.MaxValue;
                 }
@@ -1538,16 +1538,16 @@ namespace ASCOM.Simulator
             // generate the change in hour angle as a result of tracking
             switch (TrackingRate)
             {
-                case DriveRates.driveSidereal:
+                case DriveRate.DriveSidereal:
                     haChange = SIDEREAL_RATE_DEG_SEC * updateInterval;     // change in degrees
                     break;
-                case DriveRates.driveSolar:
+                case DriveRate.DriveSolar:
                     haChange = SOLAR_RATE_DEG_SEC * updateInterval;     // change in degrees
                     break;
-                case DriveRates.driveLunar:
+                case DriveRate.DriveLunar:
                     haChange = LUNAR_RATE_DEG_SEC * updateInterval;     // change in degrees
                     break;
-                case DriveRates.driveKing:
+                case DriveRate.DriveKing:
                     haChange = KING_RATE_DEG_SEC * updateInterval;     // change in degrees
                     break;
             }
@@ -1771,11 +1771,11 @@ namespace ASCOM.Simulator
             // and -hourAngleLimit to 180 + hourAngleLimit for german polar
             switch (alignmentMode)
             {
-                case AlignmentModes.algAltAz:
+                case AlignmentMode.AltAz:
                     // the primary axis must be in the range 0 to 360
                     mountAxes.X = AstronomyFunctions.RangeAzimuth(mountAxes.X);
                     break;
-                case AlignmentModes.algGermanPolar:
+                case AlignmentMode.GermanPolar:
                     // the primary axis needs to be in the range -180 to +180 to correspond with hour angles
                     // of -12 to 12.
                     // check if we have hit the hour angle limit
@@ -1786,7 +1786,7 @@ namespace ASCOM.Simulator
                         mountAxes.X -= primaryChange;
                     }
                     break;
-                case AlignmentModes.algPolar:
+                case AlignmentMode.Polar:
                     // the axis needs to be in the range -180 to +180 to correspond with hour angles
                     // of -12 to 12.
                     while (mountAxes.X <= -180.0 || mountAxes.X > 180.0)

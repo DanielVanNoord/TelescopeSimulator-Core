@@ -22,10 +22,12 @@ using System.Collections;
 using System.Globalization;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using ASCOM.DeviceInterface;
 using ASCOM.Utilities;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using ASCOM.Standard.Interfaces;
+using System.Text;
+using System.Collections.Generic;
 
 namespace ASCOM.Simulator
 {
@@ -37,7 +39,7 @@ namespace ASCOM.Simulator
     // _Telescope from being created and used as the [default] interface
     //
 
-    public class Telescope : ITelescopeV3
+    public class TelescopeSimulator : ITelescopeV3
     {
         //
         // Driver private data (rate collections)
@@ -57,15 +59,15 @@ namespace ASCOM.Simulator
         //
         // Constructor - Must be public for COM registration!
         //
-        public Telescope()
+        public TelescopeSimulator()
         {
             try
             {
                 driverID = Marshal.GenerateProgIdForType(this.GetType());
                 m_AxisRates = new AxisRates[3];
-                m_AxisRates[0] = new AxisRates(TelescopeAxes.axisPrimary);
-                m_AxisRates[1] = new AxisRates(TelescopeAxes.axisSecondary);
-                m_AxisRates[2] = new AxisRates(TelescopeAxes.axisTertiary);
+                m_AxisRates[0] = new AxisRates(TelescopeAxis.Primary);
+                m_AxisRates[1] = new AxisRates(TelescopeAxis.Secondary);
+                m_AxisRates[2] = new AxisRates(TelescopeAxis.Tertiary);
                 m_TrackingRates = new TrackingRates();
                 m_TrackingRatesSimple = new TrackingRatesSimple();
                 m_Util = new ASCOM.Standard.Utilities.Utilities();
@@ -120,12 +122,12 @@ namespace ASCOM.Simulator
         /// <summary>
         /// Gets the supported actions.
         /// </summary>
-        public ArrayList SupportedActions
+        public IList<string> SupportedActions
         {
             // no supported actions, return empty array
             get
             {
-                ArrayList sa = new ArrayList
+                List<string> sa = new List<string>
                 {
                     AssemblyVersionNumber, // Add a test action to return a value
                     SlewToHA, // Expects a numeric HA Parameter
@@ -146,7 +148,7 @@ namespace ASCOM.Simulator
             SharedResources.TrafficEnd("(done)");
         }
 
-        public AlignmentModes AlignmentMode
+        public AlignmentMode AlignmentMode
         {
             get
             {
@@ -156,14 +158,14 @@ namespace ASCOM.Simulator
 
                 switch (TelescopeHardware.AlignmentMode)
                 {
-                    case AlignmentModes.algAltAz:
-                        return AlignmentModes.algAltAz;
-                    case AlignmentModes.algGermanPolar:
-                        return AlignmentModes.algGermanPolar;
-                    case AlignmentModes.algPolar:
-                        return AlignmentModes.algPolar;
+                    case AlignmentMode.AltAz:
+                        return AlignmentMode.AltAz;
+                    case AlignmentMode.GermanPolar:
+                        return AlignmentMode.GermanPolar;
+                    case AlignmentMode.Polar:
+                        return AlignmentMode.Polar;
                     default:
-                        return AlignmentModes.algGermanPolar;
+                        return AlignmentMode.GermanPolar;
                 }
             }
         }
@@ -226,19 +228,20 @@ namespace ASCOM.Simulator
             }
         }
 
-        public IAxisRates AxisRates(TelescopeAxes Axis)
+        public IAxisRates AxisRates(TelescopeAxis Axis)
         {
             switch (Axis)
             {
-                case TelescopeAxes.axisPrimary:
+                case TelescopeAxis.Primary:
                     //                    return m_AxisRates[0];
-                    return new AxisRates(TelescopeAxes.axisPrimary);
-                case TelescopeAxes.axisSecondary:
+                    return new AxisRates(TelescopeAxis.Primary);
+                case TelescopeAxis.Secondary:
                     //                    return m_AxisRates[1];
-                    return new AxisRates(TelescopeAxes.axisSecondary);
-                case TelescopeAxes.axisTertiary:
+                    return new AxisRates(TelescopeAxis.Secondary);
+                case (TelescopeAxis)2:
+                case TelescopeAxis.Tertiary:
                     //                    return m_AxisRates[2];
-                    return new AxisRates(TelescopeAxes.axisTertiary);
+                    return new AxisRates(TelescopeAxis.Tertiary);
                 default:
                     return null;
             }
@@ -271,7 +274,7 @@ namespace ASCOM.Simulator
             }
         }
 
-        public bool CanMoveAxis(TelescopeAxes Axis)
+        public bool CanMoveAxis(TelescopeAxis Axis)
         {
             SharedResources.TrafficStart(SharedResources.MessageType.Capabilities, string.Format(CultureInfo.CurrentCulture, "CanMoveAxis {0}: ", Axis.ToString()));
             CheckVersionOne("CanMoveAxis");
@@ -331,10 +334,10 @@ namespace ASCOM.Simulator
         {
             get
             {
-                SharedResources.TrafficStart(SharedResources.MessageType.Capabilities, "CanSetPierSide: ");
-                CheckVersionOne("CanSetPierSide", false);
-                SharedResources.TrafficEnd(TelescopeHardware.CanSetPierSide.ToString());
-                return TelescopeHardware.CanSetPierSide;
+                SharedResources.TrafficStart(SharedResources.MessageType.Capabilities, "CanSetPointingState: ");
+                CheckVersionOne("CanSetPointingState", false);
+                SharedResources.TrafficEnd(TelescopeHardware.CanSetPointingState.ToString());
+                return TelescopeHardware.CanSetPointingState;
             }
         }
 
@@ -503,13 +506,13 @@ namespace ASCOM.Simulator
             }
         }
 
-        public PierSide DestinationSideOfPier(double RightAscension, double Declination)
+        public PointingState DestinationSideOfPier(double RightAscension, double Declination)
         {
             SharedResources.TrafficStart(SharedResources.MessageType.Other, "DestinationSideOfPier: ");
             CheckVersionOne("DestinationSideOfPier");
             SharedResources.TrafficStart(string.Format(CultureInfo.CurrentCulture, "Ra {0}, Dec {1} - ", RightAscension, Declination));
 
-            PierSide ps = TelescopeHardware.SideOfPierRaDec(RightAscension, Declination);
+            PointingState ps = TelescopeHardware.SideOfPierRaDec(RightAscension, Declination);
             SharedResources.TrafficEnd(ps.ToString());
             return ps;
         }
@@ -567,29 +570,29 @@ namespace ASCOM.Simulator
                 SharedResources.TrafficStart(SharedResources.MessageType.Other, "EquatorialSystem: ");
                 CheckVersionOne("EquatorialSystem", false);
                 string output = "";
-                EquatorialCoordinateType eq = EquatorialCoordinateType.equOther;
+                EquatorialCoordinateType eq = EquatorialCoordinateType.Other;
 
                 switch (TelescopeHardware.EquatorialSystem)
                 {
                     case 0:
-                        eq = EquatorialCoordinateType.equOther;
+                        eq = EquatorialCoordinateType.Other;
                         output = "Other";
                         break;
 
                     case 1:
-                        eq = EquatorialCoordinateType.equTopocentric;
+                        eq = EquatorialCoordinateType.Topocentric;
                         output = "Local";
                         break;
                     case 2:
-                        eq = EquatorialCoordinateType.equJ2000;
+                        eq = EquatorialCoordinateType.J2000;
                         output = "J2000";
                         break;
                     case 3:
-                        eq = EquatorialCoordinateType.equJ2050;
+                        eq = EquatorialCoordinateType.J2050;
                         output = "J2050";
                         break;
                     case 4:
-                        eq = EquatorialCoordinateType.equB1950;
+                        eq = EquatorialCoordinateType.B1950;
                         output = "B1950";
                         break;
                 }
@@ -686,26 +689,26 @@ namespace ASCOM.Simulator
             }
         }
 
-        public void MoveAxis(TelescopeAxes Axis, double Rate)
+        public void MoveAxis(TelescopeAxis Axis, double Rate)
         {
             SharedResources.TrafficStart(SharedResources.MessageType.Slew, string.Format(CultureInfo.CurrentCulture, "MoveAxis {0} {1}:  ", Axis.ToString(), Rate));
             CheckVersionOne("MoveAxis");
             CheckRate(Axis, Rate);
 
             if (!CanMoveAxis(Axis))
-                throw new MethodNotImplementedException("CanMoveAxis " + Enum.GetName(typeof(TelescopeAxes), Axis));
+                throw new MethodNotImplementedException("CanMoveAxis " + Enum.GetName(typeof(TelescopeAxis), Axis));
 
             CheckParked("MoveAxis");
 
             switch (Axis)
             {
-                case ASCOM.DeviceInterface.TelescopeAxes.axisPrimary:
+                case TelescopeAxis.Primary:
                     TelescopeHardware.rateAxes.X = Rate;
                     break;
-                case ASCOM.DeviceInterface.TelescopeAxes.axisSecondary:
+                case TelescopeAxis.Secondary:
                     TelescopeHardware.rateAxes.Y = Rate;
                     break;
-                case ASCOM.DeviceInterface.TelescopeAxes.axisTertiary:
+                case TelescopeAxis.Tertiary:
                     // not implemented
                     break;
             }
@@ -743,7 +746,7 @@ namespace ASCOM.Simulator
             SharedResources.TrafficEnd("(done)");
         }
 
-        public void PulseGuide(GuideDirections Direction, int Duration)
+        public void PulseGuide(GuideDirection Direction, int Duration)
         {
             if (TelescopeHardware.AtPark) throw new ParkedException();
 
@@ -756,13 +759,13 @@ namespace ASCOM.Simulator
                 // stops the current guide command
                 switch (Direction)
                 {
-                    case GuideDirections.guideNorth:
-                    case GuideDirections.guideSouth:
+                    case GuideDirection.North:
+                    case GuideDirection.South:
                         TelescopeHardware.isPulseGuidingDec = false;
                         TelescopeHardware.guideDuration.Y = 0;
                         break;
-                    case GuideDirections.guideEast:
-                    case GuideDirections.guideWest:
+                    case GuideDirection.East:
+                    case GuideDirection.West:
                         TelescopeHardware.isPulseGuidingRa = false;
                         TelescopeHardware.guideDuration.X = 0;
                         break;
@@ -775,25 +778,25 @@ namespace ASCOM.Simulator
 
                 switch (Direction)
                 {
-                    case GuideDirections.guideNorth:
+                    case GuideDirection.North:
                         TelescopeHardware.guideRate.Y = Math.Abs(TelescopeHardware.guideRate.Y);
                         TelescopeHardware.isPulseGuidingDec = true;
                         TelescopeHardware.guideDuration.Y = Duration / 1000.0;
                         break;
-                    case GuideDirections.guideSouth:
+                    case GuideDirection.South:
                         TelescopeHardware.guideRate.Y = -Math.Abs(TelescopeHardware.guideRate.Y);
                         //TelescopeHardware.pulseGuideDecEndTime = endTime;
                         TelescopeHardware.isPulseGuidingDec = true;
                         TelescopeHardware.guideDuration.Y = Duration / 1000.0;
                         break;
 
-                    case GuideDirections.guideEast:
+                    case GuideDirection.East:
                         TelescopeHardware.guideRate.X = Math.Abs(TelescopeHardware.guideRate.X);
                         //TelescopeHardware.pulseGuideRaEndTime = endTime;
                         TelescopeHardware.isPulseGuidingRa = true;
                         TelescopeHardware.guideDuration.X = Duration / 1000.0;
                         break;
-                    case GuideDirections.guideWest:
+                    case GuideDirection.West:
                         TelescopeHardware.guideRate.X = -Math.Abs(TelescopeHardware.guideRate.X);
                         //TelescopeHardware.pulseGuideRaEndTime = endTime;
                         TelescopeHardware.isPulseGuidingRa = true;
@@ -870,7 +873,7 @@ namespace ASCOM.Simulator
             }
         }
 
-        public PierSide SideOfPier
+        public ASCOM.Standard.Interfaces.PointingState SideOfPier
         {
             get
             {
@@ -880,7 +883,7 @@ namespace ASCOM.Simulator
             set
             {
                 SharedResources.TrafficStart(SharedResources.MessageType.Slew, "SideOfPier: ");
-                CheckCapability(TelescopeHardware.CanSetPierSide, "SideOfPier", true);
+                CheckCapability(TelescopeHardware.CanSetPointingState, "SideOfPier", true);
 
                 if (value == TelescopeHardware.SideOfPier)
                 {
@@ -1221,11 +1224,11 @@ namespace ASCOM.Simulator
             }
         }
 
-        public DriveRates TrackingRate
+        public DriveRate TrackingRate
         {
             get
             {
-                DriveRates rate = TelescopeHardware.TrackingRate;
+                DriveRate rate = TelescopeHardware.TrackingRate;
                 SharedResources.TrafficStart(SharedResources.MessageType.Other, "TrackingRate: ");
                 CheckVersionOne("TrackingRate", false);
                 SharedResources.TrafficEnd(rate.ToString());
@@ -1235,7 +1238,7 @@ namespace ASCOM.Simulator
             {
                 SharedResources.TrafficStart(SharedResources.MessageType.Other, "TrackingRate: -> ");
                 CheckVersionOne("TrackingRate", true);
-                if ((value < DriveRates.driveSidereal) || (value > DriveRates.driveKing)) throw new InvalidValueException("TrackingRate", value.ToString(), "0 (driveSidereal) to 3 (driveKing)");
+                if ((value < DriveRate.DriveSidereal) || (value > DriveRate.DriveKing)) throw new InvalidValueException("TrackingRate", value.ToString(), "0 (DriveSidereal) to 3 (driveKing)");
                 TelescopeHardware.TrackingRate = value;
                 SharedResources.TrafficEnd(value.ToString() + "(done)");
             }
@@ -1271,7 +1274,7 @@ namespace ASCOM.Simulator
             }
         }
 
-        public void Unpark()
+        public void UnPark()
         {
             SharedResources.TrafficStart(SharedResources.MessageType.Slew, "UnPark: ");
             CheckCapability(TelescopeHardware.CanUnpark, "UnPark");
@@ -1290,7 +1293,7 @@ namespace ASCOM.Simulator
         //{
         //    get
         //    {
-        //        if (AlignmentMode != AlignmentModes.algGermanPolar)
+        //        if (AlignmentMode != AlignmentMode.GermanPolar)
         //        {
         //            return 86400;
         //        }
@@ -1302,7 +1305,7 @@ namespace ASCOM.Simulator
         //{
         //    get
         //    {
-        //        if (AlignmentMode != AlignmentModes.algGermanPolar)
+        //        if (AlignmentMode != AlignmentMode.GermanPolar)
         //        {
         //            return 0;
         //        }
@@ -1313,7 +1316,7 @@ namespace ASCOM.Simulator
         #endregion
 
         #region private methods
-        private void CheckRate(TelescopeAxes axis, double rate)
+        private void CheckRate(TelescopeAxis axis, double rate)
         {
             IAxisRates rates = AxisRates(axis);
             string ratesStr = string.Empty;
@@ -1513,7 +1516,7 @@ namespace ASCOM.Simulator
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix"), Guid("af5510b9-3108-4237-83da-ae70524aab7d"), ClassInterface(ClassInterfaceType.None), ComVisible(true)]
     public class AxisRates : IAxisRates, IEnumerable, IEnumerator, IDisposable
     {
-        private TelescopeAxes m_axis;
+        private TelescopeAxis m_axis;
         private Rate[] m_Rates;
         private int pos;
 
@@ -1521,7 +1524,7 @@ namespace ASCOM.Simulator
         // Constructor - Internal prevents public creation
         // of instances. Returned by Telescope.AxisRates.
         //
-        public AxisRates(TelescopeAxes Axis)
+        public AxisRates(TelescopeAxis Axis)
         {
             m_axis = Axis;
             //
@@ -1537,16 +1540,16 @@ namespace ASCOM.Simulator
             double maxRate = TelescopeHardware.MaximumSlewRate;
             switch (m_axis)
             {
-                case TelescopeAxes.axisPrimary:
+                case TelescopeAxis.Primary:
                     // TODO Initialize this array with any Primary axis rates that your driver may provide
                     // Example: m_Rates = new Rate[] { new Rate(10.5, 30.2), new Rate(54.0, 43.6) }
                     m_Rates = new Rate[] { new Rate(0.0, maxRate / 3), new Rate(maxRate / 2, maxRate) };
                     break;
-                case TelescopeAxes.axisSecondary:
+                case TelescopeAxis.Secondary:
                     // TODO Initialize this array with any Secondary axis rates that your driver may provide
                     m_Rates = new Rate[] { new Rate(0.0, maxRate / 3), new Rate(maxRate / 2, maxRate) };
                     break;
-                case TelescopeAxes.axisTertiary:
+                case TelescopeAxis.Tertiary:
                     // TODO Initialize this array with any Tertiary axis rates that your driver may provide
                     m_Rates = new Rate[] { new Rate(0.0, maxRate / 3), new Rate(maxRate / 2, maxRate) };
                     break;
@@ -1636,7 +1639,7 @@ namespace ASCOM.Simulator
     [ClassInterface(ClassInterfaceType.None)]
     public class TrackingRates : ITrackingRates, IEnumerable, IEnumerator, IDisposable
     {
-        private DriveRates[] m_TrackingRates;
+        private DriveRate[] m_TrackingRates;
         private static int _pos = -1;
 
         //
@@ -1646,11 +1649,11 @@ namespace ASCOM.Simulator
         public TrackingRates()
         {
             //
-            // This array must hold ONE or more DriveRates values, indicating
+            // This array must hold ONE or more DriveRate values, indicating
             // the tracking rates supported by your telescope. The one value
-            // (tracking rate) that MUST be supported is driveSidereal!
+            // (tracking rate) that MUST be supported is DriveSidereal!
             //
-            m_TrackingRates = new DriveRates[] { DriveRates.driveSidereal, DriveRates.driveKing, DriveRates.driveLunar, DriveRates.driveSolar };
+            m_TrackingRates = new DriveRate[] { DriveRate.DriveSidereal, DriveRate.DriveKing, DriveRate.DriveLunar, DriveRate.DriveSolar };
         }
 
         #region ITrackingRates Members
@@ -1667,7 +1670,7 @@ namespace ASCOM.Simulator
         }
 
 
-        public DriveRates this[int index]
+        public DriveRate this[int index]
         {
             get
             {
@@ -1732,7 +1735,7 @@ namespace ASCOM.Simulator
     [ClassInterface(ClassInterfaceType.None)]
     public class TrackingRatesSimple : ITrackingRates, IEnumerable, IEnumerator, IDisposable
     {
-        private DriveRates[] m_TrackingRates;
+        private DriveRate[] m_TrackingRates;
         private static int _pos = -1;
 
         //
@@ -1742,11 +1745,11 @@ namespace ASCOM.Simulator
         public TrackingRatesSimple()
         {
             //
-            // This array must hold ONE or more DriveRates values, indicating
+            // This array must hold ONE or more DriveRate values, indicating
             // the tracking rates supported by your telescope. The one value
-            // (tracking rate) that MUST be supported is driveSidereal!
+            // (tracking rate) that MUST be supported is DriveSidereal!
             //
-            m_TrackingRates = new DriveRates[] { DriveRates.driveSidereal };
+            m_TrackingRates = new DriveRate[] { DriveRate.DriveSidereal };
         }
 
         #region ITrackingRates Members
@@ -1762,7 +1765,7 @@ namespace ASCOM.Simulator
             return this as IEnumerator;
         }
 
-        public DriveRates this[int index]
+        public DriveRate this[int index]
         {
             get
             {

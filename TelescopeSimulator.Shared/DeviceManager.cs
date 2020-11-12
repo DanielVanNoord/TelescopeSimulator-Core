@@ -1,5 +1,5 @@
-﻿using ASCOM.DeviceInterface;
-using ASCOM.Simulator;
+﻿using ASCOM.Simulator;
+using ASCOM.Standard.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +11,12 @@ namespace TelescopeSimulator
 {
     public static class DeviceManager
     {
-        static ITelescopeV3 telescope = new Telescope();
+        static ASCOM.Simulator.TelescopeSimulator telescope = new ASCOM.Simulator.TelescopeSimulator();
         static DeviceManager()
         {
         }
 
-        public static ITelescopeV3 GetTelescope(int deviceID)
+        public static ASCOM.Simulator.TelescopeSimulator GetTelescope(int deviceID)
         {
             if(deviceID == 0)
             {

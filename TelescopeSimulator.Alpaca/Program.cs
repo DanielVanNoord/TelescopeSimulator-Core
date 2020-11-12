@@ -54,7 +54,7 @@ namespace TelescopeSimulator.Alpaca
                 {
                     try
                     {
-                        DiscoveryServer server = new DiscoveryServer(Startup.PortNumber);
+                        ASCOM.Standard.Discovery.Server server = new ASCOM.Standard.Discovery.Server(Startup.PortNumber);
                     }
                     catch
                     {

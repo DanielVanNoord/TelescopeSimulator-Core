@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using System.Globalization;
+using ASCOM.Standard.Interfaces;
 
 namespace ASCOM.Simulator
 {
@@ -249,16 +250,16 @@ namespace ASCOM.Simulator
             set { checkBoxCanSetParkPosition.Checked = value; }
 
         }
-        public bool CanSetPierSide
+        public bool CanSetPointingState
         {
-            get { return checkBoxCanSetPierSide.Checked; }
-            set { checkBoxCanSetPierSide.Checked = value; }
+            get { return checkBoxCanSetPointingState.Checked; }
+            set { checkBoxCanSetPointingState.Checked = value; }
 
         }
-        public bool CanPierSide
+        public bool CanPointingState
         {
-            get { return checkBoxCanPierSide.Checked; }
-            set { checkBoxCanPierSide.Checked = value; }
+            get { return checkBoxCanPointingState.Checked; }
+            set { checkBoxCanPointingState.Checked = value; }
 
         }
         public bool CanTrackingRates
@@ -396,29 +397,29 @@ namespace ASCOM.Simulator
             set { textBoxFocalLength.Text = value.ToString(CultureInfo.CurrentCulture); }
         }
 
-        public ASCOM.DeviceInterface.AlignmentModes AlignmentMode
+        public AlignmentMode AlignmentMode
         {
             get
             {
                 if (radioButtonAltAzimuth.Checked)
-                { return ASCOM.DeviceInterface.AlignmentModes.algAltAz; }
+                { return AlignmentMode.AltAz; }
                 if (radioButtonEquatorial.Checked)
-                { return ASCOM.DeviceInterface.AlignmentModes.algPolar; }
+                { return AlignmentMode.Polar; }
                 if (radioButtonGermanEquatorial.Checked)
-                { return ASCOM.DeviceInterface.AlignmentModes.algGermanPolar; }
-                return ASCOM.DeviceInterface.AlignmentModes.algGermanPolar;
+                { return AlignmentMode.GermanPolar; }
+                return AlignmentMode.GermanPolar;
             }
             set
             {
                 switch (value)
                 {
-                    case ASCOM.DeviceInterface.AlignmentModes.algAltAz:
+                    case AlignmentMode.AltAz:
                         radioButtonAltAzimuth.Checked = true;
                         break;
-                    case ASCOM.DeviceInterface.AlignmentModes.algGermanPolar:
+                    case AlignmentMode.GermanPolar:
                         radioButtonGermanEquatorial.Checked = true;
                         break;
-                    case ASCOM.DeviceInterface.AlignmentModes.algPolar:
+                    case AlignmentMode.Polar:
                         radioButtonEquatorial.Checked = true;
                         break;
                 }

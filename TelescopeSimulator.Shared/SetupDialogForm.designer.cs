@@ -86,8 +86,8 @@ namespace ASCOM.Simulator
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.comboBoxNumberMoveAxis = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.checkBoxCanPierSide = new System.Windows.Forms.CheckBox();
-            this.checkBoxCanSetPierSide = new System.Windows.Forms.CheckBox();
+            this.checkBoxCanPointingState = new System.Windows.Forms.CheckBox();
+            this.checkBoxCanSetPointingState = new System.Windows.Forms.CheckBox();
             this.checkBoxCanDoesRefraction = new System.Windows.Forms.CheckBox();
             this.checkBoxCanDualAxisPulseGuide = new System.Windows.Forms.CheckBox();
             this.checkBoxCanSetEquatorialRates = new System.Windows.Forms.CheckBox();
@@ -554,8 +554,8 @@ namespace ASCOM.Simulator
             this.tableLayoutPanel4.Controls.Add(this.checkBoxCanSetParkPosition, 1, 2);
             this.tableLayoutPanel4.Controls.Add(this.checkBoxCanUnpark, 1, 3);
             this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel5, 1, 4);
-            this.tableLayoutPanel4.Controls.Add(this.checkBoxCanPierSide, 2, 1);
-            this.tableLayoutPanel4.Controls.Add(this.checkBoxCanSetPierSide, 2, 2);
+            this.tableLayoutPanel4.Controls.Add(this.checkBoxCanPointingState, 2, 1);
+            this.tableLayoutPanel4.Controls.Add(this.checkBoxCanSetPointingState, 2, 2);
             this.tableLayoutPanel4.Controls.Add(this.checkBoxCanDoesRefraction, 2, 3);
             this.tableLayoutPanel4.Controls.Add(this.checkBoxCanDualAxisPulseGuide, 3, 4);
             this.tableLayoutPanel4.Controls.Add(this.checkBoxCanSetEquatorialRates, 3, 5);
@@ -809,27 +809,27 @@ namespace ASCOM.Simulator
             this.label8.TabIndex = 14;
             this.label8.Text = "Number of Axis For Move:";
             // 
-            // checkBoxCanPierSide
+            // checkBoxCanPointingState
             // 
-            this.checkBoxCanPierSide.AutoSize = true;
-            this.checkBoxCanPierSide.ForeColor = System.Drawing.Color.White;
-            this.checkBoxCanPierSide.Location = new System.Drawing.Point(301, 26);
-            this.checkBoxCanPierSide.Name = "checkBoxCanPierSide";
-            this.checkBoxCanPierSide.Size = new System.Drawing.Size(80, 17);
-            this.checkBoxCanPierSide.TabIndex = 25;
-            this.checkBoxCanPierSide.Text = "Side of Pier";
-            this.checkBoxCanPierSide.UseVisualStyleBackColor = true;
+            this.checkBoxCanPointingState.AutoSize = true;
+            this.checkBoxCanPointingState.ForeColor = System.Drawing.Color.White;
+            this.checkBoxCanPointingState.Location = new System.Drawing.Point(301, 26);
+            this.checkBoxCanPointingState.Name = "checkBoxCanPointingState";
+            this.checkBoxCanPointingState.Size = new System.Drawing.Size(80, 17);
+            this.checkBoxCanPointingState.TabIndex = 25;
+            this.checkBoxCanPointingState.Text = "Side of Pier";
+            this.checkBoxCanPointingState.UseVisualStyleBackColor = true;
             // 
-            // checkBoxCanSetPierSide
+            // checkBoxCanSetPointingState
             // 
-            this.checkBoxCanSetPierSide.AutoSize = true;
-            this.checkBoxCanSetPierSide.ForeColor = System.Drawing.Color.White;
-            this.checkBoxCanSetPierSide.Location = new System.Drawing.Point(301, 49);
-            this.checkBoxCanSetPierSide.Name = "checkBoxCanSetPierSide";
-            this.checkBoxCanSetPierSide.Size = new System.Drawing.Size(99, 17);
-            this.checkBoxCanSetPierSide.TabIndex = 26;
-            this.checkBoxCanSetPierSide.Text = "Set Side of Pier";
-            this.checkBoxCanSetPierSide.UseVisualStyleBackColor = true;
+            this.checkBoxCanSetPointingState.AutoSize = true;
+            this.checkBoxCanSetPointingState.ForeColor = System.Drawing.Color.White;
+            this.checkBoxCanSetPointingState.Location = new System.Drawing.Point(301, 49);
+            this.checkBoxCanSetPointingState.Name = "checkBoxCanSetPointingState";
+            this.checkBoxCanSetPointingState.Size = new System.Drawing.Size(99, 17);
+            this.checkBoxCanSetPointingState.TabIndex = 26;
+            this.checkBoxCanSetPointingState.Text = "Set Side of Pier";
+            this.checkBoxCanSetPointingState.UseVisualStyleBackColor = true;
             // 
             // checkBoxCanDoesRefraction
             // 
@@ -1104,8 +1104,8 @@ namespace ASCOM.Simulator
         private System.Windows.Forms.ComboBox comboBoxNumberMoveAxis;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox checkBoxCanAlignmentMode;
-        private System.Windows.Forms.CheckBox checkBoxCanPierSide;
-        private System.Windows.Forms.CheckBox checkBoxCanSetPierSide;
+        private System.Windows.Forms.CheckBox checkBoxCanPointingState;
+        private System.Windows.Forms.CheckBox checkBoxCanSetPointingState;
         private System.Windows.Forms.CheckBox checkBoxCanDoesRefraction;
         private System.Windows.Forms.CheckBox checkBoxCanPulseGuide;
         private System.Windows.Forms.CheckBox checkBoxCanGuideRates;
