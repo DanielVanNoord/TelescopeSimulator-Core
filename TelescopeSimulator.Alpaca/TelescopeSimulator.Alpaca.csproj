@@ -1,11 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFrameworks>net5.0-windows;</TargetFrameworks>
+    <TargetFrameworks>net5.0-windows;net5.0</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TelescopeSimulator.Shared\TelescopeSimulator.Shared.csproj"/>
+    <PackageReference Include="ASCOM.Standard.Discovery" Version="1.0.0-alpha9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TelescopeSimulator.Shared\TelescopeSimulator.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

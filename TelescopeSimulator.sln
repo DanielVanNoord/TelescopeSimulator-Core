@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelescopeSimulator.Alpaca",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{75EA1D82-8680-4BF0-B17B-E334B7E997A0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelescopeSimulator.Linux", "TelescopeSimulator.Linux\TelescopeSimulator.Linux.csproj", "{AD7D8FED-8C7E-4661-A652-98012B1227E2}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,10 +47,6 @@ Global
 		{0E5C7934-489C-4F76-AD80-61E5264A699B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E5C7934-489C-4F76-AD80-61E5264A699B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E5C7934-489C-4F76-AD80-61E5264A699B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AD7D8FED-8C7E-4661-A652-98012B1227E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AD7D8FED-8C7E-4661-A652-98012B1227E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AD7D8FED-8C7E-4661-A652-98012B1227E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AD7D8FED-8C7E-4661-A652-98012B1227E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
