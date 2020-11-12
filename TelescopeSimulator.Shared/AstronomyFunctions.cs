@@ -25,7 +25,7 @@ namespace ASCOM.Simulator
 {
     public static class AstronomyFunctions
     {
-        private static ASCOM.Alpaca.Utilities.Utilities util = new ASCOM.Alpaca.Utilities.Utilities();
+        private static ASCOM.Standard.Utilities.Utilities util = new ASCOM.Standard.Utilities.Utilities();
 
         //----------------------------------------------------------------------------------------
         // Calculate Precession

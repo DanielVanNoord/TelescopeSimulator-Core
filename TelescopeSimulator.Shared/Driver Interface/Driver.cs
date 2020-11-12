@@ -45,7 +45,7 @@ namespace ASCOM.Simulator
         private AxisRates[] m_AxisRates;
         private TrackingRates m_TrackingRates;
         private TrackingRatesSimple m_TrackingRatesSimple;
-        private ASCOM.Alpaca.Utilities.Utilities m_Util;
+        private ASCOM.Standard.Utilities.Utilities m_Util;
         private string driverID;
         private long objectId;
 
@@ -68,7 +68,7 @@ namespace ASCOM.Simulator
                 m_AxisRates[2] = new AxisRates(TelescopeAxes.axisTertiary);
                 m_TrackingRates = new TrackingRates();
                 m_TrackingRatesSimple = new TrackingRatesSimple();
-                m_Util = new ASCOM.Alpaca.Utilities.Utilities();
+                m_Util = new ASCOM.Standard.Utilities.Utilities();
                 // get a unique instance id
                 objectId = TelescopeHardware.GetId();
                 TelescopeHardware.TL.LogMessage("New", "Instance ID: " + objectId + ", new: " + "Driver ID: " + driverID);

@@ -22,7 +22,7 @@ namespace TelescopeSimulator
             {
                 return telescope;
             }
-            throw new ASCOM.Alpaca.InvalidValueException(String.Format("Telescope {0} does not exist on this system", deviceID));
+            throw new ASCOM.InvalidValueException(String.Format("Telescope {0} does not exist on this system", deviceID));
         }
     }
 }

@@ -1,6 +1,3 @@
 [submodule "ASCOM.Core"]
 	path = ASCOM.Core
 	url = https://github.com/DanielVanNoord/ASCOM.Core
-[submodule "ASCOMStandard"]
-	path = ASCOMStandard
-	url = https://github.com/ASCOMInitiative/ASCOMStandard

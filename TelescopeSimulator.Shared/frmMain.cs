@@ -14,7 +14,7 @@ namespace ASCOM.Simulator
 
         delegate void SetTextCallback(string text);
 
-        ASCOM.Alpaca.Utilities.Utilities util = new ASCOM.Alpaca.Utilities.Utilities();
+        ASCOM.Standard.Utilities.Utilities util = new ASCOM.Standard.Utilities.Utilities();
 
         public FrmMain()
         {
