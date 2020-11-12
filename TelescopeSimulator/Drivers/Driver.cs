@@ -73,6 +73,8 @@ namespace ASCOM.Simulator
                 // get a unique instance id
                 objectId = TelescopeHardware.GetId();
                 TelescopeHardware.TL.LogMessage("New", "Instance ID: " + objectId + ", new: " + "Driver ID: " + driverID);
+
+                TrackingRates = new TrackingRateObject(TelescopeInstance.TrackingRates);
             }
             catch (Exception ex)
             {
@@ -330,7 +332,7 @@ namespace ASCOM.Simulator
             }
         }
 
-        public ITrackingRates TrackingRates => new TrackingRateObject(TelescopeInstance.TrackingRates);
+        public ITrackingRates TrackingRates { get; private set; }
 
         public DateTime UTCDate
         {
@@ -361,7 +363,7 @@ namespace ASCOM.Simulator
 
         #endregion IDisposable Members
 
-        public class TrackingRateObject : ITrackingRates
+        public class TrackingRateObject : ITrackingRates, IEnumerable, IEnumerator, IDisposable
         {
             private List<DriveRates> m_TrackingRates = new List<DriveRates>();
             private int _pos = -1;
