@@ -238,7 +238,6 @@ namespace ASCOM.Simulator
                 case TelescopeAxis.Secondary:
                     //                    return m_AxisRates[1];
                     return new AxisRates(TelescopeAxis.Secondary);
-                case (TelescopeAxis)2:
                 case TelescopeAxis.Tertiary:
                     //                    return m_AxisRates[2];
                     return new AxisRates(TelescopeAxis.Tertiary);
