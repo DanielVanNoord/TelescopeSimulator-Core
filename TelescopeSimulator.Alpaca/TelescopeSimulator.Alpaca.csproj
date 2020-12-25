@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ASCOM.Standard.Discovery" Version="1.0.0-alpha11" />
-    <PackageReference Include="ASCOM.Standard.Types" Version="1.0.0-alpha11" />
+    <PackageReference Include="ASCOM.Standard.Discovery" Version="1.0.0-alpha12" />
+    <PackageReference Include="ASCOM.Standard.Types" Version="1.0.0-alpha12" />
   </ItemGroup>
 
   <ItemGroup>
