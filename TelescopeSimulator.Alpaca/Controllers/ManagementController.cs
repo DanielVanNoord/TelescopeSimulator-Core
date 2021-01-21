@@ -22,14 +22,14 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpGet]
         [Route("management/apiversions")]
-        public IntListResponse ApiVersions(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        public IntListResponse ApiVersions(int DeviceNumber, uint ClientID = 0, uint ClientTransactionID = 0)
         {
             return new IntListResponse(ClientTransactionID, TransactionID, new int[1] { 1 });
         }
 
         [HttpGet]
         [Route("management/v1/description")]
-        public AlpacaDescriptionResponse Description(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        public AlpacaDescriptionResponse Description(int DeviceNumber, uint ClientID = 0, uint ClientTransactionID = 0)
         {
             System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
             FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
@@ -39,7 +39,7 @@ namespace TelescopeSimulator.Alpaca.Controllers
 
         [HttpGet]
         [Route("management/v1/configureddevices")]
-        public AlpacaConfiguredDevicesResponse ConfiguredDevices(int DeviceNumber, int ClientID = -1, uint ClientTransactionID = 0)
+        public AlpacaConfiguredDevicesResponse ConfiguredDevices(int DeviceNumber, uint ClientID = 0, uint ClientTransactionID = 0)
         {
             return new AlpacaConfiguredDevicesResponse(ClientTransactionID, TransactionID, configuredDevices);
         }
